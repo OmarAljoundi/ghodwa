@@ -1,0 +1,74 @@
+"use client";
+import React, { use } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Form } from "@/components/ui/form";
+import { toast } from "sonner";
+import { notFound, useRouter } from "next/navigation";
+import { getAll, updateOne } from "@/lib/generic.server";
+import {
+  BrandSchema,
+  BrandWithRelationsSchema,
+  CategorySchema,
+  updateBrandSchema,
+  UpdateBrandSchema,
+} from "@/schema";
+import { BrandForm } from "./form";
+import { LangTabs } from "@/components/lang-tabs";
+
+export function UpdateBrand({
+  dataPromise,
+  datePromiseCategory,
+}: {
+  dataPromise: ReturnType<typeof getAll<BrandWithRelationsSchema>>;
+  datePromiseCategory: ReturnType<typeof getAll<CategorySchema>>;
+}) {
+  const { data: categories } = use(datePromiseCategory);
+  const { data } = use(dataPromise);
+
+  const form = useForm<UpdateBrandSchema>({
+    resolver: zodResolver(updateBrandSchema),
+    defaultValues: {
+      ...data?.[0],
+      categories: {
+        connect:
+          data?.[0]?.categories?.map((o) => {
+            return { id: o.id };
+          }) ?? [],
+      },
+    },
+  });
+
+  const route = useRouter();
+
+  async function onSubmit(body: UpdateBrandSchema) {
+    const response = await updateOne<BrandSchema>("brand", data![0]!.id, body);
+
+    if (response.success) {
+      toast.success("Brand update successfully");
+      route.replace(`/admin/collections/brands`);
+      return;
+    }
+
+    toast.error("Brand couldnt be updated");
+  }
+
+  if (!data || data.length == 0) return notFound();
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className="mx-auto flex flex-col gap-x-8 gap-y-4">
+          <div className=" space-y-4 ">
+            <LangTabs>
+              <BrandForm lang="en_" categories={categories ?? []} />
+              <BrandForm lang="ar_" categories={categories ?? []} />
+            </LangTabs>
+          </div>
+
+          <div className=" space-y-4 "></div>
+        </div>
+      </form>
+    </Form>
+  );
+}

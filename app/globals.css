@@ -2,20 +2,177 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 5.3% 26.1%;
+    --card: 35 30% 94%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 35 84% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 40 30% 92%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 35 84% 62%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 35 84% 62%;
+    --chart-1: 35 84% 62%;
+    --chart-2: 35 84% 52%;
+    --chart-3: 35 84% 72%;
+    --chart-4: 25 84% 62%;
+    --chart-5: 45 84% 62%;
+    --radius: 0.5rem;
+    --sidebar-background: 35 30% 94%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 35 84% 62%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 35 40% 88%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 35 30% 82%;
+    --sidebar-ring: 35 84% 62%;
+  }
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 240 5.9% 10%;
+    --card-foreground: 240 4.8% 95.9%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 35 84% 62%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 0%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 35 84% 62%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 35 84% 62%;
+    --chart-1: 35 84% 62%;
+    --chart-2: 35 84% 52%;
+    --chart-3: 35 84% 72%;
+    --chart-4: 25 84% 62%;
+    --chart-5: 45 84% 62%;
+    --sidebar-background: 35 15% 10%;
+    --sidebar-foreground: 35 84% 62%;
+    --sidebar-primary: 35 84% 62%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 35 20% 15%;
+    --sidebar-accent-foreground: 35 84% 62%;
+    --sidebar-border: 35 20% 20%;
+    --sidebar-ring: 35 84% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-english;
+  }
+  span,
+  button,
+  input,
+  p,
+  pre,
+  pre,
+  a,
+  textarea {
+    @apply font-english;
+  }
+
+  :lang(ar) h1,
+  :lang(ar) h2,
+  :lang(ar) h3,
+  :lang(ar) h4,
+  :lang(ar) h5,
+  :lang(ar) h6 {
+    @apply font-arabic-header;
+  }
+
+  :lang(ar) span,
+  :lang(ar) button,
+  :lang(ar) input,
+  :lang(ar) p,
+  :lang(ar) pre,
+  :lang(ar) pre,
+  :lang(ar) a,
+  :lang(ar) textarea {
+    @apply font-arabic-body;
+  }
+}
+
+.inner-gradient-background {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(
+      at 36% 94%,
+      hsla(174, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 96% 69%, hsla(164, 0%, 0%, 1) 0px, transparent 50%),
+    radial-gradient(at 47% 9%, hsla(28, 66%, 22%, 1) 0px, transparent 50%),
+    radial-gradient(at 51% 53%, hsla(28, 66%, 22%, 1) 0px, transparent 50%),
+    radial-gradient(at 2% 25%, hsla(26, 0%, 0%, 1) 0px, transparent 50%),
+    radial-gradient(at 11% 85%, hsla(189, 0%, 0%, 1) 0px, transparent 50%),
+    radial-gradient(at 92% 11%, hsla(41, 87%, 40%, 1) 0px, transparent 50%);
+}
+
+.gradient-overlay {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(
+      at 12% 100%,
+      hsla(199, 0%, 0%, 0.63) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 40% 96%, hsla(28, 100%, 22%, 0.41) 0px, transparent 50%),
+    radial-gradient(at 39% 69%, hsla(28, 100%, 22%, 1) 0px, transparent 50%),
+    radial-gradient(at 39% 49%, hsla(28, 100%, 22%, 1) 0px, transparent 50%),
+    radial-gradient(at 39% 24%, hsla(28, 100%, 22%, 1) 0px, transparent 50%),
+    radial-gradient(at 1% 95%, hsla(189, 100%, 0%, 1) 0px, transparent 50%),
+    radial-gradient(at 4% 6%, hsla(36, 100%, 62%, 1) 0px, transparent 50%),
+    radial-gradient(at 61% 92%, hsla(36, 100%, 62%, 0) 0px, transparent 50%),
+    radial-gradient(at 62% 5%, hsla(36, 100%, 62%, 0) 0px, transparent 50%);
+}
+
+.grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-size: 40px 40px;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='rgba(0, 0, 0, 0.3)' stroke='rgba(0, 0, 0, 0.2)' stroke-width='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  mask-image: linear-gradient(70deg, #000 15%, #0000 50%),
+    linear-gradient(25deg, #000 30%, #0000 80%);
+  -webkit-mask-image: linear-gradient(70deg, #000 15%, #0000 50%),
+    linear-gradient(25deg, #000 30%, #0000 80%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }

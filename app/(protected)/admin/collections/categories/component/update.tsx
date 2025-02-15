@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { getAll, updateOne } from "@/lib/generic.server";
 import {
-  BrandSchema,
   CategorySchema,
   updateCategorySchema,
   UpdateCategorySchema,
@@ -17,13 +16,10 @@ import { LangTabs } from "@/components/lang-tabs";
 
 export function UpdateCategory({
   dataPromise,
-  dataPromiseBrand,
 }: {
   dataPromise: ReturnType<typeof getAll<CategorySchema>>;
-  dataPromiseBrand: ReturnType<typeof getAll<BrandSchema>>;
 }) {
   const { data } = React.use(dataPromise);
-  const { data: brands } = React.use(dataPromiseBrand);
 
   const form = useForm<UpdateCategorySchema>({
     resolver: zodResolver(updateCategorySchema),
@@ -57,8 +53,8 @@ export function UpdateCategory({
         <div className="mx-auto flex flex-col gap-x-8 gap-y-4">
           <div className=" space-y-4 ">
             <LangTabs>
-              <CategoryForm lang="en_" brands={brands ?? []} />
-              <CategoryForm lang="ar_" brands={brands ?? []} />
+              <CategoryForm lang="en_" />
+              <CategoryForm lang="ar_" />
             </LangTabs>
           </div>
           <div className=" space-y-4 "></div>

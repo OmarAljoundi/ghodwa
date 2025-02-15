@@ -27,12 +27,9 @@ export default async function Page({
     >
       <Suspense fallback={<FormLoading />}>
         {isCreation ? (
-          <CreateCategory
-            dataPromise={getAll("brand", { orderBy: { id: "desc" } })}
-          />
+          <CreateCategory />
         ) : (
           <UpdateCategory
-            dataPromiseBrand={getAll("brand", { orderBy: { id: "desc" } })}
             dataPromise={getAll("category", { where: { id: Number(id) } })}
           />
         )}

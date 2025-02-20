@@ -8,11 +8,11 @@ type Session = typeof auth.$Infer.Session;
 
 export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/admin")) {
-    console.log("Calling TOKEN");
     const { data: session } = await betterFetch<Session>(
       "/api/auth/get-session",
       {
         baseURL: request.nextUrl.origin,
+        cache: "force-cache",
         headers: {
           cookie: request.headers.get("cookie") || "",
         },
@@ -28,7 +28,10 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    return NextResponse.next();
+    console.log("User verfied");
+    const headers = new Headers(request.headers);
+    headers.set("x-current-path", request.nextUrl.pathname);
+    return NextResponse.next({ headers });
   }
 
   return i18nRouter(request, i18nConfig);
@@ -41,6 +44,7 @@ export const config = {
         "/((?!api|_next|_vercel|favicon.ico|sitemap.xml|robots.txt|login|.*\\..*).*)",
       missing: [
         { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "next-action" },
         { type: "header", key: "purpose", value: "prefetch" },
       ],
     },

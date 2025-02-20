@@ -9,12 +9,12 @@ import {
   useCarousel,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Pause, Play } from "lucide-react";
 import { getSettings } from "@/query";
 import { SettingSchema } from "@/schema/setting-schema";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+import ResponsiveImage from "../responsive-image";
+import { RiPauseLine, RiPlayLine } from "react-icons/ri";
 
 export default function HeroSection({
   dataPromise,
@@ -33,7 +33,7 @@ export default function HeroSection({
     })
   );
   return (
-    <div className="relative w-full h-[400px] md:h-[700px]">
+    <div className="relative w-full h-[400px] md:h-[700px] p-2 lg:p-0">
       <Carousel
         className="w-full h-full "
         plugins={[plugin.current]}
@@ -59,6 +59,7 @@ function CustomCarousel({
     </CarouselMainContainer>
   );
 }
+
 function CustomCarouselItem({
   index,
   item,
@@ -66,23 +67,26 @@ function CustomCarouselItem({
   item: SettingSchema["home"]["homehero"][number];
   index: number;
 }) {
-  const { title, media } = useFilteredLanguageData(item);
+  const { title, media, mobile_media } = useFilteredLanguageData(item);
   return (
     <SliderMainItem key={index} className="w-full h-full after">
       <div className="relative w-full h-full">
-        <Image
-          src={media?.url}
+        <ResponsiveImage
           alt={title}
+          priority={index === 0}
           fill
           style={{ objectFit: "cover" }}
-          className="lg:rounded-3xl"
-          priority={index === 0}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          largeSrc={media?.url}
+          smallSrc={mobile_media?.url}
+          className="rounded-3xl"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent lg:rounded-3xl" />{" "}
+        <div className="absolute inset-0 bg-black/50 lg:bg-transparent lg:bg-gradient-to-r rtl:lg:bg-gradient-to-l lg:from-black/60 lg:via-black/30 lg:to-transparent rounded-3xl" />{" "}
         <div className="relative h-full w-full ">
           <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
-            <div className="text content ltr:pe-36 rtl:ps-36  ltr:ps-4 rtl:pe-4 items-center w-full lg:w-2/3 xl:w-[35%] me-auto space-y-6 z-10">
+            <div
+              className="text content ltr:pe-16 rtl:ps-16  ltr:ps-4 rtl:pe-4  ltr:lg:pe-24 rtl:lg:ps-24  
+            ltr:lg:ps-8 rtl:lg:pe-8 items-center w-full lg:w-2/3 2xl:w-[35%] ltr:me-auto rtl:me-[unset] rtl:ms-auto space-y-6 z-10"
+            >
               <h1 className="font-light text-3xl md:text-6xl text-gray-50 relative z-10 rtl:text-right">
                 {title}
               </h1>
@@ -112,19 +116,19 @@ function CustomCarouselControls({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-black hover:text-black/50"
+              className="h-8 w-8 text-black hover:text-black/50 hover:bg-transparent"
               onClick={() => toggleAutoplay()}
             >
               {autoplayIsPlaying ? (
-                <Pause className="size-4" />
+                <RiPauseLine className="size-5" />
               ) : (
-                <Play className="size-4" />
+                <RiPlayLine className="size-5" />
               )}
             </Button>
           </div>
         </CarouselThumbsContainer>
-        <div className="bg-white size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-[99.9%] right-0 -rotate-90"></div>
-        <div className="bg-white size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-[99.9%] -rotate-90"></div>
+        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-[99.9%] right-0 -rotate-90"></div>
+        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-[99.9%] -rotate-90"></div>
       </div>
     </React.Fragment>
   );

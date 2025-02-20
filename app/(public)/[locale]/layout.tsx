@@ -3,7 +3,6 @@ import { Toaster } from "@/components/ui/sonner";
 import TranslationsProvider from "@/providers/translations-provider";
 import React from "react";
 import Scroll from "@/providers/scroll";
-import ClientProvider from "@/providers/client-provider";
 import { Navigation } from "@/components/menu/navigation";
 import { Footer } from "@/components/footer";
 import { getBrands, getServices, getSettings } from "@/query";
@@ -22,30 +21,36 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
-  const settings = await getSettings();
-  const brands = await getBrands();
-  const services = await getServices();
+
+  const [settings, brands, services] = await Promise.all([
+    getSettings(),
+    getBrands(),
+    getServices(),
+  ]);
+
   return (
     <CustomDirectionProvider dir={dir(locale)}>
-      <ClientProvider locale={locale}>
-        <Scroll />
+      <Scroll />
 
-        <TranslationsProvider
-          namespaces={i18nNamespaces}
-          locale={locale}
-          resources={resources}
-        >
-          <div className="flex flex-grow flex-col lg:p-4 relative">
-            <Navigation
-              brands={brands as BrandWithRelationsSchema[]}
-              services={services}
-            />
-            <main className="flex-grow">{children}</main>
-            <Footer settings={settings} />
-          </div>
-        </TranslationsProvider>
-        <Toaster richColors />
-      </ClientProvider>
+      <TranslationsProvider
+        namespaces={i18nNamespaces}
+        locale={locale}
+        resources={resources}
+      >
+        <div className="flex flex-grow flex-col lg:p-4 relative">
+          <Navigation
+            brands={brands as BrandWithRelationsSchema[]}
+            services={services}
+          />
+          <main className="flex-grow">{children}</main>
+          <Footer
+            settings={settings}
+            brands={brands as BrandWithRelationsSchema[]}
+            services={services}
+          />
+        </div>
+      </TranslationsProvider>
+      <Toaster richColors />
     </CustomDirectionProvider>
   );
 }

@@ -9,7 +9,7 @@ export default function Page() {
     <ContentWrapper
       breadcrumbs={[
         { item: "Dashboard", url: "/admin" },
-        { item: "Brands", currentPage: true },
+        { item: "News", currentPage: true },
       ]}
     >
       <Suspense

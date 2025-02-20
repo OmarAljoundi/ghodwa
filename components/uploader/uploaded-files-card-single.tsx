@@ -2,15 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import { AnimatePresence } from "framer-motion";
-import { Trash2 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UploadedFileOmit } from "@/lib/types";
 
 interface UploadedFilesCardSingleProps {
   uploadedFiles?: UploadedFileOmit;
   onDelete: (key: string) => void;
+  className?: string;
 }
 
 export default function UploadedFilesCardSingle({
@@ -22,40 +21,38 @@ export default function UploadedFilesCardSingle({
   }
 
   return (
-    <AnimatePresence>
-      <Card
-        className="group overflow-hidden "
-        style={{ width: "-webkit-fill-available" }}
-      >
-        <CardContent className="p-0 ">
-          <div className="relative aspect-square overflow-hidden  ">
-            <Image
-              src={uploadedFiles.url}
-              alt={uploadedFiles.name}
-              fill
-              className="object-contain transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-
-            <div className="absolute inset-0 bg-black bg-opacity-0 transition-all duration-300 group-hover:bg-opacity-30" />
-
-            <Button
-              variant="destructive"
-              size="icon"
-              type="button"
-              className="pointer-events-auto absolute right-2 top-2 opacity-100 transition-opacity duration-300"
-              onClick={() => {
-                onDelete(uploadedFiles.key);
-              }}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="p-3">
-            <p className="truncate text-sm font-medium">{uploadedFiles.name}</p>
-          </div>
-        </CardContent>
-      </Card>
-    </AnimatePresence>
+    <div className="relative">
+      <div className="group relative h-52 overflow-hidden rounded-lg border">
+        <Image
+          src={uploadedFiles.url}
+          alt="Preview"
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100" />
+        <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => onDelete(uploadedFiles.key)}
+            className="h-9 w-9 p-0"
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      {uploadedFiles.name && (
+        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="truncate">{uploadedFiles.name}</span>
+          <button
+            onClick={() => onDelete(uploadedFiles.key)}
+            className="ml-auto rounded-full p-1 hover:bg-muted"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

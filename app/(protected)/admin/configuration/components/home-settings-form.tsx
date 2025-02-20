@@ -111,6 +111,7 @@ export default function HomeSettingsForm({
                           <Textarea
                             placeholder="Enter a subtitle..."
                             {...field}
+                            rows={4}
                           />
                         </FormControl>
                         <FormMessage />
@@ -118,12 +119,32 @@ export default function HomeSettingsForm({
                     )}
                   />
                 </div>
-                <div className="flex-grow-0">
+                <div className="flex-grow flex flex-row gap-x-2 ">
                   <FormField
                     control={control}
-                    name={`home.homehero.${index}.media`}
+                    name={`home.homehero.${index}.${lang}media`}
                     render={({ field }) => (
-                      <FormItem className="w-full">
+                      <FormItem className="w-full space-y-2">
+                        <FormItem>Desktop Image</FormItem>
+                        <FormControl>
+                          <UploaderFormSingle
+                            defaultUploadedFile={
+                              field.value as UploadedFileOmit
+                            }
+                            onChange={field.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={control}
+                    name={`home.homehero.${index}.${lang}mobile_media`}
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormItem>Mobile Image</FormItem>
                         <FormControl>
                           <UploaderFormSingle
                             defaultUploadedFile={
@@ -297,22 +318,40 @@ export default function HomeSettingsForm({
                 )}
               />
             </div>
-            <FormField
-              control={control}
-              name={`home.moreSection.media`}
-              render={({ field }) => (
-                <FormItem className="h-max flex-grow">
-                  <FormLabel>Fill the background image</FormLabel>
-                  <FormControl>
-                    <UploaderFormSingle
-                      defaultUploadedFile={field.value}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex justify-between gap-x-2">
+              <FormField
+                control={control}
+                name={`home.moreSection.${lang}media`}
+                render={({ field }) => (
+                  <FormItem className="h-max flex-grow">
+                    <FormLabel>Desktop background image</FormLabel>
+                    <FormControl>
+                      <UploaderFormSingle
+                        defaultUploadedFile={field.value}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`home.moreSection.${lang}mobile_media`}
+                render={({ field }) => (
+                  <FormItem className="h-max flex-grow">
+                    <FormLabel>Mobile background image</FormLabel>
+                    <FormControl>
+                      <UploaderFormSingle
+                        defaultUploadedFile={field.value}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

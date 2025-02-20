@@ -28,7 +28,7 @@ export function NewsTable({
   return (
     <DataTable table={table}>
       <div className="flex items-center justify-between">
-        <Link href={"/admin/media-center/news/new"}>
+        <Link href={"/admin/news/new"}>
           <Button size={"sm"}>Create new news</Button>
         </Link>
       </div>

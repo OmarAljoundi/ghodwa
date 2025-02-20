@@ -4,7 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import type { BrandWithRelationsSchema } from "@/schema";
 import type { Service } from "@prisma/client";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
@@ -15,13 +20,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ActionMenu from "./action-menu";
-
-const aboutUsItems = [
-  { name: "Overview", href: "/about-us#overview" },
-  { name: "Our Team", href: "/about-us#team" },
-  { name: "Career", href: "/about-us#career" },
-  { name: "History", href: "/about-us#history" },
-];
+import { AlGhodwaMenu } from "./nav-items";
+import { useTranslation } from "react-i18next";
 
 export default function MobileMenu({
   isRTL,
@@ -35,6 +35,8 @@ export default function MobileMenu({
   const [open, setOpen] = useState(false);
   const brandsFilter = useFilteredLanguageData(brands);
   const servicesFilter = useFilteredLanguageData(services);
+  const alghodowaFilter = useFilteredLanguageData(AlGhodwaMenu);
+  const { t } = useTranslation("common");
 
   return (
     <div className="flex lg:hidden gap-x-2">
@@ -42,8 +44,8 @@ export default function MobileMenu({
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button
-            className="group "
-            variant="outline"
+            className="group text-black"
+            variant="default"
             size="icon"
             onClick={() => setOpen((prevState) => !prevState)}
             aria-expanded={open}
@@ -78,29 +80,32 @@ export default function MobileMenu({
         </SheetTrigger>
         <SheetContent
           side={isRTL ? "right" : "left"}
-          className="w-[300px] sm:w-[400px] bg-black/90 backdrop-blur-md text-white overflow-y-auto"
+          className="w-[300px] sm:w-[400px]  backdrop-blur-md text-black overflow-y-auto"
         >
+          <SheetTitle className="sr-only">Menu Item</SheetTitle>
           <nav className="flex flex-col space-y-4 mt-8">
             <Link
+              onClick={() => setOpen(false)}
               href="/"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              Home
+              {t("Home")}
             </Link>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="alghodowa">
                 <AccordionTrigger className="text-lg font-semibold">
-                  AlGhodowa
+                  {t("AlGhodowa")}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 pl-4">
-                    {aboutUsItems.map((item) => (
+                    {alghodowaFilter.map((item) => (
                       <Link
-                        key={item.name}
-                        href={item.href}
+                        key={item.title}
+                        href={item.url}
+                        onClick={() => setOpen(false)}
                         className="text-sm hover:text-gray-300 transition-colors"
                       >
-                        {item.name}
+                        {t(item.title)}
                       </Link>
                     ))}
                   </div>
@@ -108,14 +113,15 @@ export default function MobileMenu({
               </AccordionItem>
               <AccordionItem value="brands">
                 <AccordionTrigger className="text-lg font-semibold">
-                  Our Brands
+                  {t("Our Brands")}
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="grid grid-cols-2 gap-4 pl-4">
+                  <div className="grid grid-cols-2 gap-4 ">
                     {brandsFilter.map((brand) => (
                       <Link
                         key={brand.name}
                         href={`/our-brands/${brand.slug}`}
+                        onClick={() => setOpen(false)}
                         className="flex flex-col items-center justify-center gap-y-2 hover:bg-white/10 rounded-md p-2 transition-colors"
                       >
                         <Image
@@ -133,23 +139,23 @@ export default function MobileMenu({
               </AccordionItem>
               <AccordionItem value="services">
                 <AccordionTrigger className="text-lg font-semibold">
-                  Our Services
+                  {t("Our Services")}
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="flex flex-col space-y-2 pl-4">
+                  <div className="flex flex-col space-y-2 ">
                     {servicesFilter.map((service) => (
                       <Link
                         key={service.title}
-                        href="/our-services"
-                        className="flex items-center space-x-3 hover:bg-white/10 rounded-md p-2 transition-colors"
+                        onClick={() => setOpen(false)}
+                        href={`/services/${service.slug}`}
+                        className="flex items-center gap-x-3 hover:bg-white/10 rounded-md p-2 transition-colors"
                       >
                         <Image
                           width={25}
                           height={25}
-                          alt="service"
-                          src={
-                            (service?.icon as any)?.url || "/placeholder.svg"
-                          }
+                          alt={service.title}
+                          className="bg-black rounded-lg"
+                          src={(service?.icon as any)?.url}
                         />
                         <div className="text-sm">{service.title}</div>
                       </Link>
@@ -159,16 +165,18 @@ export default function MobileMenu({
               </AccordionItem>
             </Accordion>
             <Link
+              onClick={() => setOpen(false)}
               href="/news"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              News
+              {t("News")}
             </Link>
             <Link
+              onClick={() => setOpen(false)}
               href="/contact-us"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              Contact us
+              {t("Contact us")}
             </Link>
           </nav>
         </SheetContent>

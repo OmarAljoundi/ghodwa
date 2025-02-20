@@ -101,7 +101,7 @@ export const RichTextEditor = React.forwardRef<
         <Toolbar editor={editor} />
         <EditorContent
           editor={editor}
-          dir={"rtl"}
+          dir={isRtL ? "rtl" : "ltr"}
           style={{ direction: isRtL ? "rtl" : "ltr" }}
           className={cn("minimal-tiptap-editor", editorContentClassName)}
         />

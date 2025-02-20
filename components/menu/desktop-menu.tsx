@@ -18,13 +18,7 @@ import { Service } from "@prisma/client";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-
-const aboutUsItems = [
-  { name: "Overview", href: "/about-us#overview" },
-  { name: "Our Team", href: "/about-us#team" },
-  { name: "Career", href: "/about-us#career" },
-  { name: "History", href: "/about-us#history" },
-];
+import { AlGhodwaMenu } from "./nav-items";
 
 export default function DesktopMenu({
   brands,
@@ -35,6 +29,7 @@ export default function DesktopMenu({
 }) {
   const brandsFilter = useFilteredLanguageData(brands);
   const servicesFilter = useFilteredLanguageData(services);
+  const alghodowaFilter = useFilteredLanguageData(AlGhodwaMenu);
 
   const { t } = useTranslation("common");
   return (
@@ -60,15 +55,15 @@ export default function DesktopMenu({
               {t("AlGhodowa")}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="w-[200px] p-1">
-                {aboutUsItems.map((item) => (
-                  <li key={item.name}>
+              <ul className="w-[250px] p-1">
+                {alghodowaFilter.map((item) => (
+                  <li key={item.title}>
                     <NavigationMenuLink asChild>
                       <Link
-                        href={item.href}
+                        href={item.url}
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
-                        {item.name}
+                        {t(item.title)}
                       </Link>
                     </NavigationMenuLink>
                   </li>
@@ -82,9 +77,9 @@ export default function DesktopMenu({
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="w-[600px] p-4">
-                <h3 className="text-lg font-medium">Our Brands</h3>
+                <h3 className="text-lg font-medium">{t("Our Brands")}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  Discover our diverse portfolio of innovative brands.
+                  {t("Discover our diverse portfolio of innovative brands.")}
                 </p>
                 <div className="grid grid-cols-3 gap-4 ">
                   {brandsFilter.map((brand) => (
@@ -115,21 +110,21 @@ export default function DesktopMenu({
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="w-[400px] p-4">
-                <h3 className=" text-lg font-medium">Our Services</h3>
+                <h3 className=" text-lg font-medium">{t("Our Services")}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  Explore our range of professional services.
+                  {t("Explore our range of professional services.")}
                 </p>
                 <div className="space-y-4">
                   {servicesFilter.map((service) => (
                     <Link
                       key={service.title}
-                      href="/our-services"
+                      href={`/services/${service.slug}`}
                       className="flex items-center rtl:space-x-reverse space-x-3 rounded-md p-1.5 hover:text-accent transition-all duration-300  bg-black text-white "
                     >
                       <Image
                         width={35}
                         height={35}
-                        alt="service"
+                        alt={service.title}
                         src={(service?.icon as any)?.url}
                       />
                       <div>

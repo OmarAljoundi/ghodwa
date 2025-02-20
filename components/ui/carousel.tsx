@@ -380,7 +380,7 @@ const CarouselIndicator = forwardRef<
       size="icon"
       className={cn(
         "h-1 w-6 rounded-full border-2 border-white",
-        "data-[active='false']:bg-black data-[active='true']:bg-yellow-500",
+        "data-[active='false']:bg-black data-[active='true']:bg-primary",
         className
       )}
       data-active={isSlideActive}

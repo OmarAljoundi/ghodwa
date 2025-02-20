@@ -25,27 +25,27 @@ export function WelcomeSection({
   );
   const { url, text } = useFilteredLanguageData(callToAction);
   return (
-    <div className="grid grid-cols-[12fr] lg:grid-cols-[4fr,8fr] container mx-auto gap-x-20 gap-y-8">
+    <div className="grid grid-cols-[12fr] lg:grid-cols-[4fr,8fr] container mx-auto lg:gap-x-6 xl:gap-10 2xl:gap-x-20 gap-y-8">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-5xl">{title}</h1>
         <p className="text-lg">{subtitle}</p>
         <Link href={url}>
           <Button
-            className="z-10 bg-black text-primary lg:mt-16 mt-4  px-4 rounded-xl py-6 duration-300 transition-all hover:text-primary-foreground group"
+            className="z-10 bg-black text-primary lg:mt-16 mt-4  px-4 rounded-xl py-6 duration-300 transition-all hover:bg-black hover:opacity-80 hover:text-primary "
             size="lg"
           >
             {text}
-            <div className="bg-primary text-black group-hover:bg-white duration-300 transition-all rounded-md -me-1 ms-2 p-1">
+            <div className="bg-primary text-black  duration-300 transition-all rounded-sm -me-1 ms-2 p-1">
               <ArrowRight
-                className="size-6 rtl:rotate-180 "
-                strokeWidth={2}
+                className="size-6 rtl:rotate-180"
+                strokeWidth={1.5}
                 aria-hidden="true"
               />
             </div>
           </Button>
         </Link>
       </div>
-      <div className="grid grid-cols-[12fr] gap-y-4 lg:gap-y-0 lg:grid-cols-[4fr,4fr,4fr] gap-x-8 ">
+      <div className="grid grid-cols-[12fr] gap-y-4 lg:gap-y-0 lg:grid-cols-[4fr,4fr,4fr] lg:gap-x-4 xl:gap-6 2xl:gap-x-8 ">
         {services.map((service, index) => (
           <BlurFade
             key={service.id}
@@ -62,13 +62,15 @@ export function WelcomeSection({
 }
 
 function ServiceCardItem({ service }: { service: Service }) {
-  const { image, icon, title } = useFilteredLanguageData(service);
+  const { image, icon, slug, title } = useFilteredLanguageData(service);
 
   return (
-    <ServiceCard
-      icon={(icon as any)?.url}
-      backgroundImage={(image as any)?.url}
-      title={title}
-    />
+    <Link href={`/services/${slug}`} className="hover:zoom-in-95">
+      <ServiceCard
+        icon={(icon as any)?.url}
+        backgroundImage={(image as any)?.url}
+        title={title}
+      />
+    </Link>
   );
 }

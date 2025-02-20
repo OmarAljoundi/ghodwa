@@ -21,9 +21,10 @@ export function BrandSection({
   const { title } = useFilteredLanguageData(brand);
   const filterdBrands = useFilteredLanguageData(brands);
   return (
-    <div className="flex-col flex mx-auto items-center gap-y-2 lg:gap-y-8">
+    <div className="flex-col flex mx-auto items-center gap-y-2 lg:gap-y-8 overflow-hidden">
       <h1 className="text-3xl">{title}</h1>
       <Marquee
+        repeat={15}
         pauseOnHover
         className="[--duration:20s] [--gap:2rem] [gap:var(--gap)]"
       >
@@ -32,7 +33,7 @@ export function BrandSection({
             <BlurFade
               inView
               delay={0.3 * index}
-              className="hover:bg-primary/30 duration-300 transition-all rounded-lg p-2 cursor-pointer"
+              className="hover:bg-white duration-300 transition-all rounded-lg p-2 cursor-pointer"
             >
               <Image
                 key={index}

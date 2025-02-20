@@ -3,8 +3,12 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ReactQueryProvider } from "@/providers/react-query-provider";
 import { TooltipProvider } from "@/providers/tooltip-provider";
+import "@/components/minimal-tiptap/styles/index.css";
 import { cn } from "@/lib/utils";
 import { monaSans, notoKufiArabic, notoSans } from "./fonts";
+import { cookies, headers } from "next/headers";
+import { dir } from "i18next";
+import { unstable_noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Ghodwa Site",
@@ -15,8 +19,14 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  unstable_noStore();
+  const lang = (await cookies())?.get("NEXT_LOCALE")?.value ?? "en";
+  const headerList = await headers();
+  const pathname = headerList.get("x-current-path");
+  const finalLang = pathname && pathname?.includes("admin") ? "en" : lang;
+
   return (
-    <html>
+    <html lang={finalLang} dir={dir(finalLang)}>
       <body
         className={cn(
           notoKufiArabic.variable,

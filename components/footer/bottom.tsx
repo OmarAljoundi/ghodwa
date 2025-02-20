@@ -1,22 +1,24 @@
+"use client";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+
 export function Bottom() {
+  const { t } = useTranslation("common");
   return (
     <div className="md:col-span-2 md:flex-row items-start  justify-start gap-x-6 xl:gap-x-12 flex flex-col-reverse gap-y-4 md:gap-y-0">
       <div className="mt-8  md:flex-row justify-start gap-6 items-center">
         <div>
           <p className="text-sm text-gray-400">
-            © Copyright 2016 Alghodwa Group
-            <br />
-            All rights reserved
+            © {t("Copyright 2016 Alghodwa Group")}
           </p>
         </div>
       </div>
 
       <div className="mt-4 flex-1">
-        <span className="text-orange-400">Follow us:</span>
+        <span className="text-primary">{t("Follow us:")}</span>
         <div className="flex gap-x-2 mt-2">
           <a
             href="#"

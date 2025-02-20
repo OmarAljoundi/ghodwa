@@ -17,7 +17,7 @@ export default function ActionMenu() {
       <Button
         variant="ghost"
         size="icon"
-        className={cn("bg-yellow-500  text-black")}
+        className={cn("bg-primary  text-black")}
       >
         <Search className="size-5 " />
         <span className="sr-only">Search</span>
@@ -60,24 +60,23 @@ function LangaugeMenu() {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
-        <React.Fragment>
-          <Button className={"text-black hidden lg:flex"}>
-            <span className="inline-block">{t("Language")}</span>
-            <ArrowDown
-              className={cn(
-                "-me-1 ms-2 opacity-60 transition-all duration-500",
-                open ? "rotate-180" : ""
-              )}
-              size={16}
-              strokeWidth={2}
-              aria-hidden="true"
-            />
-          </Button>
-          <Button className={"text-black black lg:hidden"} size={"icon"}>
-            <Globe size={16} strokeWidth={2} aria-hidden="true" />
-          </Button>
-        </React.Fragment>
+      <PopoverTrigger asChild>
+        <Button className="text-black flex items-center h-9 w-9 lg:h-9 lg:w-auto ">
+          <span className="hidden lg:inline-block">{t("Language")}</span>
+          <Globe
+            className="lg:hidden size-4"
+            strokeWidth={2}
+            aria-hidden="true"
+          />
+          <ArrowDown
+            className={cn(
+              "hidden lg:block -me-1 ms-2 opacity-60 transition-all duration-500 size-4",
+              open ? "rotate-180" : ""
+            )}
+            strokeWidth={2}
+            aria-hidden="true"
+          />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-36 p-2">
         <div className="flex flex-col">

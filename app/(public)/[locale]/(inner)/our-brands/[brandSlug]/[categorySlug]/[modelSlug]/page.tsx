@@ -1,4 +1,4 @@
-import { ModelDetails } from "@/components/our-brands/model-details";
+import { ModelDetails } from "@/components/model-details";
 import { getModelBySlug } from "@/query";
 import React from "react";
 

@@ -2,7 +2,7 @@
 
 import { db } from "@/db.server";
 import { Setting } from "@prisma/client";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_noStore } from "next/cache";
 
 export async function getSettingBySectionAsync(
   section: "CMS"
@@ -20,28 +20,34 @@ export async function addUpdateSettingAsync(
   value: Setting["value"],
   mode: "add" | "update"
 ): Promise<{ section: string | null; success: boolean }> {
-  if (mode == "update") {
-    await db.setting.update({
-      where: {
-        section,
-      },
+  unstable_noStore();
+  try {
+    if (mode == "update") {
+      await db.setting.update({
+        where: {
+          section,
+        },
+        data: {
+          value: value as any,
+        },
+      });
+
+      revalidatePath("/", "layout");
+
+      return { section, success: true };
+    }
+
+    await db.setting.create({
       data: {
         value: value as any,
+        section,
       },
     });
-
     revalidatePath("/", "layout");
 
     return { section, success: true };
+  } catch (ex) {
+    console.log("Error", ex);
+    return { section: null, success: false };
   }
-
-  await db.setting.create({
-    data: {
-      value: value as any,
-      section,
-    },
-  });
-  revalidatePath("/", "layout");
-
-  return { section, success: true };
 }

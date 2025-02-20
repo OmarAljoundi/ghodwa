@@ -33,7 +33,7 @@ export function CreateNews() {
     const result = await createOne<NewsSchema>("news", body);
     if (result.success) {
       toast.success("News created successfully");
-      route.replace(`/admin/media-center/news/${result.data?.id}`);
+      route.replace(`/admin/news/${result.data?.id}`);
       route.refresh();
     }
   }

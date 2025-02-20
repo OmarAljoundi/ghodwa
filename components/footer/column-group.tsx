@@ -1,19 +1,19 @@
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { SettingSchema } from "@/schema/setting-schema";
 import React from "react";
 import { ColumnItemGroup } from "./column-item-group";
+import { useTranslation } from "react-i18next";
 
-export function ColumnGroup({
-  item,
-}: {
-  item: SettingSchema["footer"]["items"][number];
-}) {
-  const { columns, group_title } = useFilteredLanguageData(item);
+export function ColumnGroup<
+  T extends {
+    title: string;
+    url: string;
+  }
+>({ items, title }: { items: T[]; title: string }) {
+  const { t } = useTranslation("common");
   return (
     <React.Fragment>
-      <h3 className="text-orange-400 font-semibold mb-4">{group_title}</h3>
+      <h3 className="text-primary font-semibold mb-4">{t(title)}</h3>
       <ul className="space-y-2">
-        {columns.map((props, index) => (
+        {items.map((props, index) => (
           <ColumnItemGroup item={props} key={index} />
         ))}
       </ul>

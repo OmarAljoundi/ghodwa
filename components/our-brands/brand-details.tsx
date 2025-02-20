@@ -3,10 +3,9 @@ import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
 import { getBrandBySlug } from "@/query";
 import { useAddInnerPage } from "@/store/inner-page";
 import { Category } from "@prisma/client";
-import Image from "next/image";
-import Link from "next/link";
 import React, { use } from "react";
 import { BlurFade } from "../ui/blur-fade";
+import { CommonCard } from "../common-card";
 
 export default function BrandDetails({
   dataPromise,
@@ -18,7 +17,7 @@ export default function BrandDetails({
   useAddInnerPage(name);
 
   return (
-    <div className="flex flex-wrap  mt-8 items-center justify-center justify-items-center place-items-center">
+    <div className="flex flex-wrap   items-center justify-center justify-items-center place-items-center">
       {categories?.map((props, index) => (
         <BlurFade
           delay={index * 0.2}
@@ -41,24 +40,10 @@ function BrandCategory({
 }) {
   const { image, name, slug } = useFilteredLanguageData(category);
   return (
-    <Link
-      href={`/our-brands/${brandSlug}/${slug}`}
-      className="flex-col group  cursor-pointer  shadow-sm min-h-40 flex items-center justify-center h-full rounded-xl"
-    >
-      <Image
-        src={(image as any)?.url}
-        className="w-full rounded-3xl rounded-b-none group-hover:scale-105 transition-all duration-300"
-        width={300}
-        height={300}
-        quality={100}
-        alt={name}
-        aria-label={name}
-      />
-      <div className="bg-white border-t-2 border-border w-full">
-        <div className="p-6 text-center">
-          <h1 className="text-2xl">{name}</h1>
-        </div>
-      </div>
-    </Link>
+    <CommonCard
+      imageUrl={(image as any)?.url}
+      name={name}
+      slug={`/our-brands/${brandSlug}/${slug}`}
+    />
   );
 }

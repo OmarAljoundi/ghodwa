@@ -1,17 +1,18 @@
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { SettingSchema } from "@/schema/setting-schema";
+"use client";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
-export function ColumnItemGroup({
-  item,
-}: {
-  item: SettingSchema["footer"]["items"][number]["columns"][number];
-}) {
-  const { title, url } = useFilteredLanguageData(item);
+export function ColumnItemGroup<
+  T extends {
+    title: string;
+    url: string;
+  }
+>({ item }: { item: T }) {
+  const { t } = useTranslation("common");
   return (
     <li>
-      <Link href={url} className="hover:text-orange-400">
-        {title}
+      <Link href={item.url} className="hover:text-primary">
+        {t(item.title)}
       </Link>
     </li>
   );

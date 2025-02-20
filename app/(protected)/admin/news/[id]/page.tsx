@@ -21,7 +21,7 @@ export default async function Page({
     <ContentWrapper
       breadcrumbs={[
         { item: "Dashboard", url: "/admin" },
-        { item: "All News", url: "/admin/media-center/news" },
+        { item: "All News", url: "/admin/news" },
         { ...currentBreadcrumb, currentPage: true },
       ]}
     >

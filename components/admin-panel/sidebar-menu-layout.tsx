@@ -86,15 +86,9 @@ const data = {
       icon: MdMiscellaneousServices,
     },
     {
-      url: "/admin/media-center",
-      title: "Media Center",
+      url: "/admin/news",
+      title: "News",
       icon: MdOutlinePermMedia,
-      items: [
-        {
-          url: "/admin/media-center/news",
-          title: "News",
-        },
-      ],
     },
 
     {
@@ -186,14 +180,14 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                 <Link href="/admin" className="flex">
                   <div>
                     <Image
-                      src={"/logo.png"}
+                      src={"/logo-2.png"}
                       className={cn("block dark:hidden")}
                       width={150}
                       height={50}
                       alt="rafa-logo-dark"
                     />
                     <Image
-                      src={"/logo.png"}
+                      src={"/logo-2.png"}
                       className={cn("hidden dark:block")}
                       width={150}
                       height={50}

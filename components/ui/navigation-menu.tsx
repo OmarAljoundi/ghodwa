@@ -45,18 +45,22 @@ const navigationMenuTriggerStyle = cva(
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & {
+    showArrow?: boolean;
+  }
+>(({ className, children, showArrow = false, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
     ref={ref}
     className={cn(navigationMenuTriggerStyle(), "group/navTrig", className)}
     {...props}
   >
     {children}{" "}
-    <ChevronDownIcon
-      className="relative top-[1px] ltr:ml-2 rtl:mr-2 h-3.5 w-3.5 transition duration-300 group-data-[state=open]/navTrig:rotate-180 bg-white rounded-3xl  text-primary"
-      aria-hidden="true"
-    />
+    {showArrow && (
+      <ChevronDownIcon
+        className="relative top-[1px] ltr:ml-2 rtl:mr-2 h-3.5 w-3.5 transition duration-300 group-data-[state=open]/navTrig:rotate-180 bg-white rounded-3xl  text-primary"
+        aria-hidden="true"
+      />
+    )}
   </NavigationMenuPrimitive.Trigger>
 ));
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;

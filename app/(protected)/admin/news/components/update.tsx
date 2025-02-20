@@ -37,7 +37,7 @@ export function UpdateNews({
 
     if (response.success) {
       toast.success("News update successfully");
-      route.replace(`/admin/media-center/news`);
+      route.replace(`/admin/news`);
       return;
     }
 

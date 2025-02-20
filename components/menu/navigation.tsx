@@ -26,7 +26,7 @@ export function Navigation({
         "absolute top-2 lg:top-12 left-0 right-0 mx-auto z-50 w-full   transition-all duration-300 !bg-transparent"
       )}
     >
-      <div className="flex h-16  items-center px-4 lg:px-12 justify-between w-full flex-row">
+      <div className="flex h-16 items-center px-4 lg:px-16  justify-between w-full flex-row">
         <div className="lg:flex-grow">
           <Link
             href="/"
@@ -35,9 +35,9 @@ export function Navigation({
             )}
           >
             <Image
-              src={"/logo.png"}
-              className={cn("block")}
-              width={150}
+              src={"/logo-2.png"}
+              className={cn("block lg:w-[250px] w-[150px]")}
+              width={250}
               height={50}
               alt="logo-light"
             />

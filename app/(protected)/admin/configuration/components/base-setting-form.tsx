@@ -40,7 +40,7 @@ export function BaseSettingForm({
     defaultValues,
   });
 
-  console.log("erros", form.formState.errors);
+  console.log("erros", form.getValues());
 
   async function onSubmit(body: SettingSchema) {
     const operation: "add" | "update" = defaultValues ? "update" : "add";

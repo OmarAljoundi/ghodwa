@@ -8,7 +8,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { PiMapPinAreaLight } from "react-icons/pi";
 
 const logoContactInfo = {
-  logo: "/logo.png",
+  logo: "/logo-2.png",
   addressInfo: `Baghdad, Al-Daura, main high way,
 near Al-Daura oil refinery,
 Dist. 838, St. 40, Bld. 3
@@ -51,18 +51,18 @@ function AddressInfo({
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex flex-col items-start ">
-        <PiMapPinAreaLight className="size-6 mt-1 text-orange-400" />
+        <PiMapPinAreaLight className="size-6 mt-1 text-primary" />
         <p className="text-sm whitespace-break-spaces ">{location}</p>
       </div>
       <div className="space-y-1">
         <div className="flex flex-col items-start ">
-          <Mail className="size-6 text-orange-400" />
+          <Mail className="size-6 text-primary" />
           <div className="text-sm flex flex-col">
             {details.map(({ email }) => (
               <a
                 key={email}
                 href={`mailto:${email}`}
-                className="hover:text-orange-400"
+                className="hover:text-primary"
               >
                 {email}
               </a>
@@ -100,7 +100,7 @@ function ContactInfoItem({
   return (
     <div className="flex justify-between py-3 first:pt-0 last:pb-0">
       <div className="flex flex-col">
-        <h3 className="text-orange-400 font-semibold">{title}</h3>
+        <h3 className="text-primary font-semibold">{title}</h3>
         <p className="text-sm" dir="ltr">
           {number}
         </p>
@@ -112,7 +112,7 @@ function ContactInfoItem({
               .trim()
               .replaceAll(" ", "")
               .replaceAll("+", "")}`}
-            className="flex flex-col items-center hover:text-orange-400 transition-all duration-300"
+            className="flex flex-col items-center hover:text-primary transition-all duration-300"
           >
             <FaPhoneAlt className="size-6 mb-1" />
             <span className="text-xs">Call</span>
@@ -125,9 +125,9 @@ function ContactInfoItem({
               .trim()
               .replaceAll(" ", "")
               .replaceAll("+", "")}`}
-            className="flex flex-col items-center hover:text-orange-400 group transition-all duration-300"
+            className="flex flex-col items-center hover:text-primary group transition-all duration-300"
           >
-            <FaWhatsapp className="size-6 mb-1 text-green-700 group-hover:text-orange-400 transition-all duration-300" />
+            <FaWhatsapp className="size-6 mb-1 text-green-700 group-hover:text-primary transition-all duration-300" />
             <span className="text-xs">Whatsapp</span>
           </a>
         )}

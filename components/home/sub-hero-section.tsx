@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { getSettings } from "@/query";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
 import Link from "next/link";
+import ResponsiveImage from "../responsive-image";
 
 export function SubHeroSection({
   dataPromise,
@@ -15,11 +16,11 @@ export function SubHeroSection({
   const {
     home: { moreSection },
   } = use(dataPromise);
-  const { callToAction, subtitle, title, media } =
+  const { callToAction, subtitle, title, media, mobile_media } =
     useFilteredLanguageData(moreSection);
   const { url, text } = useFilteredLanguageData(callToAction);
   return (
-    <div className="relative w-full h-[500px] md:h-[600px]">
+    <div className="relative w-full h-[400px] md:h-[600px]">
       <Image
         src={media?.url}
         alt={title}
@@ -30,14 +31,25 @@ export function SubHeroSection({
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
       />
 
-      <div className="absolute inset-0 gradient-overlay rounded-none lg:rounded-3xl" />
+      <ResponsiveImage
+        largeSrc={media?.url}
+        smallSrc={mobile_media?.url}
+        alt={title}
+        fill
+        style={{ objectFit: "cover" }}
+        className="rounded-none lg:rounded-3xl"
+        priority
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+      />
+
+      <div className="absolute inset-0 gradient-overlay rounded-none lg:rounded-3xl !bg-black/70 lg:!bg-transparent" />
 
       <div className="grid-pattern rounded-none lg:rounded-3xl" />
 
       <div className="relative h-full w-full flex items-center justify-center">
         <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
-          <div className="text content px-4 lg:px-24 items-center w-full  lg:w-2/3 xl:w-[50%] 2xl:w-[35%] me-auto rtl:ms-auto rtl:me-0 space-y-6 z-10">
-            <h1 className="font-bold text-2xl md:text-7xl text-gray-50 relative z-10">
+          <div className="text content px-4 lg:px-24 items-center w-full  lg:w-2/3 xl:w-[50%] 2xl:w-[35%] me-auto  space-y-6 z-10">
+            <h1 className="font-normal text-2xl md:text-7xl text-gray-50 relative z-10">
               {title}
             </h1>
             <p className="font-light text-base text-gray-50 relative z-10">
@@ -45,14 +57,14 @@ export function SubHeroSection({
             </p>
             <Link href={url} className="block">
               <Button
-                className="z-10 bg-yellow-500 text-black px-4 rounded-xl py-6"
+                className="z-10 bg-primary text-black px-5 rounded-xl py-6"
                 size="lg"
               >
                 {text}
-                <div className="bg-white rounded-md -me-1 ms-2 p-1">
+                <div className="bg-black rounded-sm -me-1 ms-2 py-1 px-1">
                   <ArrowRight
-                    className="size-6 rtl:rotate-180"
-                    strokeWidth={2}
+                    className="size-6 text-primary rtl:rotate-180"
+                    strokeWidth={1.5}
                     aria-hidden="true"
                   />
                 </div>

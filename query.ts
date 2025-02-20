@@ -76,6 +76,7 @@ export const getNews = unstable_cache(
         createdAt: "desc",
       },
     });
+
     return news;
   },
   ["news"],
@@ -123,5 +124,35 @@ export const getModelBySlug = async (slug: string, categorySlug: string) =>
     {
       revalidate: 86400,
       tags: ["model", slug],
+    }
+  )();
+
+export const getNewsBySlug = async (slug: string) =>
+  unstable_cache(
+    async () => {
+      const news = await db.news.findUniqueOrThrow({
+        where: { slug },
+      });
+      return news;
+    },
+    ["news", slug],
+    {
+      revalidate: 86400,
+      tags: ["news", slug],
+    }
+  )();
+
+export const getServiceBySlug = async (slug: string) =>
+  unstable_cache(
+    async () => {
+      const service = await db.service.findUniqueOrThrow({
+        where: { slug },
+      });
+      return service;
+    },
+    ["service", slug],
+    {
+      revalidate: 86400,
+      tags: ["service", slug],
     }
   )();

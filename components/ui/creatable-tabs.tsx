@@ -59,7 +59,7 @@ export function CreatableTabs<TData>({
           >
             {rest?.value?.map((item: any, index) => (
               <SortableItem
-                key={item.id}
+                key={`${item.id}-${index}`}
                 value={item.id}
                 asTrigger={activeTab === index}
                 asChild

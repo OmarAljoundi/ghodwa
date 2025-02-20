@@ -59,8 +59,8 @@ export function UploaderFormSingle({
             maxSize={4 * 1024 * 1024}
           />
         )}
-
-        <div className="my-4">
+        {/* className="my-4" */}
+        <div>
           <AnimatePresence>
             {Object.entries(progresses).map(([fileName, progress]) => (
               <motion.div

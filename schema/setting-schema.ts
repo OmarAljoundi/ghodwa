@@ -14,12 +14,33 @@ const callToActionSchema = z.object({
   url: z.string(),
 });
 
+const hourState = z.discriminatedUnion("state", [
+  z.object({
+    state: z.literal("open"),
+    from: z
+      .object({ hour: z.number(), minute: z.number() })
+      .default({ hour: 8, minute: 0 }),
+    to: z
+      .object({
+        hour: z.number(),
+        minute: z.number(),
+      })
+      .default({ hour: 17, minute: 0 }),
+  }),
+  z.object({
+    state: z.literal("closed"),
+  }),
+]);
+
 export const settingSchema = z.object({
   home: z.object({
     homehero: z
       .object({
         id: z.string(),
-        media: z.any(),
+        en_media: z.any(),
+        ar_media: z.any(),
+        en_mobile_media: z.any(),
+        ar_mobile_media: z.any(),
         ar_title: z.string(),
         en_title: z.string(),
         ar_subtitle: z.string().optional(),
@@ -35,7 +56,10 @@ export const settingSchema = z.object({
       callToAction: z.object(callToActionSchema.shape),
     }),
     moreSection: z.object({
-      media: z.any(),
+      en_media: z.any(),
+      ar_media: z.any(),
+      en_mobile_media: z.any(),
+      ar_mobile_media: z.any(),
       ar_title: z.string(),
       en_title: z.string(),
       ar_subtitle: z.string(),
@@ -52,42 +76,7 @@ export const settingSchema = z.object({
     }),
   }),
 
-  menus: z.object({
-    ar_items: z
-      .object({
-        id: z.string(),
-        title: z.string(),
-        url: z.string(),
-      })
-      .array()
-      .default([]),
-    en_items: z
-      .object({
-        id: z.string(),
-        title: z.string(),
-        url: z.string(),
-      })
-      .array()
-      .default([]),
-  }),
-
   footer: z.object({
-    items: z
-      .object({
-        id: z.string(),
-        ar_group_title: z.string(),
-        en_group_title: z.string(),
-        columns: z
-          .object({
-            ar_title: z.string(),
-            en_title: z.string(),
-            url: z.string(),
-          })
-          .array()
-          .default([]),
-      })
-      .array()
-      .max(MAX_FOOTER_COLUMNS),
     contactInfo: z
       .object({
         en_title: z.string(),
@@ -112,6 +101,72 @@ export const settingSchema = z.object({
         url: z.string().url(),
       })
       .array()
+      .default([]),
+  }),
+
+  overview: z.object({
+    ar_content: z.string(),
+    en_content: z.string(),
+  }),
+
+  missionVision: z.object({
+    ar_content: z.string(),
+    en_content: z.string(),
+  }),
+
+  managementTeam: z.object({
+    ar_title: z.string().default("Our Experts"),
+    en_title: z.string().default("Our Experts"),
+    ar_badgeTitle: z.string().default("Our Experts"),
+    en_badgeTitle: z.string().default("Our Experts"),
+    team: z
+      .object({
+        id: z.string(),
+        ar_name: z.string(),
+        en_name: z.string(),
+        ar_summary: z.string(),
+        en_summary: z.string(),
+        ar_jobTitle: z.string(),
+        en_jobTitle: z.string(),
+        media: z.any(),
+        contactNumber: z.string(),
+      })
+      .array()
+      .default([]),
+  }),
+
+  managementSystems: z.object({
+    ar_content: z.string(),
+    en_content: z.string(),
+  }),
+
+  workingHours: z.object({
+    items: z
+      .object({
+        id: z.string(),
+        en_day: z.string(),
+        ar_day: z.string(),
+        office: hourState.default({ state: "open" }),
+      })
+      .array()
+      .max(7)
+      .default([]),
+  }),
+
+  offices: z.object({
+    items: z
+      .object({
+        id: z.string(),
+        en_country: z.string(),
+        en_city: z.string(),
+        en_address: z.string(),
+        ar_country: z.string(),
+        ar_city: z.string(),
+        ar_address: z.string(),
+        contactNumber: z.string(),
+      })
+      .array()
+      .max(3)
       .default([]),
   }),
 

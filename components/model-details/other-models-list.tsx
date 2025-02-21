@@ -45,7 +45,9 @@ export function OtherModelsList({
                 <span className="ps-4 rtl:pe-4">{props.name}</span>
                 {props.id != id && (
                   <ArrowRight
-                    className={"size-4 !text-primary bg-transparent"}
+                    className={
+                      "size-4 !text-primary bg-transparent rtl:rotate-180"
+                    }
                   />
                 )}
               </Link>

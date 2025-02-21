@@ -18,7 +18,9 @@ export function AlghodwaPagesSitemap({ className }: { className: string }) {
   return (
     <BlurFade delay={0.1} className={className}>
       <div className="bg-white rounded-3xl shadow-sm p-4  w-full">
-        <h1 className="text-xl mb-4">{t("Alghodwa")}</h1>
+        <h1 className="text-xl mb-4 ps-4 rtl:pe-4 font-bold">
+          {t("Alghodwa")}
+        </h1>
         <div className="px-2 space-y-1">
           {alGhodwaMenuFiltered.map((props, index) => (
             <BlurFade delay={index * 0.2} direction={"left"} key={props.title}>
@@ -32,10 +34,12 @@ export function AlghodwaPagesSitemap({ className }: { className: string }) {
                     : "hover:bg-primary/40  duration-300 transition-all"
                 )}
               >
-                <span className="ps-4 rtl:pe-4">{props.title}</span>
+                <span className="ps-4 rtl:pe-4">{t(props.title)}</span>
                 {props.url != pathname && (
                   <ArrowRight
-                    className={"size-4 !text-primary bg-transparent"}
+                    className={
+                      "size-4 !text-primary bg-transparent rtl:rotate-180"
+                    }
                   />
                 )}
               </Link>

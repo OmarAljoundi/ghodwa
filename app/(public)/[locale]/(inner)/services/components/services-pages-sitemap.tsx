@@ -24,7 +24,9 @@ export function ServicesPagesSitemap({
   return (
     <BlurFade delay={0.1} className={className}>
       <div className="bg-white rounded-3xl shadow-sm p-4  w-full">
-        <h1 className="text-xl mb-4">{t("Our Services")}</h1>
+        <h1 className="text-xl mb-4 ps-4 rtl:pe-4 font-bold">
+          {t("Our Services")}
+        </h1>
         <div className="px-2 space-y-1">
           {servicesFiltered.map((props, index) => (
             <BlurFade delay={index * 0.2} direction={"left"} key={props.title}>

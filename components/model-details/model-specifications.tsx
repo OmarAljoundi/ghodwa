@@ -4,12 +4,15 @@ import { Separator } from "../ui/separator";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
 import { ModelSchema } from "@/schema";
 import { Model } from "@prisma/client";
+import { useTranslation } from "react-i18next";
 
 export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
   const { description, specification } = useFilteredLanguageData(currentModel);
   const filteredSpecification = useFilteredLanguageData(
     specification as ModelSchema["specification"]
   );
+
+  const { t } = useTranslation("common");
   return (
     <React.Fragment>
       <BlurFade
@@ -23,11 +26,11 @@ export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
       <BlurFade
         delay={0.3}
         direction={"left"}
-        className="flex justify-start rtl:justify-end w-full"
+        className="flex justify-start  w-full"
       >
-        <div className="rounded-lg px-3 py-1  border-2 border-primary text-xl text-black font-bold">
-          Specifications{" "}
-        </div>
+        <h1 className="rounded-lg px-3 py-1  border-2 border-primary text-xl text-black font-bold">
+          {t("Specifications")}
+        </h1>
       </BlurFade>
 
       <BlurFade

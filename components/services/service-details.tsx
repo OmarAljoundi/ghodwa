@@ -12,14 +12,8 @@ export function ServiceDetails({
   const { content, title } = useFilteredLanguageData(use(dataPromise));
   return (
     <article className="mx-auto  ">
-      <BlurFade
-        delay={0.3}
-        blur="16px"
-        inView
-        direction="up"
-        className="text-4xl font-bold mb-4"
-      >
-        {title}
+      <BlurFade delay={0.3} blur="16px" inView direction="up">
+        <h1 className="text-4xl font-bold mb-4">{title}</h1>
       </BlurFade>
 
       <BlurFade

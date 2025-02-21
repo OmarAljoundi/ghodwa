@@ -1,5 +1,4 @@
 "use client";
-import { BrandBadge } from "@/components/brand-badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,11 +18,10 @@ export function TeamMember({
 }: {
   teamMember: SettingSchema["managementTeam"];
 }) {
-  const { badgeTitle, title } = useFilteredLanguageData(teamMember);
+  const { title } = useFilteredLanguageData(teamMember);
   return (
     <article className="mx-auto animate-fade-in">
       <div className="flex flex-col justify-start gap-y-1">
-        <BrandBadge className="w-fit grow-0" title={badgeTitle} />
         <h1 className="text-3xl">{title}</h1>
       </div>
 

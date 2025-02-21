@@ -25,7 +25,7 @@ export function WelcomeSection({
   );
   const { url, text } = useFilteredLanguageData(callToAction);
   return (
-    <div className="grid grid-cols-[12fr] lg:grid-cols-[4fr,8fr] container mx-auto lg:gap-x-6 xl:gap-10 2xl:gap-x-20 gap-y-8">
+    <div className="grid grid-cols-[12fr] xl:grid-cols-[4fr,8fr] container mx-auto lg:gap-x-6 xl:gap-10 2xl:gap-x-20 gap-y-8">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-5xl">{title}</h1>
         <p className="text-lg">{subtitle}</p>
@@ -51,7 +51,7 @@ export function WelcomeSection({
             key={service.id}
             inView
             delay={0.3 * index}
-            className="h-60 lg:h-full"
+            className="h-60 lg:h-96 xl:h-full"
           >
             <ServiceCardItem service={service} />
           </BlurFade>

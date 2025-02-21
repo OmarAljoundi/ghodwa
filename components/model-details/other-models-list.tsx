@@ -23,10 +23,13 @@ export function OtherModelsList({
   return (
     <BlurFade delay={0.1} className={className}>
       <div className="bg-white rounded-3xl shadow-sm p-4  w-full">
-        <h1 aria-label={name} className="text-lg mb-4">
-          {name}
-        </h1>
         <div className="px-2 space-y-1">
+          <h1
+            aria-label={name}
+            className="text-xl mb-4 ps-4 rtl:pe-4 font-bold"
+          >
+            {name}
+          </h1>
           {filteredModels.map((props, index) => (
             <BlurFade delay={index * 0.2} direction={"left"} key={props.id}>
               <Link

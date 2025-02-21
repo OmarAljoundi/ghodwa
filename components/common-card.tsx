@@ -26,7 +26,7 @@ export function CommonCard({
           aria-label={name}
         />
       </div>
-      <div className="bg-white  w-full">
+      <div className="bg-white rounded-b-xl w-full">
         <div className="p-6 text-center">
           <h1 className="text-2xl">{name}</h1>
         </div>

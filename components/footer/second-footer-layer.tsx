@@ -19,7 +19,7 @@ export function SecondFooterLayer({ services }: { services: Service[] }) {
 
   const alGhodwaMenuFiltered = useFilteredLanguageData(AlGhodwaMenu);
   return (
-    <div className="grid grid-cols-1 gap-8">
+    <div className="grid grid-cols-1 gap-8 pe-3 w-full">
       <div>
         <ColumnGroup items={itemsFiltered} title="Services" />
       </div>

@@ -180,18 +180,18 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                 <Link href="/admin" className="flex">
                   <div>
                     <Image
-                      src={"/logo-2.png"}
+                      src={"/english-logo.png"}
                       className={cn("block dark:hidden")}
                       width={150}
                       height={50}
-                      alt="rafa-logo-dark"
+                      alt="alghodwa-logo-dark"
                     />
                     <Image
-                      src={"/logo-2.png"}
+                      src={"/english-logo.png"}
                       className={cn("hidden dark:block")}
                       width={150}
                       height={50}
-                      alt="rafa-logo-light"
+                      alt="alghodwa-logo-light"
                     />
                   </div>
                 </Link>

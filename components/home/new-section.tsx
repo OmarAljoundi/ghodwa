@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { use } from "react";
 import { BlurFade } from "../ui/blur-fade";
+import { useTranslation } from "react-i18next";
 
 export function NewSection({
   dataPromise,
@@ -40,7 +41,7 @@ export function NewSection({
 function NewsItem(props: News) {
   const { createdAt, image, slug, summary, title } =
     useFilteredLanguageData(props);
-
+  const { t } = useTranslation("common");
   return (
     <Link href={`/news/${slug}`}>
       <div className="group cursor-pointer ">
@@ -57,7 +58,9 @@ function NewsItem(props: News) {
 
           <div className="absolute -bottom-[1px] -left-[1px] gap-2 bg-background py-2 rounded-tr-[50px] px-8">
             <div className="flex items-center gap-3 pe-4 pt-3">
-              <span className="text-orange-500 font-medium text-sm">NEWS</span>
+              <span className="text-primary font-medium text-sm">
+                {t("NEWS")}
+              </span>
               <span className="text-gray-500 text-sm tracking-wider">
                 {format(createdAt, "dd. MM. yyyy")}
               </span>

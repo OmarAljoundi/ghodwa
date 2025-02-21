@@ -43,7 +43,8 @@ export default function DesktopMenu({
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white"
+                  "bg-transparent text-white",
+                  "font-light"
                 )}
               >
                 {t("Home")}
@@ -51,7 +52,9 @@ export default function DesktopMenu({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={cn("bg-transparent text-white")}>
+            <NavigationMenuTrigger
+              className={cn("bg-transparent text-white", "font-light")}
+            >
               {t("AlGhodowa")}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -72,7 +75,9 @@ export default function DesktopMenu({
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={cn("bg-transparent text-white")}>
+            <NavigationMenuTrigger
+              className={cn("bg-transparent text-white", "font-light")}
+            >
               {t("Our Brands")}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -105,7 +110,9 @@ export default function DesktopMenu({
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={cn("bg-transparent text-white")}>
+            <NavigationMenuTrigger
+              className={cn("bg-transparent text-white", "font-light")}
+            >
               {t("Our Services")}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -143,7 +150,8 @@ export default function DesktopMenu({
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white"
+                  "bg-transparent text-white",
+                  "font-light"
                 )}
               >
                 {t("News")}
@@ -155,7 +163,8 @@ export default function DesktopMenu({
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white"
+                  "bg-transparent text-white",
+                  "font-light"
                 )}
               >
                 {t("Contact us")}

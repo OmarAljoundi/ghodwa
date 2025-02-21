@@ -7,16 +7,6 @@ import { FaWhatsapp } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { PiMapPinAreaLight } from "react-icons/pi";
 
-const logoContactInfo = {
-  logo: "/logo-2.png",
-  addressInfo: `Baghdad, Al-Daura, main high way,
-near Al-Daura oil refinery,
-Dist. 838, St. 40, Bld. 3
-`,
-
-  emails: ["info@alghodwagroup.com", "sales@alghodwagroup.com"],
-};
-
 export default function LogoContact({
   footer,
 }: {
@@ -26,11 +16,18 @@ export default function LogoContact({
     <React.Fragment>
       <div className="space-y-4 col-span-full  md:col-span-2 flex flex-col w-full flex-1 items-start">
         <Image
-          src={logoContactInfo.logo}
+          src={"/english-logo.png"}
           alt="Alghodwa Group Logo"
           width={180}
           height={60}
-          className="mb-4"
+          className="mb-4 rtl:hidden"
+        />
+        <Image
+          src={"/arabic-logo.png"}
+          alt="Alghodwa Group Logo"
+          width={180}
+          height={60}
+          className="mb-4 ltr:hidden"
         />
 
         <div className="flex flex-col lg:!flex-row md:gap-x-6 lg:gap-y-0 gap-y-6 justify-start items-start  gap-x-3 xl:gap-x-12 pe-3 xl:pe-6 w-full">

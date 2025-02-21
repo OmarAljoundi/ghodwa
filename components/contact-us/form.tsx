@@ -37,7 +37,7 @@ export function ContactUsForm() {
     <div className="flex flex-col gap-y-8">
       <h1 className="text-4xl lg:text-5xl">{t("We're ready to help you!")}</h1>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-0">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="-space-y-3">
           <FormField
             control={form.control}
             name="name"
@@ -104,6 +104,7 @@ export function ContactUsForm() {
                     className="rtl:text-right"
                     placeholder={t("Your message")}
                     {...field}
+                    rows={6}
                   />
                 </FormControl>
                 <FormMessage />

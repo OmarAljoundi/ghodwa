@@ -95,7 +95,11 @@ export default function HomeSettingsForm({
                       <FormItem className="h-max w-full">
                         <FormLabel>{title} title</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter a title..." {...field} />
+                          <Textarea
+                            placeholder="Enter a title..."
+                            {...field}
+                            rows={4}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -260,7 +264,11 @@ export default function HomeSettingsForm({
                 <FormItem className="h-max w-full">
                   <FormLabel>{title} title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter a title..." {...field} />
+                    <Textarea
+                      rows={4}
+                      placeholder="Enter a title..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

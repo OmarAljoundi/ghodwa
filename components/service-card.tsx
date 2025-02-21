@@ -49,7 +49,7 @@ export const ServiceCard = ({
       />
 
       <div className="absolute  bottom-6 ltr:left-4 rtl:right-4">
-        <h1 className="text-3xl text-white">{title}</h1>
+        <h1 className="text-3xl text-white whitespace-pre-line">{title}</h1>
       </div>
 
       <div className="absolute  top-9 ltr:right-6 rtl:left-6 z-50 size-20">

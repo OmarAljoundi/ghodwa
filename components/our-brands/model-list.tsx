@@ -17,11 +17,11 @@ export function ModelList({
   useAddInnerPage(name);
 
   return (
-    <div className="flex flex-wrap items-center justify-center justify-items-center place-items-center ">
+    <div className="flex flex-wrap items-center sm:justify-center sm:justify-items-center sm:place-items-center ">
       {category?.models?.map((props, index) => (
         <BlurFade
           delay={index * 0.2}
-          className="lg:basis-1/3 xl:basis-1/4 p-4"
+          className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 p-4"
           key={props.id}
         >
           <ModelItem categorySlug={category.slug} model={props} />

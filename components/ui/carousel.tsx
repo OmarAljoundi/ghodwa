@@ -370,10 +370,24 @@ SliderThumbItem.displayName = "SliderThumbItem";
 
 const CarouselIndicator = forwardRef<
   HTMLButtonElement,
-  { index: number } & React.ComponentProps<typeof Button>
->(({ className, index, ...props }, ref) => {
+  { index: number; isAutoPlayEnabled?: boolean } & React.ComponentProps<
+    typeof Button
+  >
+>(({ className, index, isAutoPlayEnabled = true, ...props }, ref) => {
   const { activeIndex, onThumbClick, onAutoplayButtonClick } = useCarousel();
   const isSlideActive = activeIndex === index;
+
+  const toggleThumb = useCallback(
+    (currentIndex: number) => {
+      if (isAutoPlayEnabled) {
+        onAutoplayButtonClick(() => onThumbClick(currentIndex));
+      } else {
+        onThumbClick(currentIndex);
+      }
+    },
+    [isAutoPlayEnabled, onAutoplayButtonClick, onThumbClick]
+  );
+
   return (
     <Button
       ref={ref}
@@ -384,7 +398,7 @@ const CarouselIndicator = forwardRef<
         className
       )}
       data-active={isSlideActive}
-      onClick={() => onAutoplayButtonClick(() => onThumbClick(index))}
+      onClick={() => toggleThumb(index)}
       {...props}
     >
       <span className="sr-only">slide {index + 1} </span>

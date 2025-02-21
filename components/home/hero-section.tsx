@@ -85,9 +85,9 @@ function CustomCarouselItem({
           <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
             <div
               className="text content ltr:pe-16 rtl:ps-16  ltr:ps-4 rtl:pe-4  ltr:lg:pe-24 rtl:lg:ps-24  
-            ltr:lg:ps-8 rtl:lg:pe-8 items-center w-full lg:w-2/3 2xl:w-[35%] ltr:me-auto rtl:me-[unset] rtl:ms-auto space-y-6 z-10"
+            ltr:lg:ps-8 rtl:lg:pe-8 items-center w-full lg:w-2/3  ltr:me-auto rtl:me-[unset] rtl:ms-auto space-y-6 z-10"
             >
-              <h1 className="font-light text-3xl md:text-6xl text-gray-50 relative z-10 rtl:text-right">
+              <h1 className="font-light text-3xl md:text-6xl text-gray-50 relative z-10 rtl:text-right whitespace-pre-line rtl:md:leading-[75px] rtl:leading-10">
                 {title}
               </h1>
             </div>
@@ -127,8 +127,8 @@ function CustomCarouselControls({
             </Button>
           </div>
         </CarouselThumbsContainer>
-        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-[99.9%] right-0 -rotate-90"></div>
-        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-[99.9%] -rotate-90"></div>
+        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-full right-0 -rotate-90"></div>
+        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-full -rotate-90"></div>
       </div>
     </React.Fragment>
   );

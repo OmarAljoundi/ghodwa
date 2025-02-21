@@ -146,6 +146,45 @@ body {
     radial-gradient(at 92% 11%, hsla(41, 87%, 40%, 1) 0px, transparent 50%);
 }
 
+:lang(ar) .inner-gradient-background {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(
+      at 64% 94%,
+      /* Mirrored from 36% */ hsla(174, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 4% 69%,
+      /* Mirrored from 96% */ hsla(164, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 53% 9%,
+      /* Mirrored from 47% */ hsla(28, 66%, 22%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 49% 53%,
+      /* Mirrored from 51% */ hsla(28, 66%, 22%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 98% 25%,
+      /* Mirrored from 2% */ hsla(26, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 89% 85%,
+      /* Mirrored from 11% */ hsla(189, 0%, 0%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(
+      at 8% 11%,
+      /* Mirrored from 92% */ hsla(41, 87%, 40%, 1) 0px,
+      transparent 50%
+    );
+}
+
 .gradient-overlay {
   background-color: hsla(0, 0%, 0%, 0);
   background-image: radial-gradient(

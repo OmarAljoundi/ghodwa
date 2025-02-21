@@ -69,6 +69,7 @@ function CustomCarouselControls({ slides }: { slides: Array<string> }) {
       <CarouselThumbsContainer className="space-x-1 flex flex-row items-center gap-1">
         {slides.map((_, index) => (
           <CarouselIndicator
+            isAutoPlayEnabled={false}
             className="size-3 data-[active='false']:bg-transparent data-[active='true']:bg-white"
             key={index}
             index={index}

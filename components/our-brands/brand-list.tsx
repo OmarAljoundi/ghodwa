@@ -14,7 +14,7 @@ export function BrandList({
   const brands = use(dataPromise);
 
   return (
-    <div className="flex flex-wrap   items-center justify-center justify-items-center place-items-center">
+    <div className="flex flex-wrap items-center justify-center justify-items-center place-items-center">
       {brands?.map((props) => (
         <div className="lg:basis-1/3 xl:basis-1/4 p-4" key={props.id}>
           <BrandItem {...props} />

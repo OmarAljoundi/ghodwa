@@ -21,7 +21,7 @@ export function FirstFooterLayer({
   const filtredItems = useFilteredLanguageData(items);
 
   return (
-    <div className="col-span-full md:col-span-1">
+    <div className="col-span-full md:col-span-1 pe-3 w-full">
       <ColumnGroup items={filtredItems} title="Our Brands" />
     </div>
   );

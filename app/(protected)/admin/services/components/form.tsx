@@ -5,7 +5,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import {
@@ -21,6 +20,7 @@ import { SlugInput } from "@/components/ui/slug-input";
 import { CreateServiceSchema } from "@/schema/service-schema";
 import RichTextEditor from "@/components/minimal-tiptap/editor";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
   const { control } = useFormContext<CreateServiceSchema>();
@@ -40,9 +40,10 @@ export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
                   <FormItem className="w-full">
                     <FormLabel>{title} title</FormLabel>
                     <FormControl>
-                      <Input
+                      <Textarea
                         {...field}
                         value={field.value}
+                        rows={4}
                         placeholder={`Enter ${title} title`}
                       />
                     </FormControl>

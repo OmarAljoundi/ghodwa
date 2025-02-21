@@ -48,7 +48,10 @@ export function WorkingHours({
 
   return (
     <div
-      className={cn("p-6 bg-white rounded-3xl shadow-sm relative", className)}
+      className={cn(
+        "p-6 bg-white rounded-3xl shadow-sm relative h-fit",
+        className
+      )}
     >
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-normal text-gray-800 flex items-center">

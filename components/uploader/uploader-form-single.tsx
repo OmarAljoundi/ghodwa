@@ -5,11 +5,13 @@ import { FileUploader } from "@/components/uploader/file-uploader";
 import { useUploadFile } from "@/hooks/use-upload-file";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useCallback, useEffect, useState } from "react";
-import UploadedFilesCardSingle from "./uploaded-files-card-single";
 import { UploadedFileOmit } from "@/lib/types";
+import { UploadedImagesCardSingle } from "./uploaded-images-card-single";
+import { UploadedFilesCardSingle } from "./uploaded-files-card-single";
 
 type UploaderFormProps = {
   defaultUploadedFile?: UploadedFileOmit;
+  type?: "image" | "files";
   onChange: (data: UploadedFileOmit) => void;
   onSuccessfullyDeletion?: (
     uploadedFiles: UploadedFileOmit
@@ -22,6 +24,7 @@ export function UploaderFormSingle({
   defaultUploadedFile,
   onChange,
   onSuccessfullyDeletion,
+  type = "image",
 }: UploaderFormProps) {
   const { uploadedFiles, onUpload, progresses, onDelete, isDeleting } =
     useUploadFile("imageUploader", {
@@ -57,9 +60,9 @@ export function UploaderFormSingle({
             onUpload={onUpload}
             multiple={false}
             maxSize={4 * 1024 * 1024}
+            accept={type == "image" ? { "image/*": [] } : { "*": [] }}
           />
         )}
-        {/* className="my-4" */}
         <div>
           <AnimatePresence>
             {Object.entries(progresses).map(([fileName, progress]) => (
@@ -92,15 +95,29 @@ export function UploaderFormSingle({
           </AnimatePresence>
         </div>
 
-        <UploadedFilesCardSingle
-          uploadedFiles={
-            uploadedFiles.length > 0 ? uploadedFiles[0] : undefined
-          }
-          onDelete={(key) => {
-            setSelectedKey(key);
-            setOpenDeleteAlert(true);
-          }}
-        />
+        {type == "image" && (
+          <UploadedImagesCardSingle
+            uploadedFiles={
+              uploadedFiles.length > 0 ? uploadedFiles[0] : undefined
+            }
+            onDelete={(key) => {
+              setSelectedKey(key);
+              setOpenDeleteAlert(true);
+            }}
+          />
+        )}
+
+        {type == "files" && (
+          <UploadedFilesCardSingle
+            uploadedFiles={
+              uploadedFiles.length > 0 ? uploadedFiles[0] : undefined
+            }
+            onDelete={(key) => {
+              setSelectedKey(key);
+              setOpenDeleteAlert(true);
+            }}
+          />
+        )}
       </div>
 
       <DeleteAlert

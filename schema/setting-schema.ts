@@ -170,19 +170,15 @@ export const settingSchema = z.object({
       .default([]),
   }),
 
-  seo: SeoSchema.optional(),
   seoStaticPagesHome: z.object({ seo: SeoSchema }),
-  seoStaticPagesStudio: z.object({ seo: SeoSchema }),
-  seoStaticPagesPublications: z.object({ seo: SeoSchema }),
-  seoStaticPagesMediaCenter: z.object({ seo: SeoSchema }),
-  seoStaticPagesArticles: z.object({ seo: SeoSchema }),
-  seoStaticPagesExhibition: z.object({ seo: SeoSchema }),
+  seoStaticPagesOverview: z.object({ seo: SeoSchema }),
+  seoStaticPagesMission: z.object({ seo: SeoSchema }),
+  seoStaticPagesManagementTeam: z.object({ seo: SeoSchema }),
+  seoStaticPagesManagementSystems: z.object({ seo: SeoSchema }),
   seoStaticPagesContactUs: z.object({ seo: SeoSchema }),
-  seoStaticPagesNews: z.object({ seo: SeoSchema }),
-  seoStaticPagesArtworks: z.object({ seo: SeoSchema }),
-  seoStaticPagesNasriAward: z.object({ seo: SeoSchema }),
-  seoStaticNasiriAwardOverview: z.object({ seo: SeoSchema }),
-  seoStaticNasiriAwardPastWinners: z.object({ seo: SeoSchema }),
+  seoStaticPagesBrandListing: z.object({ seo: SeoSchema }),
+  seoStaticPagesServicesListing: z.object({ seo: SeoSchema }),
+  seoStaticPagesNewsListing: z.object({ seo: SeoSchema }),
 });
 
 export type SettingSchema = z.infer<typeof settingSchema>;

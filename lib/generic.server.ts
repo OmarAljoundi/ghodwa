@@ -1,6 +1,11 @@
 "use server";
 import { db } from "@/db.server";
 import { PrismaModels, Result } from "./types";
+import {
+  deleteObjectGlobalIndexFunction,
+  executeGlobalIndexFunction,
+} from "./feed-search";
+import { revalidatePath } from "next/cache";
 
 export async function getAll<T>(
   model: PrismaModels,
@@ -51,10 +56,14 @@ export async function createOne<T>(
       data: data as never,
     });
 
+    await executeGlobalIndexFunction(model);
+
     console.info(`Successfully created record in  ${model as string}`, {
       //eslint-disable-next-line @typescript-eslint/no-explicit-any
       id: (record as any).id,
     });
+
+    revalidatePath("/", "layout");
 
     return {
       success: true,
@@ -90,10 +99,13 @@ export async function createMany<T>(
       data: data as never,
     });
 
+    await executeGlobalIndexFunction(model);
+
     console.info(
       `Successfully created ${result.count} records in  ${model as string}`
     );
 
+    revalidatePath("/", "layout");
     return {
       success: true,
       data: result,
@@ -128,9 +140,13 @@ export async function updateOne<T>(
       data: data as never,
     });
 
+    await executeGlobalIndexFunction(model);
+
     console.info(`Successfully updated record in  ${model as string}`, {
       id,
     });
+
+    revalidatePath("/", "layout");
 
     return {
       success: true,
@@ -166,10 +182,13 @@ export async function updateMany<T>(
       data: data as never,
     });
 
+    await executeGlobalIndexFunction(model);
+
     console.info(
       `Successfully updated ${result.count} records in  ${model as string}`
     );
 
+    revalidatePath("/", "layout");
     return {
       success: true,
       data: result,
@@ -202,10 +221,13 @@ export async function deleteOne<T>(
       where: { id },
     });
 
+    await deleteObjectGlobalIndexFunction(model, id);
+
     console.info(`Successfully deleted record from  ${model as string}`, {
       id,
     });
 
+    revalidatePath("/", "layout");
     return {
       success: true,
       data: record as T,
@@ -240,6 +262,8 @@ export async function deleteMany(
     console.info(
       `Successfully deleted ${result.count} records from  ${model as string}`
     );
+
+    revalidatePath("/", "layout");
 
     return {
       success: true,

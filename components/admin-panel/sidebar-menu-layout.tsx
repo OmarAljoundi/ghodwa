@@ -36,12 +36,12 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { authClient } from "@/auth-client";
-import { RiAlignItemRightFill } from "react-icons/ri";
-import { SiGoogleforms } from "react-icons/si";
-import { MdOutlinePermMedia } from "react-icons/md";
-import { MdMiscellaneousServices } from "react-icons/md";
-import { GrDocumentConfig } from "react-icons/gr";
-import { IconType } from "react-icons/lib";
+import { CollectionIcon } from "../icons/collection-icon";
+import { ContactIcon } from "../icons/contact-icon";
+import { ServicesIcon } from "../icons/services-icon";
+import { NewsIcon } from "../icons/news-icon";
+import { SettingsIcon } from "../icons/settings-icon";
+import { SearchIcon } from "../icons/search-icon";
 
 const data = {
   user: {
@@ -52,7 +52,7 @@ const data = {
     {
       url: "/admin/collections",
       title: "Collections",
-      icon: RiAlignItemRightFill,
+      icon: <CollectionIcon className="hover:bg-transparent" />,
       items: [
         {
           url: "/admin/collections/brands",
@@ -70,31 +70,30 @@ const data = {
     },
 
     {
-      url: "/admin/user-forms",
-      title: "User forms",
-      icon: SiGoogleforms,
-      items: [
-        {
-          url: "/admin/user-forms/contact-us",
-          title: "Contact Us",
-        },
-      ],
+      url: "/admin/contact-us",
+      title: "Contact Us",
+      icon: <ContactIcon className="hover:bg-transparent" />,
     },
     {
       url: "/admin/services",
       title: "Service",
-      icon: MdMiscellaneousServices,
+      icon: <ServicesIcon className="hover:bg-transparent" />,
     },
     {
       url: "/admin/news",
       title: "News",
-      icon: MdOutlinePermMedia,
+      icon: <NewsIcon className="hover:bg-transparent" />,
     },
 
     {
       url: "/admin/configuration",
       title: "Configuration",
-      icon: GrDocumentConfig,
+      icon: <SettingsIcon className="hover:bg-transparent" />,
+    },
+    {
+      url: "/admin/seo",
+      title: "Seo",
+      icon: <SearchIcon className="hover:bg-transparent" />,
     },
   ],
 };
@@ -113,7 +112,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
     (item: {
       title: string;
       url: string;
-      icon: IconType;
+      icon: ReactNode;
       items?: { title: string; url: string }[];
     }) => {
       if (item.items && item.items.length > 0) {
@@ -127,7 +126,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
+                  {item.icon && item.icon}
                   <span>{item.title}</span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
@@ -159,7 +158,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
               tooltip={item.title}
               isActive={isActive(item.url)}
             >
-              {item.icon && <item.icon />}
+              {item.icon && item.icon}
 
               <span>{item.title}</span>
             </SidebarMenuButton>

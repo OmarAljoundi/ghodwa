@@ -8,26 +8,27 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import React, { useState } from "react";
+import { CommandSearch } from "./command-search";
 
 export default function ActionMenu() {
+  const [open, setOpen] = useState(false);
   return (
     <div
       className={`ml-auto flex flex-row-reverse items-center lg:flex-row gap-x-2 lg:gap-x-0 lg:space-x-4 rtl:mr-auto rtl:ml-0 rtl:space-x-reverse `}
     >
-      <Button
-        variant="ghost"
-        size="icon"
-        className={cn("bg-primary  text-black")}
-      >
-        <Search className="size-5 " />
-        <span className="sr-only">Search</span>
-      </Button>
+      <CommandSearch open={open} setOpen={setOpen}>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setOpen(true)}
+          className={cn("bg-primary  text-black")}
+        >
+          <Search className="size-5 " />
+          <span className="sr-only">Search</span>
+        </Button>
+      </CommandSearch>
 
       <LangaugeMenu />
-
-      {/* <CommandSearch open={open} setOpen={setOpen}> */}
-
-      {/* </CommandSearch> */}
     </div>
   );
 }

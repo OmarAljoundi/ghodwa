@@ -31,6 +31,7 @@ import { Files, FileText, Link, Plus, TrashIcon } from "lucide-react";
 import { EmptyState } from "@/components/empty-state";
 import { Button } from "@/components/ui/button";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
+import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
 
 export function ModelForm({
   lang,
@@ -124,6 +125,35 @@ export function ModelForm({
           </CardContent>
         </Card>
       </div>
+      <Card className="w-72">
+        <CardHeader>
+          <CardTitle>Add your brochure</CardTitle>
+          <CardDescription>
+            Add your amazing brochure to encourage your customer more!
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <FormField
+            control={control}
+            name={`brochure`}
+            render={({ field }) => {
+              console.log("field", field.value);
+              return (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <UploaderFormSingle
+                      type="files"
+                      defaultUploadedFile={field.value ?? undefined}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              );
+            }}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
@@ -165,7 +195,7 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
                     </div>
                   </div>
 
-                  <div className="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+                  <div className="mt-2 flex flex-wrap gap-6">
                     {group.categories?.map((category) => (
                       <FormItem key={category.id} className="relative h-full">
                         <FormControl>

@@ -6,6 +6,7 @@ import { Model } from "@prisma/client";
 import React, { use } from "react";
 import { BlurFade } from "../ui/blur-fade";
 import { CommonCard } from "../common-card";
+import { notFound } from "next/navigation";
 
 export function ModelList({
   dataPromise,
@@ -15,6 +16,10 @@ export function ModelList({
   const category = use(dataPromise);
   const { name } = useFilteredLanguageData(category);
   useAddInnerPage(name);
+
+  if (!category || category.models.length === 0) {
+    return notFound();
+  }
 
   return (
     <div className="flex flex-wrap items-center sm:justify-center sm:justify-items-center sm:place-items-center ">

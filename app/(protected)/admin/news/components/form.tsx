@@ -15,13 +15,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
 import { SeoForm } from "@/components/seo-form";
 import { SlugInput } from "@/components/ui/slug-input";
 import { CreateNewsSchema } from "@/schema/news-schema";
 import { Textarea } from "@/components/ui/textarea";
 import RichTextEditor from "@/components/minimal-tiptap/editor";
 import { cn } from "@/lib/utils";
+import UploaderForm from "@/components/uploader/uploader-form";
 
 export function NewsForm({ lang }: { lang: "ar_" | "en_" }) {
   const { control } = useFormContext<CreateNewsSchema>();
@@ -114,34 +114,34 @@ export function NewsForm({ lang }: { lang: "ar_" | "en_" }) {
             />
           </CardContent>
         </Card>
+        <Card className="flex-grow-0">
+          <CardHeader>
+            <CardTitle>Import your news images</CardTitle>
+            <CardDescription>
+              Add your amazing news image to encourage your customer more!
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={control}
+              name={`image`}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>News images</FormLabel>
+                  <FormControl>
+                    <UploaderForm
+                      defaultUploadedFiles={field.value}
+                      onChange={(e) => field.onChange(e)}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+        </Card>
         <SeoForm lang={lang} />
       </div>
-      <Card className="flex-grow-0">
-        <CardHeader>
-          <CardTitle>Import your news image</CardTitle>
-          <CardDescription>
-            Add your amazing news image to encourage your customer more!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FormField
-            control={control}
-            name={`image`}
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel>{title} content</FormLabel>
-                <FormControl>
-                  <UploaderFormSingle
-                    defaultUploadedFile={field.value ?? undefined}
-                    onChange={(e) => field.onChange(e)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </CardContent>
-      </Card>
     </div>
   );
 }

@@ -54,3 +54,24 @@ export interface DataTableFilterOption<TData> {
   filterOperator?: string;
   isMulti?: boolean;
 }
+
+export type ArType = "نماذج" | "فئات" | "ماركات" | "خدمات" | "أخبار";
+export type EnType = "Models" | "Categories" | "Brands" | "Services" | "News";
+
+export type GlobleIndex = {
+  title: string;
+  description: string;
+  keywords?: string;
+  type: EnType | ArType;
+  slug: string;
+  objectID: string;
+};
+
+export type AlgoliaSearchResult = {
+  title: string;
+  description: string;
+  slug: string;
+  type: string;
+  objectID: string;
+  _highlightResult: Record<"title" | "description" | "type", { value: string }>;
+};

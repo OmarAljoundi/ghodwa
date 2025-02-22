@@ -46,7 +46,7 @@ function NewsItem(props: News) {
     <Link href={`/news/${slug}`}>
       <div className="group cursor-pointer ">
         <div className="relative aspect-[4/3] w-full mb-4">
-          {image && (
+          {image && Boolean((image as any)?.url) && (
             <Image
               src={(image as any)?.url}
               alt={title}

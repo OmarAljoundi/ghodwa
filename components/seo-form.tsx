@@ -22,14 +22,22 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 
-export function SeoForm({ lang }: { lang: "ar_" | "en_" }) {
+export function SeoForm({
+  lang,
+  ...rest
+}: {
+  lang: "ar_" | "en_";
+  title?: string;
+  description?: string;
+}) {
+  const title = rest.title || "Configure SEO for this page";
+  const description =
+    rest.description || "Here you can configure the seo for this page!";
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Configure SEO for this page</CardTitle>
-        <CardDescription>
-          Here you can configure the seo for this page!
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-4">

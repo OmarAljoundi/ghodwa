@@ -50,7 +50,7 @@ export default function UploaderForm({
 
   useEffect(() => {
     onChange(uploadedFiles);
-  }, [onChange, uploadedFiles]);
+  }, [uploadedFiles]);
 
   return (
     <>

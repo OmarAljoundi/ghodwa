@@ -20,7 +20,7 @@ export function getNewsColumns(): ColumnDef<NewsSchema>[] {
       cell: ({ row: { original } }) => (
         <Avatar className="dark:bg-white">
           <AvatarImage
-            src={original.image?.url}
+            src={original.image?.[0]?.url}
             alt="logo"
             width={50}
             className="object-contain"
@@ -85,9 +85,7 @@ export function getNewsColumns(): ColumnDef<NewsSchema>[] {
           <ToolbarAction
             data={original}
             tableName="brand"
-            onEditRedirectTo={(id) =>
-              route.push(`/admin/media-center/news/${id}`)
-            }
+            onEditRedirectTo={(id) => route.push(`/admin/news/${id}`)}
           />
         );
       },

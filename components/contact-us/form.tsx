@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
+import { submitForm } from "@/query";
+import { toast } from "sonner";
 
 export function ContactUsForm() {
   const { t, i18n } = useTranslation("common");
@@ -30,7 +32,13 @@ export function ContactUsForm() {
   });
 
   async function onSubmit(data: ContactSchema) {
-    console.log("data", data);
+    const { success } = await submitForm(data);
+    if (success) {
+      toast.success(t("Thank you for reaching out, we will contact you soon"));
+      form.reset({ email: "", name: "", message: "", subject: "" });
+      return;
+    }
+    toast.error(t("We are facing a tecnical issue, please try again later"));
   }
 
   return (

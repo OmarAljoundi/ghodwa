@@ -1,9 +1,10 @@
 "use server";
 
-import { unstable_cache } from "next/cache";
+import { unstable_cache, unstable_noStore } from "next/cache";
 import { db } from "./db.server";
 import { getSettingBySectionAsync } from "./lib/settings.server";
 import { SettingSchema } from "./schema/setting-schema";
+import { ContactSchema } from "./schema/contact-schema";
 
 export const getBrands = unstable_cache(
   async () => {
@@ -12,6 +13,7 @@ export const getBrands = unstable_cache(
         categories: true,
       },
     });
+
     return brands;
   },
   ["brands"],
@@ -156,3 +158,18 @@ export const getServiceBySlug = async (slug: string) =>
       tags: ["service", slug],
     }
   )();
+
+export const submitForm = async (data: ContactSchema) => {
+  unstable_noStore();
+
+  try {
+    await db.contact.create({
+      data,
+    });
+
+    return { success: true };
+  } catch (ex: any) {
+    console.error(ex?.message);
+    return { success: true };
+  }
+};

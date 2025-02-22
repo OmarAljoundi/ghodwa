@@ -24,6 +24,7 @@ export function CreateNews() {
       en_title: "",
       en_summary: "",
       is_published: false,
+      image: [],
     },
   });
 

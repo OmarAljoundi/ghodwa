@@ -11,7 +11,7 @@ export const newsSchema = z.object({
   en_content: z.string().min(1, { message: "Content is required" }),
   is_published: z.boolean().default(false),
   seo: SeoSchema.optional(),
-  image: z.any().optional(),
+  image: z.any().array().default([]),
   slug: z.string().min(1, { message: "Slug is required and must be unique" }),
   createdBy: z.string().default("admin"),
   createdAt: z.date().default(new Date()),

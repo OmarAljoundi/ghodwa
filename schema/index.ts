@@ -48,7 +48,7 @@ export const modelSchema = z.object({
     .default([]),
   seo: z.any().optional(),
   image: z.array(z.any()).default([]),
-  brochure: z.array(z.any()).default([]),
+  brochure: z.any().optional(),
   categoryId: z.union([z.string(), z.number()]).transform(Number),
   createdBy: z.string().default("admin"),
   createdAt: z.date().default(new Date()),

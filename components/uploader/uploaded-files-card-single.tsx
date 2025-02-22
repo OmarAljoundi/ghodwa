@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { Trash2, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { File, X } from "lucide-react";
 import { UploadedFileOmit } from "@/lib/types";
 
 interface UploadedFilesCardSingleProps {
@@ -12,7 +10,7 @@ interface UploadedFilesCardSingleProps {
   className?: string;
 }
 
-export default function UploadedFilesCardSingle({
+export function UploadedFilesCardSingle({
   uploadedFiles,
   onDelete,
 }: UploadedFilesCardSingleProps) {
@@ -22,30 +20,14 @@ export default function UploadedFilesCardSingle({
 
   return (
     <div className="relative">
-      <div className="group relative h-52 overflow-hidden rounded-lg border">
-        <Image
-          src={uploadedFiles.url}
-          alt="Preview"
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-        <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100" />
-        <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={() => onDelete(uploadedFiles.key)}
-            className="h-9 w-9 p-0"
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
       {uploadedFiles.name && (
         <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="truncate">{uploadedFiles.name}</span>
+          <div className="flex justify-start gap-x-2">
+            <File />
+            <span className="truncate inline-block">{uploadedFiles.name}</span>
+          </div>
           <button
+            type="button"
             onClick={() => onDelete(uploadedFiles.key)}
             className="ml-auto rounded-full p-1 hover:bg-muted"
           >

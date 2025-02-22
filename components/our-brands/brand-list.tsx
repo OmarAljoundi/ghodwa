@@ -4,6 +4,7 @@ import { getBrands } from "@/query";
 import { Brand } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React, { use } from "react";
 
 export function BrandList({
@@ -12,6 +13,8 @@ export function BrandList({
   dataPromise: ReturnType<typeof getBrands>;
 }) {
   const brands = use(dataPromise);
+
+  if (brands.length === 0) return notFound();
 
   return (
     <div className="flex flex-wrap items-center justify-center justify-items-center place-items-center">

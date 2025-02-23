@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { monaSans, notoKufiArabic, notoSans } from "./fonts";
 import { cookies, headers } from "next/headers";
 import { dir } from "i18next";
-import { unstable_noStore } from "next/cache";
 
 export const metadata: Metadata = {
   title: "Ghodwa Site",
@@ -19,7 +18,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  unstable_noStore();
   const lang = (await cookies())?.get("NEXT_LOCALE")?.value ?? "en";
   const headerList = await headers();
   const pathname = headerList.get("x-current-path");

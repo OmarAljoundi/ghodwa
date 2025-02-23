@@ -36,9 +36,9 @@ export default function DesktopMenu({
     <nav
       className={`px-8 py-4 hidden flex-grow lg:flex  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
     >
-      <NavigationMenu>
+      <NavigationMenu key={"main"}>
         <NavigationMenuList>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"home"}>
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink
                 className={cn(
@@ -51,7 +51,7 @@ export default function DesktopMenu({
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"about"}>
             <NavigationMenuTrigger
               className={cn("bg-transparent text-white", "font-light")}
             >
@@ -60,7 +60,7 @@ export default function DesktopMenu({
             <NavigationMenuContent>
               <ul className="w-[250px] p-1">
                 {alghodowaFilter.map((item) => (
-                  <li key={item.title}>
+                  <li key={`${item.title}-${item.url}`}>
                     <NavigationMenuLink asChild>
                       <Link
                         href={item.url}
@@ -74,7 +74,7 @@ export default function DesktopMenu({
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"brands"}>
             <NavigationMenuTrigger
               className={cn("bg-transparent text-white", "font-light")}
             >
@@ -89,7 +89,7 @@ export default function DesktopMenu({
                 <div className="grid grid-cols-3 gap-4 ">
                   {brandsFilter.map((brand) => (
                     <Link
-                      key={brand.name}
+                      key={`${brand.name}-${brand.id}`}
                       href={`/our-brands/${brand.slug}`}
                       className="flex flex-col items-center border justify-center gap-y-2 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
@@ -109,7 +109,7 @@ export default function DesktopMenu({
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"services"}>
             <NavigationMenuTrigger
               className={cn("bg-transparent text-white", "font-light")}
             >
@@ -124,7 +124,7 @@ export default function DesktopMenu({
                 <div className="space-y-4">
                   {servicesFilter.map((service) => (
                     <Link
-                      key={service.title}
+                      key={`${service.title}-${service.id}`}
                       href={`/services/${service.slug}`}
                       className="flex items-center rtl:space-x-reverse space-x-3 rounded-md p-1.5 hover:text-accent transition-all duration-300  bg-black text-white "
                     >
@@ -145,7 +145,7 @@ export default function DesktopMenu({
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"news"}>
             <Link href="/news" legacyBehavior passHref>
               <NavigationMenuLink
                 className={cn(
@@ -158,7 +158,7 @@ export default function DesktopMenu({
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem key={"contact"}>
             <Link href="/contact-us" legacyBehavior passHref>
               <NavigationMenuLink
                 className={cn(
@@ -173,7 +173,7 @@ export default function DesktopMenu({
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <ActionMenu />
+      <ActionMenu key={"actions"} />
     </nav>
   );
 }

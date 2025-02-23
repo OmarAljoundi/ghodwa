@@ -98,9 +98,9 @@ export default function MobileMenu({
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 pl-4">
-                    {alghodowaFilter.map((item) => (
+                    {alghodowaFilter.map((item, index) => (
                       <Link
-                        key={item.title}
+                        key={`${item.title}-${index}`}
                         href={item.url}
                         onClick={() => setOpen(false)}
                         className="text-sm hover:text-gray-300 transition-colors"
@@ -117,9 +117,9 @@ export default function MobileMenu({
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="grid grid-cols-2 gap-4 ">
-                    {brandsFilter.map((brand) => (
+                    {brandsFilter.map((brand, index) => (
                       <Link
-                        key={brand.name}
+                        key={`${brand.name}-${index}`}
                         href={`/our-brands/${brand.slug}`}
                         onClick={() => setOpen(false)}
                         className="flex flex-col items-center justify-center gap-y-2 hover:bg-white/10 rounded-md p-2 transition-colors"
@@ -143,9 +143,9 @@ export default function MobileMenu({
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 ">
-                    {servicesFilter.map((service) => (
+                    {servicesFilter.map((service, index) => (
                       <Link
-                        key={service.title}
+                        key={`${service.title}-${index}`}
                         onClick={() => setOpen(false)}
                         href={`/services/${service.slug}`}
                         className="flex items-center gap-x-3 hover:bg-white/10 rounded-md p-2 transition-colors"

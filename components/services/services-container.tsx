@@ -15,14 +15,14 @@ export function ServicesContainer({
   const filteredServices = useFilteredLanguageData(services);
 
   return (
-    <div className="flex flex-wrap  items-center justify-center justify-items-center place-items-center h-[440px]">
+    <div className="grid grid-cols-[12fr] gap-y-4 lg:gap-y-0 lg:grid-cols-[4fr,4fr,4fr] lg:gap-x-4 xl:gap-6 2xl:gap-x-8 ">
       {filteredServices?.map(({ icon, slug, image, title, id }, index) => (
         <BlurFade
           delay={index * 0.3}
           blur="16px"
           inView
           direction="up"
-          className="lg:basis-1/3 xl:basis-1/4 p-4 h-full"
+          className="basis-full lg:basis-1/3  p-4 h-60 lg:h-96 "
           key={id}
         >
           <Link href={`/services/${slug}`}>

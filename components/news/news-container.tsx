@@ -68,9 +68,9 @@ const NewsItem = ({ newsItem }: { newsItem: News }) => {
                 : "h-[200px]"
             )}
           >
-            {(image as any)?.url && (
+            {(image as any[])?.length > 0 && (
               <Image
-                src={(image as any)?.url}
+                src={(image as any[])[0].url}
                 alt={title}
                 fill
                 className="object-cover rounded-lg object-top"

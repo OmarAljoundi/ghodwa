@@ -1,6 +1,37 @@
 import BrandDetails from "@/components/our-brands/brand-details";
 import { getBrandBySlug } from "@/query";
+import { SeoSchema } from "@/schema/seo-schema";
+import { Metadata } from "next";
 import React from "react";
+import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en"; brandSlug: string }>;
+}): Promise<Metadata> {
+  const { locale, brandSlug } = await params;
+  const { seo, ar_name, en_name, logo } = await getBrandBySlug(brandSlug);
+
+  const images = logo
+    ? [
+        {
+          url: (logo as any).url,
+          alt: locale === "ar" ? ar_name : en_name,
+          width: 300,
+          height: 300,
+        },
+      ]
+    : [];
+
+  const dictionary = generatePageBilingualSeo(
+    (seo as SeoSchema) ?? {},
+    `/our-brands/${brandSlug}`,
+    images
+  )[locale];
+
+  return dictionary;
+}
 
 export default async function Page({
   params,

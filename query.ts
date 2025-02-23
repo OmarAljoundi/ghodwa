@@ -23,6 +23,27 @@ export const getBrands = unstable_cache(
   }
 );
 
+export const getAllModels = unstable_cache(
+  async () => {
+    const brands = await db.model.findMany({
+      include: {
+        category: {
+          include: {
+            brand: true,
+          },
+        },
+      },
+    });
+
+    return brands;
+  },
+  ["all-models"],
+  {
+    revalidate: 86400,
+    tags: ["all-models"],
+  }
+);
+
 export const getBrandBySlug = async (slug: string) =>
   unstable_cache(
     async () => {
@@ -85,6 +106,22 @@ export const getNews = unstable_cache(
   {
     revalidate: 86400,
     tags: ["news"],
+  }
+);
+
+export const getAllCategory = unstable_cache(
+  async () => {
+    const category = await db.category.findMany({
+      include: {
+        brand: true,
+      },
+    });
+    return category;
+  },
+  ["all-category"],
+  {
+    revalidate: 86400,
+    tags: ["all-category"],
   }
 );
 

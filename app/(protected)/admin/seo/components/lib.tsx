@@ -73,7 +73,7 @@ export const seoMenuItems: Record<
 
   ContactUsSeo: {
     icon: HiOutlineOfficeBuilding,
-    value: "Offices Seo",
+    value: "Contact Us Seo",
     schemaKey: "seoStaticPagesContactUs",
     title: "Configure SEO for the (contact us page)",
     description:

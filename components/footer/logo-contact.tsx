@@ -20,6 +20,9 @@ export default function LogoContact({
           alt="Alghodwa Group Logo"
           width={180}
           height={60}
+          quality={85}
+          priority={false}
+          sizes="(max-width: 768px) 120px, 150px"
           className="mb-4 rtl:hidden"
         />
         <Image
@@ -27,6 +30,9 @@ export default function LogoContact({
           alt="Alghodwa Group Logo"
           width={180}
           height={60}
+          quality={85}
+          priority={false}
+          sizes="(max-width: 768px) 120px, 150px"
           className="mb-4 ltr:hidden"
         />
 

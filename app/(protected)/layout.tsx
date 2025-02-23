@@ -8,11 +8,6 @@ import ThemeProvider from "@/providers/theme-provider";
 
 export const metadata: Metadata = {
   title: "Ghodwa CMS",
-  // icons: {
-  //   icon: "./dark-logo.svg",
-  //   shortcut: "./dark-logo.svg",
-  //   apple: "./dark-logo.svg",
-  // },
 };
 
 export default function AdminLayout({

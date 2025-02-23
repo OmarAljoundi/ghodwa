@@ -61,7 +61,10 @@ function ColumnItemGroup<
   const { t } = useTranslation("common");
   return (
     <li>
-      <Link href={item.url} className="hover:text-primary transition-colors">
+      <Link
+        href={item.url ?? ""}
+        className="hover:text-primary transition-colors"
+      >
         {t(item.title)}
       </Link>
     </li>

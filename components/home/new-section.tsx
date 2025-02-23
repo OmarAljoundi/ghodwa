@@ -42,13 +42,14 @@ function NewsItem(props: News) {
   const { createdAt, image, slug, summary, title } =
     useFilteredLanguageData(props);
   const { t } = useTranslation("common");
+
   return (
     <Link href={`/news/${slug}`}>
-      <div className="group cursor-pointer ">
+      <div className="group cursor-pointer">
         <div className="relative aspect-[4/3] w-full mb-4">
-          {image && Boolean((image as any)?.url) && (
+          {image && (image as any[]).length > 0 && (
             <Image
-              src={(image as any)?.url}
+              src={(image as any[])[0]?.url}
               alt={title}
               fill
               className="object-cover rounded-lg"

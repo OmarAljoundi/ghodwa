@@ -22,7 +22,12 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     <picture>
       <source media="(min-width: 1024px)" srcSet={largeSrc} />
 
-      <Image {...rest} src={smallSrc} alt={alt} className={className} />
+      <Image
+        {...rest}
+        src={smallSrc}
+        alt={alt ?? "Preview"}
+        className={className}
+      />
     </picture>
   );
 };

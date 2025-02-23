@@ -39,6 +39,9 @@ export function Navigation({
               className={cn("block ltr:hidden lg:w-[250px] w-[150px]")}
               width={250}
               height={50}
+              quality={85}
+              priority={true}
+              sizes="(max-width: 768px) 120px, 150px"
               alt="arabic-logo"
             />
 
@@ -47,6 +50,9 @@ export function Navigation({
               className={cn("block rtl:hidden lg:w-[250px] w-[150px]")}
               width={250}
               height={50}
+              quality={85}
+              priority={true}
+              sizes="(max-width: 768px) 120px, 150px"
               alt="english-logo"
             />
           </Link>

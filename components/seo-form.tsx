@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SeoSchema } from "@/schema/seo-schema";
 import { Tag, TagInput } from "emblor";
 import { useFormContext } from "react-hook-form";
 import {
@@ -24,9 +23,11 @@ import { Textarea } from "@/components/ui/textarea";
 
 export function SeoForm({
   lang,
+  prefiex,
   ...rest
 }: {
   lang: "ar_" | "en_";
+  prefiex?: string;
   title?: string;
   description?: string;
 }) {
@@ -41,31 +42,39 @@ export function SeoForm({
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <SeoFormInputs lang={lang} />
+        <SeoFormInputs lang={lang} prefiex={prefiex} />
       </CardContent>
     </Card>
   );
 }
 
-export function SeoFormInputs({ lang }: { lang: "ar_" | "en_" }) {
+export function SeoFormInputs({
+  lang,
+  prefiex = "",
+}: {
+  lang: "ar_" | "en_";
+  prefiex?: string;
+}) {
   const title = lang === "ar_" ? "Arabic" : "English";
   const [activeTagIndex, setActiveTagIndex] = React.useState<number | null>(
     null
   );
-  const { control } = useFormContext<{ seo: SeoSchema }>();
+  const { control } = useFormContext();
+
+  const controlPrefix = prefiex ? `${prefiex}.seo` : "seo";
 
   return (
     <div className="px-2">
       <FormField
         control={control}
-        name={`seo.${lang}metaTitle`}
+        name={`${controlPrefix}.${lang}metaTitle`}
         render={({ field }) => (
           <FormItem className="w-full">
             <FormLabel>{title} Meta Title</FormLabel>
             <FormControl>
               <Input
                 {...field}
-                value={field.value ?? undefined}
+                value={field.value ?? ""}
                 placeholder={`Enter a ${title} Title`}
               />
             </FormControl>
@@ -75,7 +84,7 @@ export function SeoFormInputs({ lang }: { lang: "ar_" | "en_" }) {
       />
       <FormField
         control={control}
-        name={`seo.${lang}metaKeywords`}
+        name={`${controlPrefix}.${lang}metaKeywords`}
         render={({ field }) => (
           <FormItem className="w-full">
             <FormLabel>{title} Meta Keywords</FormLabel>
@@ -83,10 +92,9 @@ export function SeoFormInputs({ lang }: { lang: "ar_" | "en_" }) {
               <TagInput
                 maxTags={5}
                 setTags={field.onChange}
-                tags={(field.value as Tag[]) || []}
+                tags={(field.value as Tag[]) ?? []}
                 activeTagIndex={activeTagIndex}
                 setActiveTagIndex={setActiveTagIndex}
-                addOnPaste
                 styleClasses={{
                   inlineTagsContainer: "bg-input",
                 }}
@@ -99,7 +107,7 @@ export function SeoFormInputs({ lang }: { lang: "ar_" | "en_" }) {
       />
       <FormField
         control={control}
-        name={`seo.${lang}metaDescription`}
+        name={`${controlPrefix}.${lang}metaDescription`}
         render={({ field }) => (
           <FormItem className="w-full">
             <FormLabel>{title} Meta Description</FormLabel>
@@ -107,7 +115,7 @@ export function SeoFormInputs({ lang }: { lang: "ar_" | "en_" }) {
               <Textarea
                 rows={4}
                 {...field}
-                value={field.value ?? undefined}
+                value={field.value ?? ""}
                 placeholder={`Enter a ${title} Meta Description`}
               />
             </FormControl>

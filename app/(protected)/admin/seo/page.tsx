@@ -14,7 +14,12 @@ export default function Page() {
             dataPromise={getSettingBySectionAsync("CMS")}
             schemaKey={o.schemaKey}
           >
-            <SeoForm lang="en_" title={o.title} description={o.description} />
+            <SeoForm
+              lang="en_"
+              title={o.title}
+              description={o.description}
+              prefiex={o.schemaKey}
+            />
           </BaseSettingForm>
         </TabsContent>
       ))}

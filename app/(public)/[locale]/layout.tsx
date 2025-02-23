@@ -9,8 +9,29 @@ import { getBrands, getServices, getSettings } from "@/query";
 import { BrandWithRelationsSchema } from "@/schema";
 import { CustomDirectionProvider } from "@/providers/custom-direction-provider";
 import { dir } from "i18next";
+import { Metadata, Viewport } from "next";
+import { generateLayoutBilingualSeo } from "./generate-bilingual-seo";
 
 const i18nNamespaces = ["common", "errors"];
+
+export const viewport: Viewport = {
+  themeColor: "#EFB14E",
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const dictionary = generateLayoutBilingualSeo()[locale];
+
+  return dictionary;
+}
 
 export default async function RootLayout({
   children,

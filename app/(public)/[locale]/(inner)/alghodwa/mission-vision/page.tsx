@@ -4,6 +4,24 @@ import React from "react";
 import { ContentDetails } from "../components/content-details-page";
 import { getSettings } from "@/query";
 import { BlurFade } from "@/components/ui/blur-fade";
+import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const { seoStaticPagesMission } = await getSettings();
+
+  const dictionary = generatePageBilingualSeo(
+    seoStaticPagesMission?.seo ?? {},
+    "/alghodwa/mission-vision"
+  )[locale];
+
+  return dictionary;
+}
 
 export default async function Page() {
   const { missionVision } = await getSettings();

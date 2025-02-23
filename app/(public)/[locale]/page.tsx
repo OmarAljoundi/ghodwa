@@ -5,6 +5,22 @@ import { SubHeroSection } from "@/components/home/sub-hero-section";
 import { WelcomeSection } from "@/components/home/welcome-section";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { getBrands, getNews, getServices, getSettings } from "@/query";
+import { Metadata } from "next";
+import { generatePageBilingualSeo } from "./generate-bilingual-seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const { seoStaticPagesHome } = await getSettings();
+  const dictionary = generatePageBilingualSeo(seoStaticPagesHome?.seo ?? {})[
+    locale
+  ];
+
+  return dictionary;
+}
 
 export default function Home() {
   return (

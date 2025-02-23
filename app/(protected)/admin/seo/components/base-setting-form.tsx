@@ -38,9 +38,31 @@ export function BaseSettingForm({
       })
     ),
     defaultValues,
+    // defaultValues: {
+    //   ...defaultValues,
+    //   seoStaticPagesHome: defaultValues?.seoStaticPagesHome ?? seoDefaultValues,
+    //   seoStaticPagesBrandListing:
+    //     defaultValues?.seoStaticPagesBrandListing ?? seoDefaultValues,
+    //   seoStaticPagesContactUs:
+    //     defaultValues?.seoStaticPagesContactUs ?? seoDefaultValues,
+    //   seoStaticPagesManagementSystems:
+    //     defaultValues?.seoStaticPagesManagementSystems ?? seoDefaultValues,
+    //   seoStaticPagesNewsListing:
+    //     defaultValues?.seoStaticPagesNewsListing ?? seoDefaultValues,
+    //   seoStaticPagesManagementTeam:
+    //     defaultValues?.seoStaticPagesManagementTeam ?? seoDefaultValues,
+    //   seoStaticPagesMission:
+    //     defaultValues?.seoStaticPagesMission ?? seoDefaultValues,
+    //   seoStaticPagesOverview:
+    //     defaultValues?.seoStaticPagesOverview ?? seoDefaultValues,
+    //   seoStaticPagesServicesListing:
+    //     defaultValues?.seoStaticPagesServicesListing ?? seoDefaultValues,
+    // },
   });
 
+  console.log("erros", form.formState.errors);
   console.log("erros", form.getValues());
+  console.log("schemaKey", schemaKey);
 
   async function onSubmit(body: SettingSchema) {
     const operation: "add" | "update" = defaultValues ? "update" : "add";

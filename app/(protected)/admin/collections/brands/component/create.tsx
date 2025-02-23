@@ -28,6 +28,10 @@ export function CreateBrand({
       ar_name: "",
       en_name: "",
       en_description: "",
+      categories: {
+        connect: [],
+        disconnect: [],
+      },
     },
   });
 

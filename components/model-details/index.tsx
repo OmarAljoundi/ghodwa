@@ -58,7 +58,10 @@ function LeftDetails({
         name={currentCategory.name}
       />
 
-      <DownloadBrochure className="w-full" />
+      <DownloadBrochure
+        className="w-full"
+        brochure={currentModel?.brochure as any}
+      />
       <ContactSales className="rounded-xl  w-full flex flex-wrap gap-x-4 gap-y-4 justify-between" />
     </div>
   );

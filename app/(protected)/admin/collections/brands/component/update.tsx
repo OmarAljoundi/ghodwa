@@ -35,6 +35,7 @@ export function UpdateBrand({
           data?.[0]?.categories?.map((o) => {
             return { id: o.id };
           }) ?? [],
+        disconnect: [],
       },
     },
   });
@@ -42,6 +43,7 @@ export function UpdateBrand({
   const route = useRouter();
 
   async function onSubmit(body: UpdateBrandSchema) {
+    console.log("body", body);
     const response = await updateOne<BrandSchema>("brand", data![0]!.id, body);
 
     if (response.success) {

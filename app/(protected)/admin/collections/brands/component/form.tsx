@@ -111,13 +111,13 @@ export function BrandForm({
                 <FormField
                   key={`${item.id}-${item.en_name}`}
                   control={control}
-                  name="categories.connect"
+                  name="categories"
                   render={({ field }) => {
-                    const currentValue = field.value || [];
+                    const currentValue = field.value;
 
                     const isSelected =
-                      Array.isArray(currentValue) &&
-                      currentValue.some((val) => val?.id === item.id);
+                      Array.isArray(currentValue.connect) &&
+                      currentValue.connect.some((val) => val?.id === item.id);
 
                     return (
                       <FormItem
@@ -130,16 +130,32 @@ export function BrandForm({
                             className="order-1 after:absolute after:inset-0"
                             onCheckedChange={(checked) => {
                               if (checked) {
-                                field.onChange([
-                                  ...currentValue,
+                                const newConnect = [
+                                  ...currentValue.connect,
                                   { id: item.id },
-                                ]);
+                                ];
+                                const newDisconnect =
+                                  currentValue.disconnect.filter(
+                                    (x) => x.id !== item.id
+                                  );
+                                field.onChange({
+                                  connect: newConnect,
+                                  disconnect: newDisconnect,
+                                });
                               } else {
-                                field.onChange(
-                                  currentValue.filter(
-                                    (value) => value.id !== item.id
-                                  )
+                                const newConnect = currentValue.connect.filter(
+                                  (x) => x.id !== item.id
                                 );
+
+                                const newDisconnect = [
+                                  ...currentValue.disconnect,
+                                  { id: item.id },
+                                ];
+
+                                field.onChange({
+                                  connect: newConnect,
+                                  disconnect: newDisconnect,
+                                });
                               }
                             }}
                             checked={isSelected}

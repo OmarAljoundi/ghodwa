@@ -59,8 +59,11 @@ export const modelSchema = z.object({
 export const createBrandSchema = brandSchema
   .extend({
     categories: z
-      .object({ connect: z.array(z.object({ id: z.number() })) })
-      .default({ connect: [] }),
+      .object({
+        connect: z.array(z.object({ id: z.number() })),
+        disconnect: z.array(z.object({ id: z.number() })),
+      })
+      .default({ connect: [], disconnect: [] }),
   })
   .omit({
     id: true,
@@ -71,8 +74,11 @@ export const updateBrandSchema = brandSchema
   .partial()
   .extend({
     categories: z
-      .object({ connect: z.array(z.object({ id: z.number() })) })
-      .default({ connect: [] }),
+      .object({
+        connect: z.array(z.object({ id: z.number() })),
+        disconnect: z.array(z.object({ id: z.number() })),
+      })
+      .default({ connect: [], disconnect: [] }),
   })
   .omit({
     id: true,

@@ -6,7 +6,7 @@ import { Category } from "@prisma/client";
 import React, { use } from "react";
 import { BlurFade } from "../ui/blur-fade";
 import { CommonCard } from "../common-card";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 
 export default function BrandDetails({
   dataPromise,
@@ -14,11 +14,17 @@ export default function BrandDetails({
   dataPromise: ReturnType<typeof getBrandBySlug>;
 }) {
   const brand = use(dataPromise);
+  const route = useRouter();
 
   const { name, categories, slug } = useFilteredLanguageData(brand);
   useAddInnerPage(name);
 
   if (!brand || brand.categories.length === 0) return notFound();
+
+  if (categories.length == 1) {
+    route.replace(`/our-brands/${slug}/${categories[0].slug}`);
+    return <></>;
+  }
 
   return (
     <div className="flex flex-wrap items-center sm:justify-center sm:justify-items-center sm:place-items-center">

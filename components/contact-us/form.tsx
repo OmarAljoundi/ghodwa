@@ -32,7 +32,8 @@ export function ContactUsForm() {
   });
 
   async function onSubmit(data: ContactSchema) {
-    const { success } = await submitForm(data);
+    const isArabic = lang == "ar";
+    const { success } = await submitForm(data, isArabic);
     if (success) {
       toast.success(t("Thank you for reaching out, we will contact you soon"));
       form.reset({ email: "", name: "", message: "", subject: "" });

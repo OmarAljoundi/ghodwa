@@ -1,6 +1,6 @@
 import { generatePageBilingualSeo } from "@/app/(public)/[locale]/generate-bilingual-seo";
 import { ModelDetails } from "@/components/model-details";
-import { getModelBySlug } from "@/query";
+import { getModelBySlug, getSettings } from "@/query";
 import { SeoSchema } from "@/schema/seo-schema";
 import { Metadata } from "next";
 import React from "react";
@@ -43,7 +43,10 @@ export default async function Page({
 
   return (
     <React.Fragment>
-      <ModelDetails dataPromise={getModelBySlug(modelSlug, categorySlug)} />
+      <ModelDetails
+        dataPromise={getModelBySlug(modelSlug, categorySlug)}
+        dataPromiseSetting={getSettings()}
+      />
     </React.Fragment>
   );
 }

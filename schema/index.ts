@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { fileSchemaArrayRequired, fileSchemaRequired } from "./upload-schema";
 
 export const brandSchema = z.object({
   id: z.number().int().positive(),
   ar_name: z.string().min(1),
   en_name: z.string().min(1),
-  logo: z.any().optional(),
+  logo: fileSchemaRequired,
   slug: z.string().min(1, { message: "Slug is required and must be unique" }),
   ar_description: z.string().optional(),
   en_description: z.string().optional(),
@@ -18,7 +19,7 @@ export const categorySchema = z.object({
   id: z.number().int().positive(),
   ar_name: z.string().min(1),
   en_name: z.string().min(1),
-  image: z.any().optional(),
+  image: fileSchemaRequired,
   seo: z.any().optional(),
   slug: z.string().min(1, { message: "Slug is required and must be unique" }),
   ar_description: z.string().optional(),
@@ -47,7 +48,7 @@ export const modelSchema = z.object({
     .array()
     .default([]),
   seo: z.any().optional(),
-  image: z.array(z.any()).default([]),
+  image: fileSchemaArrayRequired,
   brochure: z.any().optional(),
   categoryId: z.union([z.string(), z.number()]).transform(Number),
   createdBy: z.string().default("admin"),
@@ -71,7 +72,6 @@ export const createBrandSchema = brandSchema
     updatedAt: true,
   });
 export const updateBrandSchema = brandSchema
-  .partial()
   .extend({
     categories: z
       .object({
@@ -91,16 +91,18 @@ export const createCategorySchema = categorySchema.omit({
   createdAt: true,
   updatedAt: true,
 });
-export const updateCategorySchema = categorySchema
-  .partial()
-  .omit({ id: true, createdAt: true, updatedAt: true });
+export const updateCategorySchema = categorySchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 export const createModelSchema = modelSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
 });
-export const updateModelSchema = modelSchema.partial().omit({
+export const updateModelSchema = modelSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
@@ -119,22 +121,16 @@ export const modelWithRelationsSchema = modelSchema.extend({
   category: categorySchema.optional(),
 });
 
-export const queryBrandSchema = brandSchema
-  .extend({
-    categories: z.array(categorySchema).optional(),
-  })
-  .partial();
-export const queryCategorySchema = categorySchema
-  .extend({
-    brand: brandSchema.optional(),
-    models: z.array(modelSchema).optional(),
-  })
-  .partial();
-export const queryModelSchema = modelSchema
-  .extend({
-    category: categorySchema.optional(),
-  })
-  .partial();
+export const queryBrandSchema = brandSchema.extend({
+  categories: z.array(categorySchema).optional(),
+});
+export const queryCategorySchema = categorySchema.extend({
+  brand: brandSchema.optional(),
+  models: z.array(modelSchema).optional(),
+});
+export const queryModelSchema = modelSchema.extend({
+  category: categorySchema.optional(),
+});
 
 export type BrandSchema = z.infer<typeof brandSchema>;
 export type CreateBrandSchema = z.infer<typeof createBrandSchema>;

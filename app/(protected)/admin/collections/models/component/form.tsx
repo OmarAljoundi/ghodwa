@@ -32,6 +32,9 @@ import { EmptyState } from "@/components/empty-state";
 import { Button } from "@/components/ui/button";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
 import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
+import { cn } from "@/lib/utils";
+import RichTextEditor from "@/components/minimal-tiptap/editor";
+import { FormErrors } from "@/components/form-errors";
 
 export function ModelForm({
   lang,
@@ -40,7 +43,7 @@ export function ModelForm({
   lang: "ar_" | "en_";
   brands: Array<BrandWithRelationsSchema>;
 }) {
-  const { setValue, getValues, control } = useFormContext<CreateModelSchema>();
+  const { control } = useFormContext<CreateModelSchema>();
 
   const title = lang == "ar_" ? "Arabic" : "Engilsh";
 
@@ -61,23 +64,6 @@ export function ModelForm({
                         {...field}
                         value={field.value}
                         placeholder={`Enter ${title} Name`}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name={`${lang}description`}
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>{title} description</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value as string}
-                        placeholder={`Enter ${title} Description`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -107,6 +93,30 @@ export function ModelForm({
             />
             <h1 className="text-xl mb-4">Assign the Model Category</h1>
             <ItemCategory brands={brands} />
+
+            <FormField
+              control={control}
+              name={`${lang}description`}
+              render={({ field }) => (
+                <FormItem className="w-full mt-8">
+                  <FormLabel>{title} description</FormLabel>
+                  <FormControl>
+                    <RichTextEditor
+                      isRtL={lang == "ar_" ? true : false}
+                      throttleDelay={0}
+                      className={cn("h-full min-h-56 w-full rounded-xl")}
+                      editorContentClassName="overflow-auto h-full"
+                      placeholder="This is your placeholder..."
+                      editable={true}
+                      output="html"
+                      editorClassName="focus:outline-none px-5 py-4 h-full"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </CardContent>
         </Card>
         <SeoForm lang={lang} />
@@ -118,42 +128,58 @@ export function ModelForm({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <UploaderForm
-              defaultUploadedFiles={getValues("image") ?? []}
-              onChange={(e) => setValue("image", e)}
+            <FormField
+              control={control}
+              name={`image`}
+              render={({ field }) => {
+                return (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <UploaderForm
+                        defaultUploadedFiles={field.value ?? []}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
           </CardContent>
         </Card>
       </div>
-      <Card className="w-72">
-        <CardHeader>
-          <CardTitle>Add your brochure</CardTitle>
-          <CardDescription>
-            Add your amazing brochure to encourage your customer more!
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FormField
-            control={control}
-            name={`brochure`}
-            render={({ field }) => {
-              console.log("field", field.value);
-              return (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <UploaderFormSingle
-                      type="files"
-                      defaultUploadedFile={field.value ?? undefined}
-                      onChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-y-4">
+        <Card className="w-72">
+          <CardHeader>
+            <CardTitle>Add your brochure</CardTitle>
+            <CardDescription>
+              Add your amazing brochure to encourage your customer more!
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <FormField
+              control={control}
+              name={`brochure`}
+              render={({ field }) => {
+                console.log("field", field.value);
+                return (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <UploaderFormSingle
+                        type="files"
+                        defaultUploadedFile={field.value ?? undefined}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </CardContent>
+        </Card>
+        <FormErrors />
+      </div>
     </div>
   );
 }

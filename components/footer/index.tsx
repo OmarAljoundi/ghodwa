@@ -17,7 +17,7 @@ export function Footer({
   brands: BrandWithRelationsSchema[];
   services: Service[];
 }) {
-  const { footer } = settings;
+  const { footer, socialMediaContact } = settings;
   return (
     <footer className="bg-black text-white py-12 mt-8  lg:rounded-b-3xl rounded-t-3xl ">
       <div className="container mx-auto">
@@ -25,7 +25,7 @@ export function Footer({
           <LogoContact footer={footer} />
           <FirstFooterLayer brands={brands} />
           <SecondFooterLayer services={services} />
-          <Bottom />
+          <Bottom socialMediaContact={socialMediaContact} />
         </div>
       </div>
     </footer>

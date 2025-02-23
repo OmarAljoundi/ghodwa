@@ -209,6 +209,7 @@ function TeamColumn({
                   onChange={field.onChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

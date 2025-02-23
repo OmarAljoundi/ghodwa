@@ -39,8 +39,9 @@ export default function DesktopMenu({
       <NavigationMenu key={"main"}>
         <NavigationMenuList>
           <NavigationMenuItem key={"home"}>
-            <Link href="/">
-              <NavigationMenuLink
+            <NavigationMenuLink asChild>
+              <Link
+                href="/"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "bg-transparent text-white",
@@ -48,8 +49,8 @@ export default function DesktopMenu({
                 )}
               >
                 {t("Home")}
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem key={"about"}>
             <NavigationMenuTrigger
@@ -93,13 +94,15 @@ export default function DesktopMenu({
                       href={`/our-brands/${brand.slug}`}
                       className="flex flex-col items-center border justify-center gap-y-2 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
-                      <Image
-                        src={brand.logo?.url}
-                        alt="logo"
-                        width={35}
-                        height={35}
-                        className="object-contain flex items-center justify-center"
-                      />
+                      {brand.logo?.url && (
+                        <Image
+                          src={brand.logo?.url}
+                          alt="logo"
+                          width={35}
+                          height={35}
+                          className="object-contain flex items-center justify-center"
+                        />
+                      )}
                       <div className="text-sm font-medium leading-none">
                         {brand.name}
                       </div>
@@ -146,8 +149,9 @@ export default function DesktopMenu({
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem key={"news"}>
-            <Link href="/news">
-              <NavigationMenuLink
+            <NavigationMenuLink asChild>
+              <Link
+                href="/news"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "bg-transparent text-white",
@@ -155,12 +159,13 @@ export default function DesktopMenu({
                 )}
               >
                 {t("News")}
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem key={"contact"}>
-            <Link href="/contact-us">
-              <NavigationMenuLink
+            <NavigationMenuLink asChild>
+              <Link
+                href="/contact-us"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   "bg-transparent text-white",
@@ -168,8 +173,8 @@ export default function DesktopMenu({
                 )}
               >
                 {t("Contact us")}
-              </NavigationMenuLink>
-            </Link>
+              </Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

@@ -34,8 +34,9 @@ export function BrandForm({
   lang: "ar_" | "en_";
   categories: Array<CategorySchema>;
 }) {
-  const { setValue, getValues, control } = useFormContext<CreateBrandSchema>();
+  const { control, getValues } = useFormContext<CreateBrandSchema>();
 
+  console.log("getValues", getValues());
   const title = lang == "ar_" ? "Arabic" : "Engilsh";
 
   return (
@@ -98,7 +99,7 @@ export function BrandForm({
               )}
             />
             <h1 className="text-xl mb-4">Assign the categories</h1>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+            <div className="flex flex-row flex-wrap gap-4">
               {categories.length == 0 && (
                 <EmptyState
                   title="No categories found"
@@ -122,7 +123,7 @@ export function BrandForm({
                     return (
                       <FormItem
                         key={item.id}
-                        className="has-[[data-state=checked]]:bg-input relative flex w-full items-start gap-2 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
+                        className="w-auto has-[[data-state=checked]]:bg-input relative flex  items-start gap-8 rounded-lg border border-input p-4 shadow-sm shadow-black/5 has-[[data-state=checked]]:border-ring"
                       >
                         <FormControl>
                           <Checkbox
@@ -203,9 +204,20 @@ export function BrandForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <UploaderFormSingle
-            defaultUploadedFile={getValues("logo") ?? undefined}
-            onChange={(e) => setValue("logo", e)}
+          <FormField
+            control={control}
+            name={`logo`}
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <UploaderFormSingle
+                    defaultUploadedFile={field.value}
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </CardContent>
       </Card>

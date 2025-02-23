@@ -1,6 +1,6 @@
 "use client";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getModelBySlug } from "@/query";
+import { getModelBySlug, getSettings } from "@/query";
 import { useAddInnerPage } from "@/store/inner-page";
 import React, { use } from "react";
 import { ModelLogo } from "./model-logo";
@@ -13,8 +13,10 @@ import { ModelSpecifications } from "./model-specifications";
 
 export function ModelDetails({
   dataPromise,
+  dataPromiseSetting,
 }: {
   dataPromise: ReturnType<typeof getModelBySlug>;
+  dataPromiseSetting: ReturnType<typeof getSettings>;
 }) {
   const { currentModel } = use(dataPromise);
   const { name } = useFilteredLanguageData(currentModel);
@@ -24,20 +26,30 @@ export function ModelDetails({
   return (
     <React.Fragment>
       <div className="hidden lg:grid grid-cols-[12fr] lg:grid-cols-[4fr,8fr] gap-8 ">
-        <LeftDetails dataPromise={dataPromise} />
+        <LeftDetails
+          dataPromise={dataPromise}
+          dataPromiseSetting={dataPromiseSetting}
+        />
         <RightDetails dataPromise={dataPromise} />
       </div>
-      <MobileDetails dataPromise={dataPromise} />
+      <MobileDetails
+        dataPromise={dataPromise}
+        dataPromiseSetting={dataPromiseSetting}
+      />
     </React.Fragment>
   );
 }
 
 function LeftDetails({
   dataPromise,
+  dataPromiseSetting,
 }: {
   dataPromise: ReturnType<typeof getModelBySlug>;
+  dataPromiseSetting: ReturnType<typeof getSettings>;
 }) {
   const { currentModel, models } = use(dataPromise);
+  const { socialMediaContact } = use(dataPromiseSetting);
+
   const { id, category } = useFilteredLanguageData(currentModel);
   const currentCategory = useFilteredLanguageData(category);
 
@@ -62,7 +74,10 @@ function LeftDetails({
         className="w-full"
         brochure={currentModel?.brochure as any}
       />
-      <ContactSales className="rounded-xl  w-full flex flex-wrap gap-x-4 gap-y-4 justify-between" />
+      <ContactSales
+        socialMediaContact={socialMediaContact}
+        className="rounded-xl  w-full flex flex-wrap gap-x-4 gap-y-4 justify-between"
+      />
     </div>
   );
 }
@@ -88,10 +103,13 @@ function RightDetails({
 
 function MobileDetails({
   dataPromise,
+  dataPromiseSetting,
 }: {
   dataPromise: ReturnType<typeof getModelBySlug>;
+  dataPromiseSetting: ReturnType<typeof getSettings>;
 }) {
   const { currentModel, models } = use(dataPromise);
+  const { socialMediaContact } = use(dataPromiseSetting);
   const { id, category } = useFilteredLanguageData(currentModel);
   const currentCategory = useFilteredLanguageData(category);
   const currentLogo = useFilteredLanguageData(currentCategory.brand!);
@@ -114,7 +132,10 @@ function MobileDetails({
 
       <DownloadBrochure className="w-full" />
 
-      <ContactSales className="rounded-xl w-full flex flex-wrap gap-x-4 gap-y-4 justify-between" />
+      <ContactSales
+        socialMediaContact={socialMediaContact}
+        className="rounded-xl w-full flex flex-wrap gap-x-4 gap-y-4 justify-between"
+      />
 
       <OtherModelsList
         className="lg:px-6 w-full"

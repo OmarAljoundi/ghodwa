@@ -1,10 +1,9 @@
-import DeleteAlert from "@/components/delete-alert";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { FileUploader } from "@/components/uploader/file-uploader";
 import { useUploadFile } from "@/hooks/use-upload-file";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { UploadedFileOmit } from "@/lib/types";
 import { UploadedImagesCardSingle } from "./uploaded-images-card-single";
 import { UploadedFilesCardSingle } from "./uploaded-files-card-single";
@@ -30,9 +29,6 @@ export function UploaderFormSingle({
     useUploadFile("imageUploader", {
       defaultUploadedFiles: defaultUploadedFile ? [defaultUploadedFile] : [],
     });
-
-  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
-  const [selectedKey, setSelectedKey] = useState<string | undefined>();
 
   const onDeleteCallback = useCallback(
     async (key: string[]) => {
@@ -100,10 +96,7 @@ export function UploaderFormSingle({
             uploadedFiles={
               uploadedFiles.length > 0 ? uploadedFiles[0] : undefined
             }
-            onDelete={(key) => {
-              setSelectedKey(key);
-              setOpenDeleteAlert(true);
-            }}
+            onDelete={(key) => onDeleteCallback([key])}
           />
         )}
 
@@ -112,22 +105,10 @@ export function UploaderFormSingle({
             uploadedFiles={
               uploadedFiles.length > 0 ? uploadedFiles[0] : undefined
             }
-            onDelete={(key) => {
-              setSelectedKey(key);
-              setOpenDeleteAlert(true);
-            }}
+            onDelete={(key) => onDeleteCallback([key])}
           />
         )}
       </div>
-
-      <DeleteAlert
-        description="Are you sure you want to delete this image? this action can't be undone"
-        title="Delete selected image"
-        mutateKey={`Delete-image-${selectedKey}`}
-        onDelete={() => onDeleteCallback([selectedKey ?? ""])}
-        onOpenChange={setOpenDeleteAlert}
-        open={openDeleteAlert}
-      />
     </>
   );
 }

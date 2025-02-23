@@ -5,6 +5,9 @@ import { db } from "./db.server";
 import { getSettingBySectionAsync } from "./lib/settings.server";
 import { SettingSchema } from "./schema/setting-schema";
 import { ContactSchema } from "./schema/contact-schema";
+import { Resend } from "resend";
+import ContactUs from "./emails/contact-us";
+import { ReactNode } from "react";
 
 export const getBrands = unstable_cache(
   async () => {
@@ -196,13 +199,27 @@ export const getServiceBySlug = async (slug: string) =>
     }
   )();
 
-export const submitForm = async (data: ContactSchema) => {
+export const submitForm = async (data: ContactSchema, isArabic: boolean) => {
   unstable_noStore();
 
   try {
     await db.contact.create({
       data,
     });
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const { error } = await resend.emails.send({
+      from: process.env.FROMEMAIL!,
+      to: data.email,
+      subject: isArabic ? "شكرًا لتواصلك معنا!" : "Thank You for Reaching Out!",
+      react: ContactUs({ username: data.name, isArabic }) as ReactNode,
+      bcc: process.env.BCCEMAIL,
+    });
+
+    if (error) {
+      return { error: error.message, success: false };
+    }
 
     return { success: true };
   } catch (ex: any) {

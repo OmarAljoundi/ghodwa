@@ -1,6 +1,5 @@
 "use client";
 import React, { use } from "react";
-import Image from "next/image";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import { getSettings } from "@/query";
@@ -21,16 +20,6 @@ export function SubHeroSection({
   const { url, text } = useFilteredLanguageData(callToAction);
   return (
     <div className="relative w-full h-[400px] md:h-[600px]">
-      <Image
-        src={media?.url}
-        alt={title}
-        fill
-        style={{ objectFit: "cover" }}
-        className="rounded-none lg:rounded-3xl"
-        priority
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-      />
-
       <ResponsiveImage
         largeSrc={media?.url}
         smallSrc={mobile_media?.url}

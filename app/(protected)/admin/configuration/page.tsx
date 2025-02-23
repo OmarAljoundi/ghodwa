@@ -10,6 +10,7 @@ import { ManagementSystemSettingForm } from "./components/management-systems-set
 import { ManagementTeamSettingForm } from "./components/management-team-setting-form";
 import { WorkingHoursSettingForm } from "./components/working-hours-setting-form";
 import { OfficesSettingForm } from "./components/offices-setting-form";
+import { SocialMediaSettingForm } from "./components/social-media-setting-form";
 
 export default function Page() {
   return (
@@ -20,6 +21,15 @@ export default function Page() {
           schemaKey="home"
         >
           <HomeSettingsForm />
+        </BaseSettingForm>
+      </TabsContent>
+
+      <TabsContent value={"SocialMedia"}>
+        <BaseSettingForm
+          dataPromise={getSettingBySectionAsync("CMS")}
+          schemaKey="socialMediaContact"
+        >
+          <SocialMediaSettingForm />
         </BaseSettingForm>
       </TabsContent>
 

@@ -236,7 +236,7 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
   }, []);
 
   return (
-    <div className="p-6 rounded-lg gap-x-2">
+    <div>
       <div className="flex flex-col gap-y-4">
         <FormField
           control={control}
@@ -338,6 +338,7 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
     </div>
   );
 }
+
 function ShowContact({
   value,
   onChange,

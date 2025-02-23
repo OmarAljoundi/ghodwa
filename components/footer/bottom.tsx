@@ -1,48 +1,91 @@
 "use client";
-import React from "react";
+
+import { SettingSchema } from "@/schema/setting-schema";
+import React, { JSX } from "react";
 import { useTranslation } from "react-i18next";
-import { FaLinkedin } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaFacebook,
+  FaYoutube,
+  FaTwitter,
+  FaInstagram,
+  FaWhatsapp,
+  FaPhoneAlt,
+} from "react-icons/fa";
+import { CiMail } from "react-icons/ci";
 
-export function Bottom() {
+type SocialIconKey =
+  | "Youtube"
+  | "Facebook"
+  | "LinkedIn"
+  | "Instagram"
+  | "X"
+  | "Email"
+  | "Whatsapp"
+  | "Phone";
+
+const CONTACT_CHANNELS = ["Whatsapp", "Phone", "Email"] as const;
+
+const socialIcons: Record<SocialIconKey, JSX.Element> = {
+  Youtube: <FaYoutube className="size-5 text-white" />,
+  Facebook: <FaFacebook className="size-5 text-white" />,
+  LinkedIn: <FaLinkedin className="size-5 text-white" />,
+  Instagram: <FaInstagram className="size-5 text-white" />,
+  X: <FaTwitter className="size-5 text-white" />,
+  Email: <CiMail className="size-5 text-white" />,
+  Whatsapp: <FaWhatsapp className="size-5 text-white" />,
+  Phone: <FaPhoneAlt className="size-5 text-white" />,
+};
+
+interface BottomProps {
+  socialMediaContact?: SettingSchema["socialMediaContact"];
+}
+
+export function Bottom({ socialMediaContact }: BottomProps) {
   const { t } = useTranslation("common");
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = socialMediaContact?.items?.filter(
+    (x) => !CONTACT_CHANNELS.includes(x.channel as any)
+  );
+
+  if (!socialMediaContact?.items?.length) {
+    return null;
+  }
+
   return (
-    <div className="md:col-span-2 md:flex-row items-start  justify-start gap-x-6 xl:gap-x-12 flex flex-col-reverse gap-y-4 md:gap-y-0">
-      <div className="mt-8  md:flex-row justify-start gap-6 items-center">
-        <div>
-          <p className="text-sm text-gray-400">
-            © {t("Copyright 2016 Alghodwa Group")}
-          </p>
-        </div>
+    <div className="md:col-span-2 md:flex-row items-start justify-start gap-x-6 xl:gap-x-12 flex flex-col-reverse gap-y-4 md:gap-y-0">
+      <div className="mt-8 md:flex-row justify-start gap-6 items-center">
+        <p className="text-sm text-gray-400">
+          © {t("Copyright")} {currentYear} {t("Alghodwa Group")}
+        </p>
       </div>
 
-      <div className="mt-4 flex-1">
-        <span className="text-primary">{t("Follow us:")}</span>
-        <div className="flex gap-x-2 mt-2">
-          <a
-            href="#"
-            className="p-2 hover:bg-orange-500 border rounded-lg transition-all duration-300"
-            aria-label="YouTube"
-          >
-            <FaYoutube className="size-6 text-white" />
-          </a>
-          <a
-            href="#"
-            className="p-2 hover:bg-orange-500 border rounded-lg transition-all duration-300"
-            aria-label="Facebook"
-          >
-            <FaFacebook className="size-6 text-white" />
-          </a>
-          <a
-            href="#"
-            className="p-2 hover:bg-orange-500 border rounded-lg transition-all duration-300"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedin className="size-6 text-white" />
-          </a>
+      {socialLinks && socialLinks?.length > 0 && (
+        <div className="mt-4 flex-1">
+          <span className="text-primary">{t("Follow us:")}</span>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {socialLinks.map(({ channel, url, id }) => {
+              if (!url) return null;
+
+              const icon = socialIcons[channel as SocialIconKey];
+
+              return (
+                <a
+                  key={id}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 hover:bg-orange-500 border rounded-lg transition-all duration-300"
+                  aria-label={channel}
+                >
+                  {icon}
+                </a>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

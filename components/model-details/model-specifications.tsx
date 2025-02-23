@@ -18,9 +18,12 @@ export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
       <BlurFade
         delay={0.1}
         direction={"left"}
-        className="w-full text-black leading-5"
+        className="w-full text-black leading-5 minimal-tiptap-editor"
       >
-        <p>{description}</p>
+        <div
+          className="ProseMirror"
+          dangerouslySetInnerHTML={{ __html: description ?? "" }}
+        />
       </BlurFade>
 
       <BlurFade

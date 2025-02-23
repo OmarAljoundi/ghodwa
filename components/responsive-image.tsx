@@ -6,8 +6,8 @@ interface ResponsiveImageProps
     React.ComponentPropsWithoutRef<typeof Image>,
     "src" | "width" | "height"
   > {
-  largeSrc: string;
-  smallSrc: string;
+  largeSrc?: string;
+  smallSrc?: string;
   className?: string;
 }
 
@@ -18,6 +18,8 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   className,
   ...rest
 }) => {
+  if (!largeSrc || !smallSrc) return <></>;
+
   return (
     <picture>
       <source media="(min-width: 1024px)" srcSet={largeSrc} />

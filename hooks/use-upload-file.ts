@@ -1,12 +1,10 @@
 import * as React from "react";
 import { toast } from "sonner";
 import { type UploadFilesOptions } from "uploadthing/types";
-
 import { getErrorMessage } from "@/lib/handle-error";
 import { uploadFiles } from "@/lib/uploadthing";
 import { UploadedFile, UploadedFileOmit } from "@/lib/types";
 import { FileRouter } from "@/file-router";
-import { deleteUTFiles } from "@/lib/uploadthing.server";
 
 interface UseUploadFileProps
   extends Pick<
@@ -56,7 +54,7 @@ export function useUploadFile(
   async function onDelete(keys: string[]) {
     setIsDeleting(true);
     try {
-      await deleteUTFiles(keys);
+      //await deleteUTFiles(keys);
       const newMedia = uploadedFiles.filter((file) => !keys.includes(file.key));
       setUploadedFiles(newMedia);
       setIsDeleting(false);

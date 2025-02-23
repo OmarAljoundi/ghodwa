@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { SeoSchema } from "./seo-schema";
+import { fileSchemaRequired } from "./upload-schema";
 
 export const serviceSchema = z.object({
   id: z.number().int().positive(),
@@ -9,9 +10,9 @@ export const serviceSchema = z.object({
   en_content: z.string().min(1, { message: "Content is required" }),
   is_published: z.boolean().default(false),
   seo: SeoSchema.optional(),
-  image: z.any().optional(),
-  en_icon: z.any().optional(),
-  ar_icon: z.any().optional(),
+  image: fileSchemaRequired,
+  en_icon: fileSchemaRequired,
+  ar_icon: fileSchemaRequired,
   order: z.number().optional(),
   slug: z.string().min(1, { message: "Slug is required and must be unique" }),
   createdBy: z.string().default("admin"),
@@ -24,7 +25,7 @@ export const createServiceSchema = serviceSchema.omit({
   createdAt: true,
   updatedAt: true,
 });
-export const updateServiceSchema = serviceSchema.partial().omit({
+export const updateServiceSchema = serviceSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,

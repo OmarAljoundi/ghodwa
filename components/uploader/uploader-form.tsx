@@ -1,12 +1,11 @@
 "use client";
 import UploadedFilesCard from "@/components/uploader/uploaded-files-card";
-import DeleteAlert from "@/components/delete-alert";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { FileUploader } from "@/components/uploader/file-uploader";
 import { useUploadFile } from "@/hooks/use-upload-file";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { UploadedFileOmit } from "@/lib/types";
 
 type UploaderFormProps = {
@@ -35,13 +34,12 @@ export default function UploaderForm({
     defaultUploadedFiles: defaultUploadedFiles as UploadedFileOmit[],
   });
 
-  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
-  const [selectedKey, setSelectedKey] = useState<string | undefined>();
-
   const onDeleteCallback = useCallback(
     async (key: string[]) => {
       const { newMedia, message, success } = await onDelete(key);
       if (onSuccessfullyDeletion) await onSuccessfullyDeletion(newMedia);
+
+      onChange(newMedia);
 
       return { message, success };
     },
@@ -97,21 +95,9 @@ export default function UploaderForm({
         <UploadedFilesCard
           onChange={onChangeUploadFiles}
           uploadedFiles={uploadedFiles}
-          onDelete={(key) => {
-            setSelectedKey(key);
-            setOpenDeleteAlert(true);
-          }}
+          onDelete={(key) => onDeleteCallback([key])}
         />
       </div>
-
-      <DeleteAlert
-        description="Are you sure you want to delete this image? this action can't be undone"
-        title="Delete selected image"
-        mutateKey={`Delete-image-${selectedKey}`}
-        onDelete={() => onDeleteCallback([selectedKey ?? ""])}
-        onOpenChange={setOpenDeleteAlert}
-        open={openDeleteAlert}
-      />
     </>
   );
 }

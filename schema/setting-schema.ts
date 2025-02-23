@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { SeoSchema } from "./seo-schema";
+import { fileSchemaRequired } from "./upload-schema";
 
 export const buttonVarientsEnums = ["default", "outline", "text"] as const;
 export const MAX_ARTWORKS = 3;
@@ -37,10 +38,10 @@ export const settingSchema = z.object({
     homehero: z
       .object({
         id: z.string(),
-        en_media: z.any(),
-        ar_media: z.any(),
-        en_mobile_media: z.any(),
-        ar_mobile_media: z.any(),
+        en_media: fileSchemaRequired,
+        ar_media: fileSchemaRequired,
+        en_mobile_media: fileSchemaRequired,
+        ar_mobile_media: fileSchemaRequired,
         ar_title: z.string(),
         en_title: z.string(),
         ar_subtitle: z.string().optional(),
@@ -56,10 +57,10 @@ export const settingSchema = z.object({
       callToAction: z.object(callToActionSchema.shape),
     }),
     moreSection: z.object({
-      en_media: z.any(),
-      ar_media: z.any(),
-      en_mobile_media: z.any(),
-      ar_mobile_media: z.any(),
+      en_media: fileSchemaRequired,
+      ar_media: fileSchemaRequired,
+      en_mobile_media: fileSchemaRequired,
+      ar_mobile_media: fileSchemaRequired,
       ar_title: z.string(),
       en_title: z.string(),
       ar_subtitle: z.string(),
@@ -128,7 +129,7 @@ export const settingSchema = z.object({
         en_summary: z.string(),
         ar_jobTitle: z.string(),
         en_jobTitle: z.string(),
-        media: z.any(),
+        media: fileSchemaRequired,
         contactNumber: z.string(),
       })
       .array()
@@ -167,6 +168,27 @@ export const settingSchema = z.object({
       })
       .array()
       .max(3)
+      .default([]),
+  }),
+
+  socialMediaContact: z.object({
+    items: z
+      .object({
+        id: z.string(),
+        channel: z.enum([
+          "Youtube",
+          "Facebook",
+          "LinkedIn",
+          "Instagram",
+          "X",
+          "Email",
+          "Whatsapp",
+          "Phone",
+        ]),
+        url: z.string(),
+      })
+      .array()
+      .max(8)
       .default([]),
   }),
 

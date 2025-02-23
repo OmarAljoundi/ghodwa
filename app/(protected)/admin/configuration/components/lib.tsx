@@ -1,4 +1,4 @@
-import { Clock, House, ListEnd } from "lucide-react";
+import { Clock, House, ListEnd, MessageCircle } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
 import { TbDeviceVisionPro } from "react-icons/tb";
 import { RiTeamLine } from "react-icons/ri";
@@ -39,6 +39,11 @@ export const menuItems = {
   WorkingHours: {
     icon: Clock,
     value: "Working Hours",
+  },
+
+  SocialMedia: {
+    icon: MessageCircle,
+    value: "Social Media",
   },
 
   Footer: {

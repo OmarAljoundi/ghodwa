@@ -42,11 +42,7 @@ export const config = {
     {
       source:
         "/((?!api|_next|_vercel|favicon.ico|sitemap.xml|robots.txt|login|.*\\..*).*)",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "next-action" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
+      missing: [{ type: "header", key: "next-action" }],
     },
   ],
 };

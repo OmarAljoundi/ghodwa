@@ -39,7 +39,7 @@ export default function DesktopMenu({
       <NavigationMenu key={"main"}>
         <NavigationMenuList>
           <NavigationMenuItem key={"home"}>
-            <Link href="/" legacyBehavior passHref>
+            <Link href="/">
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
@@ -146,7 +146,7 @@ export default function DesktopMenu({
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem key={"news"}>
-            <Link href="/news" legacyBehavior passHref>
+            <Link href="/news">
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
@@ -159,7 +159,7 @@ export default function DesktopMenu({
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem key={"contact"}>
-            <Link href="/contact-us" legacyBehavior passHref>
+            <Link href="/contact-us">
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),

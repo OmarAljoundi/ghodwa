@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface ResponsiveImageProps
   extends Omit<
@@ -18,19 +19,17 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   className,
   ...rest
 }) => {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   if (!largeSrc || !smallSrc) return <></>;
 
   return (
-    <picture>
-      <source media="(min-width: 1024px)" srcSet={largeSrc} />
-
-      <Image
-        {...rest}
-        src={smallSrc}
-        alt={alt ?? "Preview"}
-        className={className}
-      />
-    </picture>
+    <Image
+      {...rest}
+      src={isDesktop ? largeSrc : smallSrc}
+      alt={alt ?? "Preview"}
+      className={className}
+    />
   );
 };
 

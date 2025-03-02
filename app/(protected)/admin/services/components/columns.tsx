@@ -84,7 +84,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
         return (
           <ToolbarAction
             data={original}
-            tableName="brand"
+            tableName="service"
             onEditRedirectTo={(id) => route.push(`/admin/services/${id}`)}
           />
         );

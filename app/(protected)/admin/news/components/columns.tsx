@@ -84,7 +84,7 @@ export function getNewsColumns(): ColumnDef<NewsSchema>[] {
         return (
           <ToolbarAction
             data={original}
-            tableName="brand"
+            tableName="news"
             onEditRedirectTo={(id) => route.push(`/admin/news/${id}`)}
           />
         );

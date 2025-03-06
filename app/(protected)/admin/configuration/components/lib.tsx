@@ -4,11 +4,16 @@ import { TbDeviceVisionPro } from "react-icons/tb";
 import { RiTeamLine } from "react-icons/ri";
 import { SiGooglecampaignmanager360 } from "react-icons/si";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { CgFormatSeparator } from "react-icons/cg";
 
 export const menuItems = {
   Home: {
     icon: House,
     value: "Home",
+  },
+  ExtraAboutContent: {
+    icon: CgFormatSeparator,
+    value: "About Extra Pages",
   },
 
   Overview: {

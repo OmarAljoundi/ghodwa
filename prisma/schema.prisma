@@ -90,36 +90,39 @@ model Passkey {
 
 
 model Brand {
-  id                  Int      @id @default(autoincrement())
-  ar_name             String   @unique
-  en_name             String   @unique
-  slug                String   @unique
-  logo                Json?
-  ar_description      String?
-  en_description      String?
-  seo                 Json?     
-  createdBy           String @default("admin") 
-  createdAt           DateTime @default(now()) 
-  updatedAt           DateTime @updatedAt 
+  id                  Int         @id @default(autoincrement())
+  ar_name             String      @unique
+  en_name             String      @unique
+  slug                String      @unique
+  logo                Json?   
+  ar_description      String?   
+  en_description      String?   
+  showOnHomePage      Boolean     @default(true)
+  showOnFooter        Boolean     @default(true)
+  showOnMeun          Boolean     @default(true)
+  seo                 Json?        
+  createdBy           String      @default("admin") 
+  createdAt           DateTime    @default(now()) 
+  updatedAt           DateTime    @updatedAt 
   categories          Category[]
 
   @@map("brand")
 }
 
 model Category {
-  id                  Int      @id @default(autoincrement())
-  ar_name             String
-  en_name             String
-  slug                String   @unique
-  image               Json?
-  seo                 Json?  
-  ar_description      String?
-  en_description      String?
-  brandId             Int?
-  brand               Brand?   @relation(fields: [brandId], references: [id], onDelete: SetNull)
-  createdBy           String   @default("admin") 
-  createdAt           DateTime @default(now()) 
-  updatedAt           DateTime @updatedAt 
+  id                  Int         @id @default(autoincrement())
+  ar_name             String    
+  en_name             String    
+  slug                String      @unique
+  image               Json?   
+  seo                 Json?     
+  ar_description      String?   
+  en_description      String?   
+  brandId             Int?    
+  brand               Brand?      @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  createdBy           String      @default("admin") 
+  createdAt           DateTime    @default(now()) 
+  updatedAt           DateTime    @updatedAt 
   models              Model[]
 
   @@map("category")
@@ -177,6 +180,9 @@ model Service {
   image                   Json?      
   ar_icon                 Json?      
   en_icon                 Json?   
+  showOnFooter            Boolean    @default(true)
+  showOnMeun              Boolean    @default(true)
+  addGridBg               Boolean    @default(true)
   order                   Int        @default(1)   
   createdBy               String     @default("admin") 
   createdAt               DateTime   @default(now()) 

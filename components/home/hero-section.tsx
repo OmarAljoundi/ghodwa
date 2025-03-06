@@ -84,10 +84,10 @@ function CustomCarouselItem({
         <div className="relative h-full w-full ">
           <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
             <div
-              className="text content ltr:pe-16 rtl:ps-16  ltr:ps-4 rtl:pe-4  ltr:lg:pe-24 rtl:lg:ps-24  
+              className="text-center ltr:md:text-left rtl:md:text-right content ltr:pe-4 rtl:ps-4  ltr:ps-4 rtl:pe-4  ltr:lg:pe-24 rtl:lg:ps-24  
             ltr:lg:ps-8 rtl:lg:pe-8 items-center w-full lg:w-2/3  ltr:me-auto rtl:me-[unset] rtl:ms-auto space-y-6 z-10"
             >
-              <h1 className="font-light text-3xl md:text-6xl text-gray-50 relative z-10 rtl:text-right whitespace-pre-line rtl:md:leading-[75px] rtl:leading-10">
+              <h1 className="font-light text-3xl md:text-6xl text-gray-50 relative z-10  whitespace-pre-line rtl:md:leading-[75px] rtl:leading-10">
                 {title}
               </h1>
             </div>

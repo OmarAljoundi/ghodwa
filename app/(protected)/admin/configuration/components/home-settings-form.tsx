@@ -58,7 +58,7 @@ export default function HomeSettingsForm({
     [lang, watchFields]
   );
 
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
   return (
     <div className="flex flex-col gap-y-4">
       <Card>

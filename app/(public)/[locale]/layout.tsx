@@ -60,13 +60,13 @@ export default async function RootLayout({
       >
         <div className="flex flex-grow flex-col lg:p-4 relative">
           <Navigation
-            brands={brands as BrandWithRelationsSchema[]}
+            brands={brands as unknown as BrandWithRelationsSchema[]}
             services={services}
           />
           <main className="flex-grow">{children}</main>
           <Footer
             settings={settings}
-            brands={brands as BrandWithRelationsSchema[]}
+            brands={brands as unknown as BrandWithRelationsSchema[]}
             services={services}
           />
         </div>

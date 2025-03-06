@@ -28,7 +28,6 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    console.log("User verfied");
     const headers = new Headers(request.headers);
     headers.set("x-current-path", request.nextUrl.pathname);
     return NextResponse.next({ headers });

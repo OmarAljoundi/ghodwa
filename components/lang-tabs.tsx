@@ -4,13 +4,19 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Button } from "./ui/button";
 import { useFormContext } from "react-hook-form";
 
-interface LangTabsProps {
+interface LangTabsProps extends React.ComponentPropsWithoutRef<typeof Tabs> {
   children: [ReactNode, ReactNode];
   extraElement?: ReactNode;
+  showSave?: boolean;
 }
 
-export function LangTabs({ children, extraElement }: LangTabsProps) {
-  const { formState } = useFormContext();
+export function LangTabs({
+  children,
+  extraElement,
+  showSave = true,
+  ...rest
+}: LangTabsProps) {
+  const form = useFormContext();
   if (Children.count(children) !== 2) {
     throw new Error("LangTabs must have exactly two children.");
   }
@@ -33,7 +39,7 @@ export function LangTabs({ children, extraElement }: LangTabsProps) {
 
   return (
     <React.Fragment>
-      <Tabs defaultValue="tab-en">
+      <Tabs defaultValue="tab-en" {...rest}>
         <TabsList className="h-auto rounded-none border-b border-border bg-transparent p-0 w-full justify-between">
           <div className="flex justify-start">
             <TabsTrigger
@@ -66,9 +72,14 @@ export function LangTabs({ children, extraElement }: LangTabsProps) {
           <div className="flex items-end gap-x-2">
             {extraElement}
 
-            <Button variant={"default"} disabled={formState.isSubmitting}>
-              Save
-            </Button>
+            {showSave && (
+              <Button
+                variant={"default"}
+                disabled={form?.formState?.isSubmitting}
+              >
+                Save
+              </Button>
+            )}
           </div>
         </TabsList>
         <TabsContent value="tab-en">{enChild}</TabsContent>

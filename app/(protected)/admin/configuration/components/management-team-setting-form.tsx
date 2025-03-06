@@ -22,6 +22,7 @@ import { SettingSchema } from "@/schema/setting-schema";
 import { closestCorners } from "@dnd-kit/core";
 import React, { useCallback } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { ControlForm } from "./control-form";
 
 export function ManagementTeamSettingForm({
   lang = "ar_",
@@ -29,7 +30,7 @@ export function ManagementTeamSettingForm({
   lang?: "ar_" | "en_";
 }) {
   const { control, setValue, watch } = useFormContext<SettingSchema>();
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   const watchFields = watch("managementTeam.team");
 
@@ -74,10 +75,23 @@ export function ManagementTeamSettingForm({
       <CardContent className="pt-2">
         <FormField
           control={control}
+          name={`managementTeam.${lang}page_title`}
+          render={({ field }) => (
+            <FormItem className="h-max w-full">
+              <FormLabel>Page title</FormLabel>
+              <FormControl>
+                <Input placeholder="Please fill the page title..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
           name={`managementTeam.${lang}title`}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>{title} title of the page </FormLabel>
+              <FormLabel>{title} title of the section </FormLabel>
               <FormControl>
                 <Input {...field} placeholder="Meet the leadership team" />
               </FormControl>
@@ -98,6 +112,8 @@ export function ManagementTeamSettingForm({
             </FormItem>
           )}
         />
+
+        <ControlForm prefix="managementTeam" />
 
         <div className="flex justify-between items-center gap-x-2 mb-2">
           <h1 className="text-xl">Team members</h1>
@@ -133,7 +149,7 @@ function TeamColumn({
   lang: "ar_" | "en_";
 }) {
   const { control } = useFormContext<SettingSchema>();
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
     <div className="border border-border flex flex-row p-6 rounded-lg gap-x-6">

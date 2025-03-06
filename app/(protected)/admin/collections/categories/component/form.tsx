@@ -23,7 +23,7 @@ import { SlugInput } from "@/components/ui/slug-input";
 export function CategoryForm({ lang }: { lang: "ar_" | "en_" }) {
   const { control } = useFormContext<CreateCategorySchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
     <div className="flex justify-start items-start gap-x-4">

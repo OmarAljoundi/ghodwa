@@ -106,20 +106,35 @@ export const settingSchema = z.object({
   }),
 
   overview: z.object({
+    ar_page_title: z.string().default(""),
+    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
+    showPage: z.boolean().default(true),
+    showOnMenu: z.boolean().default(true),
+    showOnFooter: z.boolean().default(true),
   }),
 
   missionVision: z.object({
+    ar_page_title: z.string().default(""),
+    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
+    showPage: z.boolean().default(true),
+    showOnMenu: z.boolean().default(true),
+    showOnFooter: z.boolean().default(true),
   }),
 
   managementTeam: z.object({
+    ar_page_title: z.string().default(""),
+    en_page_title: z.string().default(""),
     ar_title: z.string().default("Our Experts"),
     en_title: z.string().default("Our Experts"),
     ar_badgeTitle: z.string().default("Our Experts"),
     en_badgeTitle: z.string().default("Our Experts"),
+    showPage: z.boolean().default(true),
+    showOnMenu: z.boolean().default(true),
+    showOnFooter: z.boolean().default(true),
     team: z
       .object({
         id: z.string(),
@@ -137,8 +152,13 @@ export const settingSchema = z.object({
   }),
 
   managementSystems: z.object({
+    ar_page_title: z.string().default(""),
+    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
+    showPage: z.boolean().default(true),
+    showOnMenu: z.boolean().default(true),
+    showOnFooter: z.boolean().default(true),
   }),
 
   workingHours: z.object({
@@ -191,6 +211,22 @@ export const settingSchema = z.object({
       .max(8)
       .default([]),
   }),
+
+  extraAboutPages: z
+    .object({
+      id: z.string(),
+      slug: z.string(),
+      ar_title: z.string(),
+      en_title: z.string(),
+      ar_content: z.string(),
+      en_content: z.string(),
+      seo: SeoSchema.optional(),
+      showPage: z.boolean().default(true),
+      showOnMenu: z.boolean().default(true),
+      showOnFooter: z.boolean().default(true),
+    })
+    .array()
+    .default([]),
 
   seoStaticPagesHome: z.object({ seo: SeoSchema }),
   seoStaticPagesOverview: z.object({ seo: SeoSchema }),

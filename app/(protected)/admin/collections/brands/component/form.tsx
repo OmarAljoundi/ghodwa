@@ -37,7 +37,7 @@ export function BrandForm({
   const { control, getValues } = useFormContext<CreateBrandSchema>();
 
   console.log("getValues", getValues());
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
     <div className="flex justify-start items-start gap-x-4">

@@ -84,7 +84,7 @@ export function CommandSearch({
         <CommandInput
           key="command-input"
           dir={i18n.language == "en" ? "ltr" : "rtl"}
-          placeholder={t("Type a search word...")}
+          placeholder={t("Type a search word")}
           value={searchString}
           onValueChange={setSearchString}
         />
@@ -137,7 +137,7 @@ export function CommandSearch({
                     >
                       {searchResults?.length == 0 && (
                         <h1 className="text-lg font-bold text-center p-4 border-border border-b">
-                          {t("No results found.")}
+                          {t("No results found")}
                         </h1>
                       )}
 

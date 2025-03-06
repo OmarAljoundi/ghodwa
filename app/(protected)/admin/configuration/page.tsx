@@ -11,6 +11,7 @@ import { ManagementTeamSettingForm } from "./components/management-team-setting-
 import { WorkingHoursSettingForm } from "./components/working-hours-setting-form";
 import { OfficesSettingForm } from "./components/offices-setting-form";
 import { SocialMediaSettingForm } from "./components/social-media-setting-form";
+import { ExtraAboutContentForm } from "./components/extra-about-content-form";
 
 export default function Page() {
   return (
@@ -21,6 +22,15 @@ export default function Page() {
           schemaKey="home"
         >
           <HomeSettingsForm />
+        </BaseSettingForm>
+      </TabsContent>
+
+      <TabsContent value={"ExtraAboutContent"}>
+        <BaseSettingForm
+          dataPromise={getSettingBySectionAsync("CMS")}
+          schemaKey="extraAboutPages"
+        >
+          <ExtraAboutContentForm />
         </BaseSettingForm>
       </TabsContent>
 

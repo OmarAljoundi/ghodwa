@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "brand" ADD COLUMN     "showOnFooter" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "showOnHomePage" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "showOnMeun" BOOLEAN NOT NULL DEFAULT true;
+
+-- AlterTable
+ALTER TABLE "service" ADD COLUMN     "addGridBg" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "showOnFooter" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "showOnMeun" BOOLEAN NOT NULL DEFAULT true;

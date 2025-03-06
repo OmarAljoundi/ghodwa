@@ -27,7 +27,7 @@ export function NewSection({
       <div className="flex-col flex mx-auto items-center gap-y-2 lg:gap-y-8">
         <h1 className="text-4xl">{title}</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-16 gap-y-8">
-          {news.map((item, index) => (
+          {news.slice(0, 3).map((item, index) => (
             <BlurFade key={item.id} inView delay={0.35 * index}>
               <NewsItem {...item} />
             </BlurFade>

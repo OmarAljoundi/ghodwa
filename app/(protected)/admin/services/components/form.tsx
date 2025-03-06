@@ -25,7 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
   const { control } = useFormContext<CreateServiceSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
     <div className="flex justify-start items-start gap-x-4">

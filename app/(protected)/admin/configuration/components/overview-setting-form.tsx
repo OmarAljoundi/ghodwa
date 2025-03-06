@@ -19,6 +19,8 @@ import { cn } from "@/lib/utils";
 import { SettingSchema } from "@/schema/setting-schema";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import { ControlForm } from "./control-form";
+import { Input } from "@/components/ui/input";
 
 export function OverviewSettingForm({
   lang = "ar_",
@@ -26,6 +28,7 @@ export function OverviewSettingForm({
   lang?: "ar_" | "en_";
 }) {
   const { control } = useFormContext<SettingSchema>();
+
   return (
     <Card>
       <CardHeader>
@@ -38,6 +41,23 @@ export function OverviewSettingForm({
 
       <CardContent className="pt-2">
         <div className="flex flex-col gap-y-4">
+          <FormField
+            control={control}
+            name={`overview.${lang}page_title`}
+            render={({ field }) => (
+              <FormItem className="h-max w-full">
+                <FormLabel>Page title</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Please fill the page title..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <ControlForm prefix="overview" />
           <FormField
             control={control}
             name={`overview.${lang}content`}

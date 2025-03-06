@@ -85,7 +85,7 @@ export default function DesktopMenu({
               <div className="w-[600px] p-4">
                 <h3 className="text-lg font-medium">{t("Our Brands")}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  {t("Discover our diverse portfolio of innovative brands.")}
+                  {t("Discover our diverse portfolio of innovative brands")}
                 </p>
                 <div className="grid grid-cols-3 gap-4 ">
                   {brandsFilter.map((brand) => (
@@ -122,7 +122,7 @@ export default function DesktopMenu({
               <div className="w-[400px] p-4">
                 <h3 className=" text-lg font-medium">{t("Our Services")}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  {t("Explore our range of professional services.")}
+                  {t("Explore our range of professional services")}
                 </p>
                 <div className="space-y-4">
                   {servicesFilter.map((service) => (

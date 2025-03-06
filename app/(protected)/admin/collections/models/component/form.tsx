@@ -45,7 +45,7 @@ export function ModelForm({
 }) {
   const { control } = useFormContext<CreateModelSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "Engilsh";
+  const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
     <div className="flex justify-start items-start gap-x-4">

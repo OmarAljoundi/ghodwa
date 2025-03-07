@@ -102,7 +102,6 @@ function ContactInfoItem({
     useFilteredLanguageData(contactInfo);
   return (
     <div className="flex justify-between py-3 first:pt-0 last:pb-0">
-      text-primary font-semibold
       <div className="flex flex-col">
         <h3 className="text-primary font-semibold">{title}</h3>
         <p className="text-sm rtl:text-right ltr:text-left" dir="ltr">

@@ -9,6 +9,7 @@ import { ServiceCard } from "../service-card";
 import { Service } from "@prisma/client";
 import { BlurFade } from "../ui/blur-fade";
 import { ArrowRight } from "lucide-react";
+import { useServicesPages } from "@/hooks/use-render-items";
 
 export function WelcomeSection({
   dataPromise,
@@ -19,6 +20,7 @@ export function WelcomeSection({
 }) {
   const data = use(dataPromise);
   const services = use(dataPromiseServices);
+  const serviceItems = useServicesPages(services.slice(0, 3));
 
   const { callToAction, subtitle, title } = useFilteredLanguageData(
     data.home.welcomeSection
@@ -46,7 +48,7 @@ export function WelcomeSection({
         </Link>
       </div>
       <div className="grid grid-cols-[12fr] gap-y-4 lg:gap-y-0 lg:grid-cols-[4fr,4fr,4fr] lg:gap-x-4 xl:gap-6 2xl:gap-x-8 ">
-        {services.map((service, index) => (
+        {serviceItems.map((service, index) => (
           <BlurFade
             key={service.id}
             inView
@@ -62,11 +64,13 @@ export function WelcomeSection({
 }
 
 function ServiceCardItem({ service }: { service: Service }) {
-  const { image, icon, slug, title } = useFilteredLanguageData(service);
+  const { image, icon, slug, title, addGridBg } =
+    useFilteredLanguageData(service);
 
   return (
     <Link href={`/services/${slug}`} className="hover:zoom-in-95">
       <ServiceCard
+        addGridBg={addGridBg}
         icon={(icon as any)?.url}
         backgroundImage={(image as any)?.url}
         title={title}

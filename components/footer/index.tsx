@@ -7,6 +7,7 @@ import { SettingSchema } from "@/schema/setting-schema";
 import { FirstFooterLayer } from "./first-footer-layer";
 import { BrandWithRelationsSchema } from "@/schema";
 import { Service } from "@prisma/client";
+import { WebsiteBy } from "./website-by";
 
 export function Footer({
   settings,
@@ -24,8 +25,9 @@ export function Footer({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6  justify-items-start px-4 xl:px-0">
           <LogoContact footer={footer} />
           <FirstFooterLayer brands={brands} />
-          <SecondFooterLayer services={services} />
+          <SecondFooterLayer services={services} settings={settings} />
           <Bottom socialMediaContact={socialMediaContact} />
+          <WebsiteBy />
         </div>
       </div>
     </footer>

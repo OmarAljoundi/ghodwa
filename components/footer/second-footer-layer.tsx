@@ -1,27 +1,34 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { ColumnGroup } from "./column-group";
 import { Service } from "@prisma/client";
-import { AlGhodwaMenu } from "../menu/nav-items";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+import { useExtraPages, useServicesPages } from "@/hooks/use-render-items";
+import { SettingSchema } from "@/schema/setting-schema";
 
-export function SecondFooterLayer({ services }: { services: Service[] }) {
-  const memoItems = useMemo(() => {
-    return services.map((o) => {
-      return {
-        ar_title: o.ar_title,
-        en_title: o.en_title,
-        url: `/services/${o.slug}`,
-      };
-    });
-  }, [services]);
+export function SecondFooterLayer({
+  services,
+  settings,
+}: {
+  services: Service[];
+  settings: SettingSchema;
+}) {
+  const items = useServicesPages(services, "footer");
+  const itemsFiltered = useFilteredLanguageData(items);
 
-  const itemsFiltered = useFilteredLanguageData(memoItems);
+  const mappedItems = itemsFiltered.map((x) => {
+    return {
+      title: x.title,
+      url: `/services/${x.slug}`,
+    };
+  });
 
-  const alGhodwaMenuFiltered = useFilteredLanguageData(AlGhodwaMenu);
+  const extraAlGhodwaMenu = useExtraPages(settings, "footer");
+  const alGhodwaMenuFiltered = useFilteredLanguageData(extraAlGhodwaMenu);
+
   return (
     <div className="grid grid-cols-1 gap-8 pe-3 w-full">
       <div>
-        <ColumnGroup items={itemsFiltered} title="Services" />
+        <ColumnGroup items={mappedItems} title="Services" />
       </div>
       <div>
         <ColumnGroup items={alGhodwaMenuFiltered} title="Al Ghodwa" />

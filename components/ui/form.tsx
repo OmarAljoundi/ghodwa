@@ -149,7 +149,7 @@ const FormControl = React.forwardRef<
       aria-invalid={!!error}
       className={cn(
         "placeholder:text-left",
-        direction == "rtl" ? "rtl text-right" : ""
+        direction == "rtl" ? "rtl text-right font-arabic-body" : ""
       )}
       {...props}
     />

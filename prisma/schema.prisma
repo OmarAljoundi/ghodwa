@@ -97,9 +97,8 @@ model Brand {
   logo                Json?   
   ar_description      String?   
   en_description      String?   
-  showOnHomePage      Boolean     @default(true)
   showOnFooter        Boolean     @default(true)
-  showOnMeun          Boolean     @default(true)
+  showOnMenu          Boolean     @default(true)
   seo                 Json?        
   createdBy           String      @default("admin") 
   createdAt           DateTime    @default(now()) 
@@ -181,7 +180,7 @@ model Service {
   ar_icon                 Json?      
   en_icon                 Json?   
   showOnFooter            Boolean    @default(true)
-  showOnMeun              Boolean    @default(true)
+  showOnMenu              Boolean    @default(true)
   addGridBg               Boolean    @default(true)
   order                   Int        @default(1)   
   createdBy               String     @default("admin") 

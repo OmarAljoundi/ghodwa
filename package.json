@@ -70,6 +70,7 @@
     "@tiptap/starter-kit": "^2.11.5",
     "@uidotdev/usehooks": "^2.4.1",
     "@uploadthing/react": "^7.1.5",
+    "algoliasearch": "^5.20.4",
     "better-auth": "^1.1.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

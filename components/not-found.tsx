@@ -23,7 +23,7 @@ export function Illustration(props: React.ComponentPropsWithoutRef<"svg">) {
 
 export function NotFound({
   title = "Page not found",
-  description = "Lost, this page is In another system, it may be.",
+  description = "Lost this page is In another system it may be",
 }: NotFoundProps) {
   const { t } = useTranslation("common");
   const route = useRouter();

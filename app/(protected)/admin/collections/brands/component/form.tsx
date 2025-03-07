@@ -26,6 +26,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { FaRegFile } from "react-icons/fa6";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { SlugInput } from "@/components/ui/slug-input";
+import { ControlForm } from "../../../configuration/components/control-form";
 
 export function BrandForm({
   lang,
@@ -34,9 +35,8 @@ export function BrandForm({
   lang: "ar_" | "en_";
   categories: Array<CategorySchema>;
 }) {
-  const { control, getValues } = useFormContext<CreateBrandSchema>();
+  const { control } = useFormContext<CreateBrandSchema>();
 
-  console.log("getValues", getValues());
   const title = lang == "ar_" ? "Arabic" : "English";
 
   return (
@@ -85,7 +85,7 @@ export function BrandForm({
               name={`slug`}
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>{title} name</FormLabel>
+                  <FormLabel>Slug</FormLabel>
                   <FormControl>
                     <SlugInput
                       firstText="/brands/"
@@ -98,6 +98,7 @@ export function BrandForm({
                 </FormItem>
               )}
             />
+            <ControlForm showPage={false} />
             <h1 className="text-xl mb-4">Assign the categories</h1>
             <div className="flex flex-row flex-wrap gap-4">
               {categories.length == 0 && (

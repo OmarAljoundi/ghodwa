@@ -5,13 +5,23 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { AlGhodwaMenu } from "@/components/menu/nav-items";
+
 import { usePathname } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "react-i18next";
+import { SettingSchema } from "@/schema/setting-schema";
+import { useExtraPages } from "@/hooks/use-render-items";
 
-export function AlghodwaPagesSitemap({ className }: { className: string }) {
-  const alGhodwaMenuFiltered = useFilteredLanguageData(AlGhodwaMenu);
+export function AlghodwaPagesSitemap({
+  className,
+  settings,
+}: {
+  className: string;
+  settings: SettingSchema;
+}) {
+  const allAboutPages = useExtraPages(settings);
+
+  const alGhodwaMenuFiltered = useFilteredLanguageData(allAboutPages);
   const pathname = usePathname();
   const { t } = useTranslation("common");
 

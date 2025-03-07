@@ -116,6 +116,7 @@ export function ServiceTable({
                 <SortableItem key={props.id} value={props.id} asChild>
                   <div className="flex flex-col gap-y-2 relative h-96">
                     <ServiceCard
+                      addGridBg={props.addGridBg}
                       backgroundImage={props.image?.url ?? ""}
                       icon={props.en_icon?.url ?? ""}
                       title={props.en_title}

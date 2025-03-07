@@ -18,18 +18,29 @@ import { Service } from "@prisma/client";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { AlGhodwaMenu } from "./nav-items";
+import { SettingSchema } from "@/schema/setting-schema";
+import {
+  useBrandsPages,
+  useExtraPages,
+  useServicesPages,
+} from "@/hooks/use-render-items";
 
 export default function DesktopMenu({
   brands,
   services,
+  settings,
 }: {
   brands: BrandWithRelationsSchema[];
   services: Service[];
+  settings: SettingSchema;
 }) {
-  const brandsFilter = useFilteredLanguageData(brands);
-  const servicesFilter = useFilteredLanguageData(services);
-  const alghodowaFilter = useFilteredLanguageData(AlGhodwaMenu);
+  const allAboutPages = useExtraPages(settings, "menu");
+  const serviceItems = useServicesPages(services, "menu");
+  const brandItems = useBrandsPages(brands, "menu");
+
+  const brandsFilter = useFilteredLanguageData(brandItems);
+  const servicesFilter = useFilteredLanguageData(serviceItems);
+  const alghodowaFilter = useFilteredLanguageData(allAboutPages);
 
   const { t } = useTranslation("common");
   return (

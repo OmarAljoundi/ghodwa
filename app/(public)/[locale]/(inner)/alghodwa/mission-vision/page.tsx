@@ -6,6 +6,7 @@ import { getSettings } from "@/query";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,8 @@ export async function generateMetadata({
 
 export default async function Page() {
   const { missionVision } = await getSettings();
+
+  if (!missionVision.showPage) return notFound();
   return (
     <BlurFade inView>
       <InnerPageClient currentPage={"Mission & visions"} />

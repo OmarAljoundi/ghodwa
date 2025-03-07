@@ -20,22 +20,35 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import ActionMenu from "./action-menu";
-import { AlGhodwaMenu } from "./nav-items";
 import { useTranslation } from "react-i18next";
+import { SettingSchema } from "@/schema/setting-schema";
+import {
+  useBrandsPages,
+  useExtraPages,
+  useServicesPages,
+} from "@/hooks/use-render-items";
 
 export default function MobileMenu({
   isRTL,
   brands,
   services,
+  settings,
 }: {
   isRTL: boolean;
   brands: BrandWithRelationsSchema[];
   services: Service[];
+  settings: SettingSchema;
 }) {
   const [open, setOpen] = useState(false);
-  const brandsFilter = useFilteredLanguageData(brands);
-  const servicesFilter = useFilteredLanguageData(services);
-  const alghodowaFilter = useFilteredLanguageData(AlGhodwaMenu);
+
+  const allAboutPages = useExtraPages(settings, "menu");
+  const serviceItems = useServicesPages(services, "menu");
+  const brandItems = useBrandsPages(brands, "menu");
+
+  const brandsFilter = useFilteredLanguageData(brandItems);
+  const servicesFilter = useFilteredLanguageData(serviceItems);
+  const alghodowaFilter = useFilteredLanguageData(allAboutPages);
+
   const { t } = useTranslation("common");
 
   return (

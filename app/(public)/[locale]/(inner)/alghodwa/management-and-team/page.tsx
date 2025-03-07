@@ -6,6 +6,7 @@ import { TeamMember } from "../components/team-member";
 import { getSettings } from "@/query";
 import { Metadata } from "next";
 import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,8 @@ export async function generateMetadata({
 
 export default async function Page() {
   const { managementTeam } = await getSettings();
+  if (!managementTeam.showPage) return notFound();
+
   return (
     <BlurFade inView>
       <InnerPageClient currentPage={"Management & Team"} />

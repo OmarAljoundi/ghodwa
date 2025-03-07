@@ -60,6 +60,7 @@ export default async function RootLayout({
       >
         <div className="flex flex-grow flex-col lg:p-4 relative">
           <Navigation
+            settings={settings}
             brands={brands as unknown as BrandWithRelationsSchema[]}
             services={services}
           />

@@ -8,13 +8,16 @@ import DesktopMenu from "./desktop-menu";
 import { BrandWithRelationsSchema } from "@/schema";
 import { Service } from "@prisma/client";
 import MobileMenu from "./mobile-menu";
+import { SettingSchema } from "@/schema/setting-schema";
 
 export function Navigation({
   brands,
   services,
+  settings,
 }: {
   brands: BrandWithRelationsSchema[];
   services: Service[];
+  settings: SettingSchema;
 }) {
   const { i18n } = useTranslation();
   const currentLocale = i18n.language;
@@ -58,8 +61,13 @@ export function Navigation({
           </Link>
         </div>
 
-        <DesktopMenu brands={brands} services={services} />
-        <MobileMenu brands={brands} services={services} isRTL={isRTL} />
+        <DesktopMenu brands={brands} services={services} settings={settings} />
+        <MobileMenu
+          brands={brands}
+          services={services}
+          settings={settings}
+          isRTL={isRTL}
+        />
       </div>
     </header>
   );

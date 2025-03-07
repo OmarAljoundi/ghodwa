@@ -6,6 +6,7 @@ import { getSettings } from "@/query";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Metadata } from "next";
 import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -25,6 +26,9 @@ export async function generateMetadata({
 
 export default async function Page() {
   const { overview } = await getSettings();
+
+  if (!overview.showPage) return notFound();
+
   return (
     <BlurFade inView>
       <InnerPageClient currentPage={"Overview"} />

@@ -5,34 +5,45 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useFormContext } from "react-hook-form";
 
-export function ControlForm({ prefix }: { prefix: string }) {
+export function ControlForm({
+  prefix,
+  showPage = true,
+  children,
+}: {
+  prefix?: string;
+  showPage?: boolean;
+  children?: ReactNode;
+}) {
   const { control } = useFormContext();
+  const key = prefix ? `${prefix}.` : "";
   return (
     <div className="flex justify-between gap-x-2">
-      <FormField
-        control={control}
-        name={`${prefix}.showPage`}
-        render={({ field }) => (
-          <FormItem className="h-max w-full">
-            <FormControl>
-              <CheckboxCard
-                title="Show the page"
-                desc="Control if you want to show the page or hide it"
-                onCheckedChange={field.onChange}
-                checked={field.value}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      {showPage && (
+        <FormField
+          control={control}
+          name={`${key}showPage`}
+          render={({ field }) => (
+            <FormItem className="h-max w-full">
+              <FormControl>
+                <CheckboxCard
+                  title="Show the page"
+                  desc="Control if you want to show the page or hide it"
+                  onCheckedChange={field.onChange}
+                  checked={field.value}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      )}
 
       <FormField
         control={control}
-        name={`${prefix}.showOnFooter`}
+        name={`${key}showOnFooter`}
         render={({ field }) => (
           <FormItem className="h-max w-full">
             <FormControl>
@@ -50,7 +61,7 @@ export function ControlForm({ prefix }: { prefix: string }) {
 
       <FormField
         control={control}
-        name={`${prefix}.showOnMenu`}
+        name={`${key}showOnMenu`}
         render={({ field }) => (
           <FormItem className="h-max w-full">
             <FormControl>
@@ -65,6 +76,7 @@ export function ControlForm({ prefix }: { prefix: string }) {
           </FormItem>
         )}
       />
+      {children}
     </div>
   );
 }

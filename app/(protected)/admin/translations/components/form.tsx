@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect } from "react";
-import { getTranslations, saveTranslations } from "../actions";
+import { getTranslations, saveTranslations } from "@/lib/translations.server";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -16,14 +16,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
-const TranslationItemSchema = z.record(z.string());
+const TranslationItemSchema = z.record(z.string().optional().default(""));
 
 const TranslationFormSchema = z.object({
   translations: TranslationItemSchema,
 });
 
 type TranslationFormValues = z.infer<typeof TranslationFormSchema>;
+
 export function TranslationForm({
   currentLanguage,
   searchTerm,
@@ -33,28 +35,32 @@ export function TranslationForm({
   lang: "ar_" | "en_";
 }) {
   const queryClient = useQueryClient();
+  const route = useRouter();
   const { data: translations, isLoading: isTranslationsLoading } = useQuery({
     queryKey: ["translations", currentLanguage],
-    queryFn: () => getTranslations(currentLanguage),
+    queryFn: async () => {
+      const { translations } = await getTranslations(currentLanguage);
+      return translations;
+    },
     staleTime: 1000 * 60 * 5,
   });
 
   const saveTranslationsMutation = useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       lang,
       data,
     }: {
       lang: "tab-en" | "tab-ar";
       data: Record<string, string>;
-    }) => saveTranslations(lang, data),
-    onSuccess: () => {
+    }) => {
+      await saveTranslations(lang, data);
+    },
+    onSuccess: async () => {
       toast.success("Translations saved", {
         description: `Successfully updated ${currentLanguage} translations.`,
       });
-      queryClient.invalidateQueries({
-        queryKey: ["translations", currentLanguage],
-      });
-      queryClient.invalidateQueries({ queryKey: ["backups", currentLanguage] });
+      await queryClient.invalidateQueries();
+      route.refresh();
     },
     onError: (error) => {
       toast.error("Error saving translations", {
@@ -135,6 +141,11 @@ export function TranslationForm({
                         <Input
                           {...field}
                           dir={currentLanguage === "tab-ar" ? "rtl" : "ltr"}
+                          className={
+                            currentLanguage == "tab-ar"
+                              ? "font-arabic-body"
+                              : ""
+                          }
                         />
                       </FormControl>
                     </FormItem>
@@ -153,9 +164,7 @@ export function TranslationForm({
           <Button
             type="submit"
             disabled={
-              isTranslationsLoading ||
-              !form.formState.isDirty ||
-              saveTranslationsMutation.isPending
+              isTranslationsLoading || saveTranslationsMutation.isPending
             }
           >
             {saveTranslationsMutation.isPending ? "Saving..." : "Save changes"}

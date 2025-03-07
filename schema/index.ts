@@ -12,6 +12,8 @@ export const brandSchema = z.object({
   seo: z.any().optional(),
   createdBy: z.string().default("admin"),
   createdAt: z.date().default(new Date()),
+  showOnMenu: z.boolean().default(true),
+  showOnFooter: z.boolean().default(true),
   updatedAt: z.date(),
 });
 

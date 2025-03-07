@@ -21,6 +21,8 @@ import { CreateServiceSchema } from "@/schema/service-schema";
 import RichTextEditor from "@/components/minimal-tiptap/editor";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { ControlForm } from "../../configuration/components/control-form";
+import { CheckboxCard } from "@/components/ui/checkbox-card";
 
 export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
   const { control } = useFormContext<CreateServiceSchema>();
@@ -71,6 +73,25 @@ export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
                 )}
               />
             </div>
+            <ControlForm showPage={false}>
+              <FormField
+                control={control}
+                name={`addGridBg`}
+                render={({ field }) => (
+                  <FormItem className="h-max w-full">
+                    <FormControl>
+                      <CheckboxCard
+                        title="Show grid box"
+                        desc="Control if you want to show the grid box in the background"
+                        onCheckedChange={field.onChange}
+                        checked={field.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </ControlForm>
             <FormField
               control={control}
               name={`${lang}content`}

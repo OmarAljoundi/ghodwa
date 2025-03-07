@@ -9,6 +9,7 @@ interface ServiceCardProps {
   backgroundImage: string;
   icon: string;
   title: string;
+  addGridBg: boolean;
 }
 
 export const ServiceCard = ({
@@ -16,6 +17,7 @@ export const ServiceCard = ({
   backgroundImage,
   icon,
   title,
+  addGridBg,
   fullHeight = true,
 }: ServiceCardProps) => {
   return (
@@ -39,7 +41,7 @@ export const ServiceCard = ({
       <div className="absolute inset-0  rounded-3xl" />
 
       <div
-        className="grid-pattern rounded-3xl"
+        className={cn(`rounded-3xl`, addGridBg ? "grid-pattern" : "")}
         style={{
           maskImage: "none",
           WebkitMaskImage: "none",

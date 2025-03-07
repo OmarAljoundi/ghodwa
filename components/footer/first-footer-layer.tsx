@@ -1,28 +1,27 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { ColumnGroup } from "./column-group";
 import { BrandWithRelationsSchema } from "@/schema";
 import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+import { useBrandsPages } from "@/hooks/use-render-items";
 
 export function FirstFooterLayer({
   brands,
 }: {
   brands: BrandWithRelationsSchema[];
 }) {
-  const items = useMemo(() => {
-    return brands.map((o) => {
-      return {
-        ar_title: o.ar_name,
-        en_title: o.en_name,
-        url: `/our-brands/${o.slug}`,
-      };
-    });
-  }, [brands]);
-
+  const items = useBrandsPages(brands, "footer");
   const filtredItems = useFilteredLanguageData(items);
+
+  const mappedItems = filtredItems.map((o) => {
+    return {
+      title: o.name,
+      url: `/our-brands/${o.slug}`,
+    };
+  });
 
   return (
     <div className="col-span-full md:col-span-1 pe-3 w-full">
-      <ColumnGroup items={filtredItems} title="Our Brands" />
+      <ColumnGroup items={mappedItems} title="Our Brands" />
     </div>
   );
 }

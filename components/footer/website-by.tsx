@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import WebsiteByIcon from "../icons/website-by-icon";
 
 export function WebsiteBy() {
   const { t } = useTranslation("common");
@@ -15,14 +15,8 @@ export function WebsiteBy() {
         <h1 aria-label="website-by" className="text-sm">
           {t("Website by")}
         </h1>
-        <Image
-          alt="Website by"
-          src={"/website-by.svg"}
-          width={70}
-          height={35}
-          quality={100}
-          loading="lazy"
-        />
+
+        <WebsiteByIcon width={80} />
       </Link>
     </div>
   );

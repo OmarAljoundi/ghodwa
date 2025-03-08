@@ -106,6 +106,9 @@ export const settingSchema = z.object({
   }),
 
   overview: z.object({
+    ar_page_title: z.string().default("ملخص"),
+    en_page_title: z.string().default("Overview"),
+
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -114,6 +117,8 @@ export const settingSchema = z.object({
   }),
 
   missionVision: z.object({
+    ar_page_title: z.string().default("الرسالة والرؤية"),
+    en_page_title: z.string().default("Mission & Visions"),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -122,6 +127,8 @@ export const settingSchema = z.object({
   }),
 
   managementTeam: z.object({
+    ar_page_title: z.string().default("الإدارة والفريق"),
+    en_page_title: z.string().default("Management & Team"),
     ar_title: z.string().default("Our Experts"),
     en_title: z.string().default("Our Experts"),
     ar_badgeTitle: z.string().default("Our Experts"),
@@ -146,6 +153,8 @@ export const settingSchema = z.object({
   }),
 
   managementSystems: z.object({
+    ar_page_title: z.string().default("أنظمة الإدارة"),
+    en_page_title: z.string().default("Management Systems"),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),

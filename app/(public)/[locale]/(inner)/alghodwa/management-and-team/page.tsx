@@ -24,17 +24,27 @@ export async function generateMetadata({
   return dictionary;
 }
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}) {
+  const { locale } = await params;
   const { managementTeam } = await getSettings();
   if (!managementTeam.showPage) return notFound();
 
+  const label =
+    locale == "ar"
+      ? managementTeam.ar_page_title
+      : managementTeam.en_page_title;
+
   return (
     <BlurFade inView>
-      <InnerPageClient currentPage={"Management & Team"} />
+      <InnerPageClient currentPage={label} />
       <RegisterBreadcrumbClient
         breadcrumb={{
           href: "/management-and-team",
-          label: "Management & Team",
+          label,
         }}
       />
       <TeamMember teamMember={managementTeam} />

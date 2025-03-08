@@ -30,17 +30,22 @@ export function useExtraPages(
         }) ?? [];
 
     const mappedAlGhodwaMenu =
-      AlGhodwaMenu?.filter((x) => {
-        if (x.en_title == "Overview") {
+      AlGhodwaMenu?.map((item) => ({ ...item })).filter((x) => {
+        if (x.en_title === "Overview") {
+          x.en_title = settings.overview.en_page_title;
+          x.ar_title = settings.overview.ar_page_title;
           if (!settings.overview.showPage) return false;
 
           if (type === "menu") return settings.overview.showOnMenu;
 
           if (type === "footer") return settings.overview.showOnFooter;
+
           return true;
         }
 
-        if (x.en_title == "Mission & Vision") {
+        if (x.en_title === "Mission & Vision") {
+          x.en_title = settings.missionVision.en_page_title;
+          x.ar_title = settings.missionVision.ar_page_title;
           if (!settings.missionVision.showPage) return false;
 
           if (type === "menu") return settings.missionVision.showOnMenu;
@@ -49,7 +54,9 @@ export function useExtraPages(
           return true;
         }
 
-        if (x.en_title == "Management and Team") {
+        if (x.en_title === "Management and Team") {
+          x.en_title = settings.managementTeam.en_page_title;
+          x.ar_title = settings.managementTeam.ar_page_title;
           if (!settings.managementTeam.showPage) return false;
 
           if (type === "menu") return settings.managementTeam.showOnMenu;
@@ -58,7 +65,9 @@ export function useExtraPages(
           return true;
         }
 
-        if (x.en_title == "Management Systems") {
+        if (x.en_title === "Management Systems") {
+          x.en_title = settings.managementSystems.en_page_title;
+          x.ar_title = settings.managementSystems.ar_page_title;
           if (!settings.managementSystems.showPage) return false;
 
           if (type === "menu") return settings.managementSystems.showOnMenu;
@@ -66,25 +75,13 @@ export function useExtraPages(
           if (type === "footer") return settings.managementSystems.showOnFooter;
           return true;
         }
+
+        // If none of the conditions match, keep the item
+        return true;
       }) ?? [];
 
     return [...mappedAlGhodwaMenu, ...mappedExtraPages];
-  }, [
-    settings.extraAboutPages,
-    settings.managementSystems.showOnFooter,
-    settings.managementSystems.showOnMenu,
-    settings.managementSystems.showPage,
-    settings.managementTeam.showOnFooter,
-    settings.managementTeam.showOnMenu,
-    settings.managementTeam.showPage,
-    settings.missionVision.showOnFooter,
-    settings.missionVision.showOnMenu,
-    settings.missionVision.showPage,
-    settings.overview.showOnFooter,
-    settings.overview.showOnMenu,
-    settings.overview.showPage,
-    type,
-  ]);
+  }, [settings, type]);
 
   return allAboutPages;
 }

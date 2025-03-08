@@ -24,24 +24,34 @@ export async function generateMetadata({
   return dictionary;
 }
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}) {
+  const { locale } = await params;
   const { managementSystems } = await getSettings();
 
   if (!managementSystems.showPage) return notFound();
 
+  const label =
+    locale == "ar"
+      ? managementSystems.ar_page_title
+      : managementSystems.en_page_title;
+
   return (
     <BlurFade inView>
-      <InnerPageClient currentPage={"Management Systems"} />
+      <InnerPageClient currentPage={label} />
       <RegisterBreadcrumbClient
         breadcrumb={{
           href: "/management-systems",
-          label: "Management Systems",
+          label,
         }}
       />
       <ContentDetails
         ar_content={managementSystems.ar_content}
         en_content={managementSystems.en_content}
-        title="Management Systems"
+        title={label}
       />
     </BlurFade>
   );

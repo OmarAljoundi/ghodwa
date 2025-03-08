@@ -20,6 +20,7 @@ import { SettingSchema } from "@/schema/setting-schema";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { ControlForm } from "./control-form";
+import { Input } from "@/components/ui/input";
 
 export function MissionVisionSettingForm({
   lang = "ar_",
@@ -27,6 +28,8 @@ export function MissionVisionSettingForm({
   lang?: "ar_" | "en_";
 }) {
   const { control } = useFormContext<SettingSchema>();
+  const title = lang == "ar_" ? "Arabic" : "English";
+
   return (
     <Card>
       <CardHeader>
@@ -40,6 +43,19 @@ export function MissionVisionSettingForm({
 
       <CardContent className="pt-2">
         <div className="flex flex-col gap-y-4">
+          <FormField
+            control={control}
+            name={`missionVision.${lang}page_title`}
+            render={({ field }) => (
+              <FormItem className="h-max w-full">
+                <FormLabel>{title} Page Title</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <ControlForm prefix="missionVision" />
           <FormField
             control={control}

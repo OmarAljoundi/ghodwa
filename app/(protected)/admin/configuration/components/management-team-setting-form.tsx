@@ -75,6 +75,19 @@ export function ManagementTeamSettingForm({
       <CardContent className="pt-2">
         <FormField
           control={control}
+          name={`managementTeam.${lang}page_title`}
+          render={({ field }) => (
+            <FormItem className="h-max w-full">
+              <FormLabel>{title} Page Title</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
           name={`managementTeam.${lang}title`}
           render={({ field }) => (
             <FormItem className="w-full">

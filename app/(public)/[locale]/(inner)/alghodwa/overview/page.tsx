@@ -24,21 +24,27 @@ export async function generateMetadata({
   return dictionary;
 }
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}) {
+  const { locale } = await params;
   const { overview } = await getSettings();
 
   if (!overview.showPage) return notFound();
 
+  const label =
+    locale == "ar" ? overview.ar_page_title : overview.en_page_title;
+
   return (
     <BlurFade inView>
-      <InnerPageClient currentPage={"Overview"} />
-      <RegisterBreadcrumbClient
-        breadcrumb={{ href: "/overview", label: "Overview" }}
-      />
+      <InnerPageClient currentPage={label} />
+      <RegisterBreadcrumbClient breadcrumb={{ href: "/overview", label }} />
       <ContentDetails
         ar_content={overview.ar_content}
         en_content={overview.en_content}
-        title="Overview"
+        title={label}
       />
     </BlurFade>
   );

@@ -24,20 +24,29 @@ export async function generateMetadata({
   return dictionary;
 }
 
-export default async function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: "ar" | "en" }>;
+}) {
+  const { locale } = await params;
   const { missionVision } = await getSettings();
 
   if (!missionVision.showPage) return notFound();
+
+  const label =
+    locale == "ar" ? missionVision.ar_page_title : missionVision.en_page_title;
+
   return (
     <BlurFade inView>
-      <InnerPageClient currentPage={"Mission & visions"} />
+      <InnerPageClient currentPage={label} />
       <RegisterBreadcrumbClient
-        breadcrumb={{ href: "/mission-vision", label: "Mission & visions" }}
+        breadcrumb={{ href: "/mission-vision", label }}
       />
       <ContentDetails
         ar_content={missionVision.ar_content}
         en_content={missionVision.en_content}
-        title="Mission & Vision"
+        title={label}
       />
     </BlurFade>
   );

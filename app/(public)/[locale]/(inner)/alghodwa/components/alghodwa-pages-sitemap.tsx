@@ -29,7 +29,7 @@ export function AlghodwaPagesSitemap({
     <BlurFade delay={0.1} className={className}>
       <div className="bg-white rounded-3xl shadow-sm p-4  w-full">
         <h1 className="text-xl mb-4 ps-4 rtl:pe-4 font-bold">
-          {t("Alghodwa")}
+          {t("Al Ghodwa")}
         </h1>
         <div className="px-2 space-y-1">
           {alGhodwaMenuFiltered.map((props, index) => (

@@ -42,6 +42,7 @@ import { ServicesIcon } from "../icons/services-icon";
 import { NewsIcon } from "../icons/news-icon";
 import { SettingsIcon } from "../icons/settings-icon";
 import { SearchIcon } from "../icons/search-icon";
+import { LanguagesIcon } from "../icons/languages-icon";
 
 const data = {
   user: {
@@ -83,6 +84,12 @@ const data = {
       url: "/admin/news",
       title: "News",
       icon: <NewsIcon className="hover:bg-transparent" />,
+    },
+
+    {
+      url: "/admin/translations",
+      title: "Translation",
+      icon: <LanguagesIcon className="hover:bg-transparent p-0" size={20} />,
     },
 
     {

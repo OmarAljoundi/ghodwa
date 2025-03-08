@@ -107,7 +107,7 @@ export default function MobileMenu({
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="alghodowa">
                 <AccordionTrigger className="text-lg font-semibold">
-                  {t("AlGhodowa")}
+                  {t("Al Ghodwa")}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 pl-4">

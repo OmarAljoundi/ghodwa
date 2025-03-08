@@ -67,7 +67,7 @@ export default function DesktopMenu({
             <NavigationMenuTrigger
               className={cn("bg-transparent text-white", "font-light")}
             >
-              {t("AlGhodowa")}
+              {t("Al Ghodwa")}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="w-[250px] p-1">

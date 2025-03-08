@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode } from "react";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Separator } from "../ui/separator";
@@ -10,6 +11,10 @@ import {
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 import { ModeToggle } from "./mode-toggle";
+import { Button } from "../ui/button";
+import { RefreshCcw } from "lucide-react";
+import { customRevalidate } from "@/lib/caching.server";
+import { useRouter } from "next/navigation";
 
 export type BreadcrumList = {
   item: string;
@@ -24,6 +29,7 @@ export default function ContentWrapper({
   children: ReactNode;
   breadcrumbs: Array<BreadcrumList>;
 }) {
+  const route = useRouter();
   return (
     <React.Fragment>
       <header className="flex h-16 shrink-0 items-center gap-2">
@@ -54,6 +60,18 @@ export default function ContentWrapper({
         </div>
         <div className="flex flex-1 items-center justify-end">
           <ModeToggle />
+
+          <Button
+            className="mr-2 h-8 w-8 rounded-full bg-background"
+            variant="outline"
+            size="icon"
+            onClick={async () => {
+              await customRevalidate();
+              route.refresh();
+            }}
+          >
+            <RefreshCcw />
+          </Button>
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>

@@ -20,7 +20,6 @@ import { SettingSchema } from "@/schema/setting-schema";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { ControlForm } from "./control-form";
-import { Input } from "@/components/ui/input";
 
 export function ManagementSystemSettingForm({
   lang = "ar_",
@@ -41,22 +40,6 @@ export function ManagementSystemSettingForm({
 
       <CardContent className="pt-2">
         <div className="flex flex-col gap-y-4">
-          <FormField
-            control={control}
-            name={`managementSystems.${lang}page_title`}
-            render={({ field }) => (
-              <FormItem className="h-max w-full">
-                <FormLabel>Page title</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Please fill the page title..."
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <ControlForm prefix="managementSystems" />
           <FormField
             control={control}

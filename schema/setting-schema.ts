@@ -106,8 +106,6 @@ export const settingSchema = z.object({
   }),
 
   overview: z.object({
-    ar_page_title: z.string().default(""),
-    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -116,8 +114,6 @@ export const settingSchema = z.object({
   }),
 
   missionVision: z.object({
-    ar_page_title: z.string().default(""),
-    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -126,8 +122,6 @@ export const settingSchema = z.object({
   }),
 
   managementTeam: z.object({
-    ar_page_title: z.string().default(""),
-    en_page_title: z.string().default(""),
     ar_title: z.string().default("Our Experts"),
     en_title: z.string().default("Our Experts"),
     ar_badgeTitle: z.string().default("Our Experts"),
@@ -152,8 +146,6 @@ export const settingSchema = z.object({
   }),
 
   managementSystems: z.object({
-    ar_page_title: z.string().default(""),
-    en_page_title: z.string().default(""),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),

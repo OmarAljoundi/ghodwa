@@ -29,8 +29,62 @@ export function useExtraPages(
           };
         }) ?? [];
 
-    return [...AlGhodwaMenu, ...mappedExtraPages];
-  }, [settings.extraAboutPages, type]);
+    const mappedAlGhodwaMenu =
+      AlGhodwaMenu?.filter((x) => {
+        if (x.en_title == "Overview") {
+          if (!settings.overview.showPage) return false;
+
+          if (type === "menu") return settings.overview.showOnMenu;
+
+          if (type === "footer") return settings.overview.showOnFooter;
+          return true;
+        }
+
+        if (x.en_title == "Mission & Vision") {
+          if (!settings.missionVision.showPage) return false;
+
+          if (type === "menu") return settings.missionVision.showOnMenu;
+
+          if (type === "footer") return settings.missionVision.showOnFooter;
+          return true;
+        }
+
+        if (x.en_title == "Management and Team") {
+          if (!settings.managementTeam.showPage) return false;
+
+          if (type === "menu") return settings.managementTeam.showOnMenu;
+
+          if (type === "footer") return settings.managementTeam.showOnFooter;
+          return true;
+        }
+
+        if (x.en_title == "Management Systems") {
+          if (!settings.managementSystems.showPage) return false;
+
+          if (type === "menu") return settings.managementSystems.showOnMenu;
+
+          if (type === "footer") return settings.managementSystems.showOnFooter;
+          return true;
+        }
+      }) ?? [];
+
+    return [...mappedAlGhodwaMenu, ...mappedExtraPages];
+  }, [
+    settings.extraAboutPages,
+    settings.managementSystems.showOnFooter,
+    settings.managementSystems.showOnMenu,
+    settings.managementSystems.showPage,
+    settings.managementTeam.showOnFooter,
+    settings.managementTeam.showOnMenu,
+    settings.managementTeam.showPage,
+    settings.missionVision.showOnFooter,
+    settings.missionVision.showOnMenu,
+    settings.missionVision.showPage,
+    settings.overview.showOnFooter,
+    settings.overview.showOnMenu,
+    settings.overview.showPage,
+    type,
+  ]);
 
   return allAboutPages;
 }

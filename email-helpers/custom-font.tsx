@@ -1,4 +1,4 @@
-import React from "react";
+import type React from 'react';
 
 interface CustomFontProps {
   webFont?: {
@@ -13,14 +13,12 @@ interface CustomFontProps {
 
 const CustomFont: React.FC<CustomFontProps> = ({
   webFont,
-  fontStyle = "normal",
+  fontStyle = 'normal',
   fontFamily,
   fontWeight = 400,
   fallbackFontFamily,
 }) => {
-  const src = webFont
-    ? `src: url(${webFont.url}) format(${webFont.format});`
-    : "";
+  const src = webFont ? `src: url(${webFont.url}) format(${webFont.format});` : '';
 
   return (
     <style>
@@ -30,9 +28,7 @@ const CustomFont: React.FC<CustomFontProps> = ({
                 font-family: ${fontFamily};
                 font-weight: ${fontWeight};
                 mso-font-alt: ${
-                  Array.isArray(fallbackFontFamily)
-                    ? fallbackFontFamily[0]
-                    : fallbackFontFamily
+                  Array.isArray(fallbackFontFamily) ? fallbackFontFamily[0] : fallbackFontFamily
                 };
                 ${src}
             }
@@ -40,7 +36,7 @@ const CustomFont: React.FC<CustomFontProps> = ({
             * {
                 font-family: ${fontFamily}, ${
                   Array.isArray(fallbackFontFamily)
-                    ? fallbackFontFamily.join(", ")
+                    ? fallbackFontFamily.join(', ')
                     : fallbackFontFamily
                 };
             }

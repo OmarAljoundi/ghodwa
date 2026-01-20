@@ -1,6 +1,6 @@
-import React from "react";
-
-import ActionMenu from "./action-menu";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,21 +9,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { BrandWithRelationsSchema } from "@/schema";
-import { Service } from "@prisma/client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import Image from "next/image";
-import { useTranslation } from "react-i18next";
-import { SettingSchema } from "@/schema/setting-schema";
-import {
-  useBrandsPages,
-  useExtraPages,
-  useServicesPages,
-} from "@/hooks/use-render-items";
+} from '@/components/ui/navigation-menu';
+import type { Service } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useBrandsPages, useExtraPages, useServicesPages } from '@/hooks/use-render-items';
+import { cn } from '@/lib/utils';
+import type { BrandWithRelationsSchema } from '@/schema';
+import type { SettingSchema } from '@/schema/setting-schema';
+import ActionMenu from './action-menu';
 
 export default function DesktopMenu({
   brands,
@@ -34,40 +27,38 @@ export default function DesktopMenu({
   services: Service[];
   settings: SettingSchema;
 }) {
-  const allAboutPages = useExtraPages(settings, "menu");
-  const serviceItems = useServicesPages(services, "menu");
-  const brandItems = useBrandsPages(brands, "menu");
+  const allAboutPages = useExtraPages(settings, 'menu');
+  const serviceItems = useServicesPages(services, 'menu');
+  const brandItems = useBrandsPages(brands, 'menu');
 
   const brandsFilter = useFilteredLanguageData(brandItems);
   const servicesFilter = useFilteredLanguageData(serviceItems);
   const alghodowaFilter = useFilteredLanguageData(allAboutPages);
 
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   return (
     <nav
       className={`px-8 py-4 hidden flex-grow lg:flex  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
     >
-      <NavigationMenu key={"main"}>
+      <NavigationMenu key={'main'}>
         <NavigationMenuList>
-          <NavigationMenuItem key={"home"}>
+          <NavigationMenuItem key={'home'}>
             <NavigationMenuLink asChild>
               <Link
                 href="/"
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white",
-                  "font-light"
+                  'bg-transparent text-white',
+                  'font-light',
                 )}
               >
-                {t("Home")}
+                {t('Home')}
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem key={"about"}>
-            <NavigationMenuTrigger
-              className={cn("bg-transparent text-white", "font-light")}
-            >
-              {t("Al Ghodwa")}
+          <NavigationMenuItem key={'about'}>
+            <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
+              {t('Al Ghodwa')}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="w-[250px] p-1">
@@ -86,17 +77,15 @@ export default function DesktopMenu({
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem key={"brands"}>
-            <NavigationMenuTrigger
-              className={cn("bg-transparent text-white", "font-light")}
-            >
-              {t("Our Brands")}
+          <NavigationMenuItem key={'brands'}>
+            <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
+              {t('Our Brands')}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="w-[600px] p-4">
-                <h3 className="text-lg font-medium">{t("Our Brands")}</h3>
+                <h3 className="text-lg font-medium">{t('Our Brands')}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  {t("Discover our diverse portfolio of innovative brands")}
+                  {t('Discover our diverse portfolio of innovative brands')}
                 </p>
                 <div className="grid grid-cols-3 gap-4 ">
                   {brandsFilter.map((brand) => (
@@ -114,26 +103,22 @@ export default function DesktopMenu({
                           className="object-contain flex items-center justify-center"
                         />
                       )}
-                      <div className="text-sm font-medium leading-none">
-                        {brand.name}
-                      </div>
+                      <div className="text-sm font-medium leading-none">{brand.name}</div>
                     </Link>
                   ))}
                 </div>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem key={"services"}>
-            <NavigationMenuTrigger
-              className={cn("bg-transparent text-white", "font-light")}
-            >
-              {t("Our Services")}
+          <NavigationMenuItem key={'services'}>
+            <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
+              {t('Our Services')}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className="w-[400px] p-4">
-                <h3 className=" text-lg font-medium">{t("Our Services")}</h3>
+                <h3 className=" text-lg font-medium">{t('Our Services')}</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  {t("Explore our range of professional services")}
+                  {t('Explore our range of professional services')}
                 </p>
                 <div className="space-y-4">
                   {servicesFilter.map((service) => (
@@ -149,9 +134,7 @@ export default function DesktopMenu({
                         src={(service?.icon as any)?.url}
                       />
                       <div>
-                        <div className="text-sm font-medium leading-none">
-                          {service.title}
-                        </div>
+                        <div className="text-sm font-medium leading-none">{service.title}</div>
                       </div>
                     </Link>
                   ))}
@@ -159,37 +142,37 @@ export default function DesktopMenu({
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem key={"news"}>
+          <NavigationMenuItem key={'news'}>
             <NavigationMenuLink asChild>
               <Link
                 href="/news"
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white",
-                  "font-light"
+                  'bg-transparent text-white',
+                  'font-light',
                 )}
               >
-                {t("News")}
+                {t('News')}
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem key={"contact"}>
+          <NavigationMenuItem key={'contact'}>
             <NavigationMenuLink asChild>
               <Link
                 href="/contact-us"
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent text-white",
-                  "font-light"
+                  'bg-transparent text-white',
+                  'font-light',
                 )}
               >
-                {t("Contact us")}
+                {t('Contact us')}
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <ActionMenu key={"actions"} />
+      <ActionMenu key={'actions'} />
     </nav>
   );
 }

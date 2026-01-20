@@ -1,32 +1,19 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { SeoForm } from "@/components/seo-form";
-import { SlugInput } from "@/components/ui/slug-input";
-import { CreateNewsSchema } from "@/schema/news-schema";
-import { Textarea } from "@/components/ui/textarea";
-import RichTextEditor from "@/components/minimal-tiptap/editor";
-import { cn } from "@/lib/utils";
-import UploaderForm from "@/components/uploader/uploader-form";
+import { useFormContext } from 'react-hook-form';
+import RichTextEditor from '@/components/minimal-tiptap/editor';
+import { SeoForm } from '@/components/seo-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { SlugInput } from '@/components/ui/slug-input';
+import { Textarea } from '@/components/ui/textarea';
+import UploaderForm from '@/components/uploader/uploader-form';
+import { cn } from '@/lib/utils';
+import type { CreateNewsSchema } from '@/schema/news-schema';
 
-export function NewsForm({ lang }: { lang: "ar_" | "en_" }) {
+export function NewsForm({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<CreateNewsSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="flex justify-start items-start gap-x-4">
@@ -41,11 +28,7 @@ export function NewsForm({ lang }: { lang: "ar_" | "en_" }) {
                   <FormItem className="w-full">
                     <FormLabel>{title} title</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        placeholder={`Enter ${title} Title`}
-                      />
+                      <Input {...field} value={field.value} placeholder={`Enter ${title} Title`} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -97,9 +80,9 @@ export function NewsForm({ lang }: { lang: "ar_" | "en_" }) {
                   <FormLabel>{title} content</FormLabel>
                   <FormControl>
                     <RichTextEditor
-                      isRtL={lang == "ar_" ? true : false}
+                      isRtL={lang === 'ar_'}
                       throttleDelay={0}
-                      className={cn("h-full min-h-56 w-full rounded-xl")}
+                      className={cn('h-full min-h-56 w-full rounded-xl')}
                       editorContentClassName="overflow-auto h-full"
                       placeholder="This is your placeholder..."
                       editable={true}

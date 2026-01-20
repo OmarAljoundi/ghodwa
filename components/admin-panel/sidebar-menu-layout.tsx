@@ -1,19 +1,19 @@
-"use client";
-import { ChevronRight, ChevronsUpDown, LogOut } from "lucide-react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+'use client';
+import { ChevronRight, ChevronsUpDown, LogOut } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { type ReactNode, useCallback } from 'react';
+import { authClient } from '@/auth-client';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -29,77 +29,72 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
-} from "@/components/ui/sidebar";
-import React, { ReactNode, useCallback } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { authClient } from "@/auth-client";
-import { CollectionIcon } from "../icons/collection-icon";
-import { ContactIcon } from "../icons/contact-icon";
-import { ServicesIcon } from "../icons/services-icon";
-import { NewsIcon } from "../icons/news-icon";
-import { SettingsIcon } from "../icons/settings-icon";
-import { SearchIcon } from "../icons/search-icon";
-import { LanguagesIcon } from "../icons/languages-icon";
+} from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
+import { CollectionIcon } from '../icons/collection-icon';
+import { ContactIcon } from '../icons/contact-icon';
+import { LanguagesIcon } from '../icons/languages-icon';
+import { NewsIcon } from '../icons/news-icon';
+import { SearchIcon } from '../icons/search-icon';
+import { ServicesIcon } from '../icons/services-icon';
+import { SettingsIcon } from '../icons/settings-icon';
 
 const data = {
   user: {
-    name: "admin",
-    email: "admin@rafanasiri.com",
+    name: 'admin',
+    email: 'admin@rafanasiri.com',
   },
   navMain: [
     {
-      url: "/admin/collections",
-      title: "Collections",
+      url: '/admin/collections',
+      title: 'Collections',
       icon: <CollectionIcon className="hover:bg-transparent" />,
       items: [
         {
-          url: "/admin/collections/brands",
-          title: "Brand",
+          url: '/admin/collections/brands',
+          title: 'Brand',
         },
         {
-          url: "/admin/collections/categories",
-          title: "Category",
+          url: '/admin/collections/categories',
+          title: 'Category',
         },
         {
-          url: "/admin/collections/models",
-          title: "Model",
+          url: '/admin/collections/models',
+          title: 'Model',
         },
       ],
     },
 
     {
-      url: "/admin/contact-us",
-      title: "Contact Us",
+      url: '/admin/contact-us',
+      title: 'Contact Us',
       icon: <ContactIcon className="hover:bg-transparent" />,
     },
     {
-      url: "/admin/services",
-      title: "Service",
+      url: '/admin/services',
+      title: 'Service',
       icon: <ServicesIcon className="hover:bg-transparent" />,
     },
     {
-      url: "/admin/news",
-      title: "News",
+      url: '/admin/news',
+      title: 'News',
       icon: <NewsIcon className="hover:bg-transparent" />,
     },
 
     {
-      url: "/admin/translations",
-      title: "Translation",
+      url: '/admin/translations',
+      title: 'Translation',
       icon: <LanguagesIcon className="hover:bg-transparent p-0" size={20} />,
     },
 
     {
-      url: "/admin/configuration",
-      title: "Configuration",
+      url: '/admin/configuration',
+      title: 'Configuration',
       icon: <SettingsIcon className="hover:bg-transparent" />,
     },
     {
-      url: "/admin/seo",
-      title: "Seo",
+      url: '/admin/seo',
+      title: 'Seo',
       icon: <SearchIcon className="hover:bg-transparent" />,
     },
   ],
@@ -112,7 +107,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
     (url: string) => {
       return pathname.startsWith(url);
     },
-    [pathname]
+    [pathname],
   );
 
   const menuItem = useCallback(
@@ -142,10 +137,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton
-                        asChild
-                        isActive={isActive(subItem.url)}
-                      >
+                      <SidebarMenuSubButton asChild isActive={isActive(subItem.url)}>
                         <Link href={subItem.url}>
                           <span>{subItem.title}</span>
                         </Link>
@@ -161,10 +153,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
       return (
         <Link href={item.url}>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip={item.title}
-              isActive={isActive(item.url)}
-            >
+            <SidebarMenuButton tooltip={item.title} isActive={isActive(item.url)}>
               {item.icon && item.icon}
 
               <span>{item.title}</span>
@@ -173,7 +162,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
         </Link>
       );
     },
-    [isActive]
+    [isActive],
   );
 
   return (
@@ -186,15 +175,15 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                 <Link href="/admin" className="flex">
                   <div>
                     <Image
-                      src={"/english-logo.png"}
-                      className={cn("block dark:hidden")}
+                      src={'/english-logo.png'}
+                      className={cn('block dark:hidden')}
                       width={150}
                       height={50}
                       alt="alghodwa-logo-dark"
                     />
                     <Image
-                      src={"/english-logo.png"}
-                      className={cn("hidden dark:block")}
+                      src={'/english-logo.png'}
+                      className={cn('hidden dark:block')}
                       width={150}
                       height={50}
                       alt="alghodwa-logo-light"
@@ -210,9 +199,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
             <SidebarMenu>
               {data.navMain.map((item) => (
-                <React.Fragment key={`${item.title}-${item.url}`}>
-                  {menuItem(item)}
-                </React.Fragment>
+                <React.Fragment key={`${item.title}-${item.url}`}>{menuItem(item)}</React.Fragment>
               ))}
             </SidebarMenu>
           </SidebarGroup>
@@ -231,12 +218,8 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                       <AvatarFallback className="rounded-lg">AD</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">
-                        {data.user.name}
-                      </span>
-                      <span className="truncate text-xs">
-                        {data.user.email}
-                      </span>
+                      <span className="truncate font-semibold">{data.user.name}</span>
+                      <span className="truncate text-xs">{data.user.email}</span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
                   </SidebarMenuButton>
@@ -251,17 +234,11 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8 rounded-lg">
                         <AvatarImage alt={data.user.name} />
-                        <AvatarFallback className="rounded-lg">
-                          AD
-                        </AvatarFallback>
+                        <AvatarFallback className="rounded-lg">AD</AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold">
-                          {data.user.name}
-                        </span>
-                        <span className="truncate text-xs">
-                          {data.user.email}
-                        </span>
+                        <span className="truncate font-semibold">{data.user.name}</span>
+                        <span className="truncate text-xs">{data.user.email}</span>
                       </div>
                     </div>
                   </DropdownMenuLabel>
@@ -271,7 +248,7 @@ export function SidebarMenuLayout({ children }: { children: ReactNode }) {
                         fetchOptions: {
                           onSuccess: () => {
                             route.refresh();
-                            route.replace("/login");
+                            route.replace('/login');
                             route.refresh();
                           },
                         },

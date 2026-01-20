@@ -1,5 +1,4 @@
-import { Illustration, NotFound } from "@/components/not-found";
-import React from "react";
+import { Illustration, NotFound } from '@/components/not-found';
 
 export default function NotFoundPage() {
   return (

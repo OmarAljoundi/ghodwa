@@ -1,20 +1,20 @@
-"use client";
-import React, { use } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { toast } from "sonner";
-import { notFound, useRouter } from "next/navigation";
-import { getAll, updateOne } from "@/lib/generic.server";
-import { NewsForm } from "./form";
-import { LangTabs } from "@/components/lang-tabs";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { notFound, useRouter } from 'next/navigation';
+import { use } from 'react';
+import { useForm, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { StatusSwitcher } from '@/components/status-switcher';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { type getAll, updateOne } from '@/lib/generic.server';
 import {
-  CreateNewsSchema,
-  NewsSchema,
+  type CreateNewsSchema,
+  type NewsSchema,
+  type UpdateNewsSchema,
   updateNewsSchema,
-  UpdateNewsSchema,
-} from "@/schema/news-schema";
-import { StatusSwitcher } from "@/components/status-switcher";
+} from '@/schema/news-schema';
+import { NewsForm } from './form';
 
 export function UpdateNews({
   dataPromise,
@@ -23,7 +23,7 @@ export function UpdateNews({
 }) {
   const { data } = use(dataPromise);
 
-  const form = useForm<UpdateNewsSchema>({
+  const form = useForm({
     resolver: zodResolver(updateNewsSchema),
     defaultValues: {
       ...data?.[0],
@@ -33,18 +33,18 @@ export function UpdateNews({
   const route = useRouter();
 
   async function onSubmit(body: UpdateNewsSchema) {
-    const response = await updateOne<NewsSchema>("news", data![0]!.id, body);
+    const response = await updateOne<NewsSchema>('news', data![0]!.id, body);
 
     if (response.success) {
-      toast.success("News update successfully");
+      toast.success('News update successfully');
       route.replace(`/admin/news`);
       return;
     }
 
-    toast.error("News couldnt be updated");
+    toast.error('News couldnt be updated');
   }
 
-  if (!data || data.length == 0) return notFound();
+  if (!data || data.length === 0) return notFound();
 
   return (
     <Form {...form}>

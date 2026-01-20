@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { AlghodwaPagesSitemap } from "./components/alghodwa-pages-sitemap";
-import { getSettings } from "@/query";
+import type { ReactNode } from 'react';
+import { getSettings } from '@/query';
+import { AlghodwaPagesSitemap } from './components/alghodwa-pages-sitemap';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const settings = await getSettings();

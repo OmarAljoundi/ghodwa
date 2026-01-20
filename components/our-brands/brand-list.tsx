@@ -1,17 +1,13 @@
-"use client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getBrands } from "@/query";
-import { Brand } from "@prisma/client";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import React, { use } from "react";
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { use } from 'react';
+import type { Brand } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getBrands } from '@/query';
 
-export function BrandList({
-  dataPromise,
-}: {
-  dataPromise: ReturnType<typeof getBrands>;
-}) {
+export function BrandList({ dataPromise }: { dataPromise: ReturnType<typeof getBrands> }) {
   const brands = use(dataPromise);
 
   if (brands.length === 0) return notFound();

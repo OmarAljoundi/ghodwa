@@ -1,18 +1,14 @@
-"use client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getCategoryBySlug } from "@/query";
-import { useAddInnerPage } from "@/store/inner-page";
-import { Model } from "@prisma/client";
-import React, { use } from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { CommonCard } from "../common-card";
-import { notFound } from "next/navigation";
+'use client';
+import { notFound } from 'next/navigation';
+import { use } from 'react';
+import type { Model } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getCategoryBySlug } from '@/query';
+import { useAddInnerPage } from '@/store/inner-page';
+import { CommonCard } from '../common-card';
+import { BlurFade } from '../ui/blur-fade';
 
-export function ModelList({
-  dataPromise,
-}: {
-  dataPromise: ReturnType<typeof getCategoryBySlug>;
-}) {
+export function ModelList({ dataPromise }: { dataPromise: ReturnType<typeof getCategoryBySlug> }) {
   const category = use(dataPromise);
   const { name } = useFilteredLanguageData(category);
   useAddInnerPage(name);
@@ -36,19 +32,9 @@ export function ModelList({
   );
 }
 
-function ModelItem({
-  model,
-  categorySlug,
-}: {
-  categorySlug: string;
-  model: Model;
-}) {
+function ModelItem({ model, categorySlug }: { categorySlug: string; model: Model }) {
   const { image, name, slug } = useFilteredLanguageData(model);
   return (
-    <CommonCard
-      imageUrl={(image?.[0] as any)?.url}
-      name={name}
-      slug={`${categorySlug}/${slug}`}
-    />
+    <CommonCard imageUrl={(image?.[0] as any)?.url} name={name} slug={`${categorySlug}/${slug}`} />
   );
 }

@@ -1,10 +1,13 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
-import { BookUser, Brush, Newspaper } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from '@tanstack/react-query';
+import { CommandLoading } from 'cmdk';
+import { AnimatePresence, motion } from 'framer-motion';
+import { BookUser, Brush, Newspaper } from 'lucide-react';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
+import * as React from 'react';
+import { Badge } from '@/components/ui/badge';
 import {
   CommandDialog,
   CommandGroup,
@@ -12,15 +15,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
-import { Badge } from "@/components/ui/badge";
-import { useDebounce } from "@/hooks/use-debounce";
-import { Skeleton } from "@/components/ui/skeleton";
-import { CommandLoading } from "cmdk";
-import Link from "next/link";
-import { searchWebsite } from "@/lib/search.server";
-import { AlgoliaSearchResult } from "@/lib/types";
-import { SearchIcon } from "../icons/search-icon";
+} from '@/components/ui/command';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useDebounce } from '@/hooks/use-debounce';
+import { searchWebsite } from '@/lib/search.server';
+import type { AlgoliaSearchResult } from '@/lib/types';
+import { SearchIcon } from '../icons/search-icon';
 
 export function CommandSearch({
   children,
@@ -31,42 +31,37 @@ export function CommandSearch({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { i18n, t } = useTranslation("common");
-  const [searchString, setSearchString] = React.useState("");
+  const t = useTranslations();
+  const lang = useLocale();
+  const [searchString, setSearchString] = React.useState('');
   const debouncedSearchString = useDebounce(searchString, 300);
 
-  const searchKey =
-    i18n.language === "en"
-      ? "ghodwa_globle_index_en"
-      : "ghodwa_globle_index_ar";
+  const searchKey = lang === 'en' ? 'ghodwa_globle_index_en' : 'ghodwa_globle_index_ar';
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, [setOpen]);
 
   const { data: searchResults, isLoading } = useQuery({
     queryKey: [debouncedSearchString, searchKey],
     queryFn: async () => {
       return (await searchWebsite(debouncedSearchString, searchKey)) as Array<
-        Omit<AlgoliaSearchResult, "_highlightResult">
+        Omit<AlgoliaSearchResult, '_highlightResult'>
       >;
     },
     enabled: debouncedSearchString.length > 2,
   });
 
   const SkeletonItem = ({ index }: { index: number }) => (
-    <div
-      key={`skeleton-item-${index}`}
-      className="flex w-full items-center space-x-2 p-4"
-    >
+    <div key={`skeleton-item-${index}`} className="flex w-full items-center space-x-2 p-4">
       <Skeleton className="h-8 w-8 rounded-full" />
       <div className="flex-1 space-y-2">
         <Skeleton className="h-4 w-3/4" />
@@ -83,15 +78,12 @@ export function CommandSearch({
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
           key="command-input"
-          dir={i18n.language == "en" ? "ltr" : "rtl"}
-          placeholder={t("Type a search word")}
+          dir={lang === 'en' ? 'ltr' : 'rtl'}
+          placeholder={t('Type a search word')}
           value={searchString}
           onValueChange={setSearchString}
         />
-        <CommandList
-          key="command-list"
-          dir={i18n.language == "en" ? "ltr" : "rtl"}
-        >
+        <CommandList key="command-list" dir={lang === 'en' ? 'ltr' : 'rtl'}>
           {isLoading && (
             <CommandLoading key="command-loading">
               <AnimatePresence mode="wait">
@@ -123,9 +115,7 @@ export function CommandSearch({
               >
                 <CommandGroup
                   key="search-results-group"
-                  heading={
-                    <h1 className="font-bold text-sm">{t("Search Results")}</h1>
-                  }
+                  heading={<h1 className="font-bold text-sm">{t('Search Results')}</h1>}
                 >
                   <AnimatePresence>
                     <motion.div
@@ -135,9 +125,9 @@ export function CommandSearch({
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      {searchResults?.length == 0 && (
+                      {searchResults?.length === 0 && (
                         <h1 className="text-lg font-bold text-center p-4 border-border border-b">
-                          {t("No results found")}
+                          {t('No results found')}
                         </h1>
                       )}
 
@@ -194,9 +184,7 @@ export function CommandSearch({
             >
               <CommandGroup
                 key="quick-start-group"
-                heading={
-                  <h1 className="font-bold text-sm">{t("Quick start")}</h1>
-                }
+                heading={<h1 className="font-bold text-sm">{t('Quick start')}</h1>}
               >
                 <CommandItem key="our-brands-item">
                   <Link
@@ -210,7 +198,7 @@ export function CommandSearch({
                       className="mr-2 opacity-60 rtl:ml-2"
                       aria-hidden="true"
                     />
-                    <span>{t("Our Brands")}</span>
+                    <span>{t('Our Brands')}</span>
                   </Link>
                 </CommandItem>
                 <CommandItem key="services-item">
@@ -225,7 +213,7 @@ export function CommandSearch({
                       className="mr-2 opacity-60 rtl:ml-2"
                       aria-hidden="true"
                     />
-                    <span>{t("Services")}</span>
+                    <span>{t('Services')}</span>
                   </Link>
                 </CommandItem>
                 <CommandItem key="news-item">
@@ -240,7 +228,7 @@ export function CommandSearch({
                       className="mr-2 opacity-60 rtl:ml-2"
                       aria-hidden="true"
                     />
-                    <span>{t("News")}</span>
+                    <span>{t('News')}</span>
                   </Link>
                 </CommandItem>
               </CommandGroup>

@@ -1,14 +1,14 @@
-import { BrandList } from "@/components/our-brands/brand-list";
-import { getBrands, getSettings } from "@/query";
-import { InnerPageClient } from "@/store/inner-page-client";
-import { Metadata } from "next";
-import React from "react";
-import { generatePageBilingualSeo } from "../../generate-bilingual-seo";
+import type { Metadata } from 'next';
+import React from 'react';
+import { BrandList } from '@/components/our-brands/brand-list';
+import { getBrands, getSettings } from '@/query';
+import { InnerPageClient } from '@/store/inner-page-client';
+import { generatePageBilingualSeo } from '../../generate-bilingual-seo';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: "ar" | "en" }>;
+  params: Promise<{ locale: 'ar' | 'en' }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const [settings, brands] = await Promise.all([getSettings(), getBrands()]);
@@ -18,13 +18,13 @@ export async function generateMetadata({
       url: (brand?.logo as any)?.url,
       width: 300,
       height: 300,
-      alt: locale == "ar" ? brand.ar_name : brand.en_name,
+      alt: locale === 'ar' ? brand.ar_name : brand.en_name,
     }));
 
   const dictionary = generatePageBilingualSeo(
     settings?.seoStaticPagesBrandListing?.seo ?? {},
-    "/our-brands",
-    images
+    '/our-brands',
+    images,
   )[locale];
 
   return dictionary;
@@ -33,7 +33,7 @@ export async function generateMetadata({
 export default function Page() {
   return (
     <React.Fragment>
-      <InnerPageClient currentPage={"Our Brands"} />
+      <InnerPageClient currentPage={'Our Brands'} />
       <BrandList dataPromise={getBrands()} />
     </React.Fragment>
   );

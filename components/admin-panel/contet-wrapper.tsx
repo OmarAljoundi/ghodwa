@@ -1,7 +1,8 @@
-"use client";
-import React, { ReactNode } from "react";
-import { SidebarTrigger } from "../ui/sidebar";
-import { Separator } from "../ui/separator";
+'use client';
+import { RefreshCcw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React, { type ReactNode } from 'react';
+import { customRevalidate } from '@/lib/caching.server';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,12 +10,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../ui/breadcrumb";
-import { ModeToggle } from "./mode-toggle";
-import { Button } from "../ui/button";
-import { RefreshCcw } from "lucide-react";
-import { customRevalidate } from "@/lib/caching.server";
-import { useRouter } from "next/navigation";
+} from '../ui/breadcrumb';
+import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
+import { SidebarTrigger } from '../ui/sidebar';
+import { ModeToggle } from './mode-toggle';
 
 export type BreadcrumList = {
   item: string;
@@ -43,7 +43,7 @@ export default function ContentWrapper({
                   return (
                     <React.Fragment key={item}>
                       <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink href={url ?? ""}>{item}</BreadcrumbLink>
+                        <BreadcrumbLink href={url ?? ''}>{item}</BreadcrumbLink>
                       </BreadcrumbItem>
                       <BreadcrumbSeparator className="hidden md:block" />
                     </React.Fragment>

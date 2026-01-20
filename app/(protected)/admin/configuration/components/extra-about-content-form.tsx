@@ -1,52 +1,36 @@
-"use client";
-import RichTextEditor from "@/components/minimal-tiptap/editor";
-import { SeoForm } from "@/components/seo-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CheckboxCard } from "@/components/ui/checkbox-card";
-import { CreatableTabs } from "@/components/ui/creatable-tabs";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { SlugInput } from "@/components/ui/slug-input";
-import { cn } from "@/lib/utils";
-import { SettingSchema } from "@/schema/setting-schema";
-import { closestCorners } from "@dnd-kit/core";
-import React, { useCallback } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+'use client';
+import { closestCorners } from '@dnd-kit/core';
+import { useCallback } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import RichTextEditor from '@/components/minimal-tiptap/editor';
+import { SeoForm } from '@/components/seo-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckboxCard } from '@/components/ui/checkbox-card';
+import { CreatableTabs } from '@/components/ui/creatable-tabs';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { SlugInput } from '@/components/ui/slug-input';
+import { cn } from '@/lib/utils';
+import type { SettingSchema } from '@/schema/setting-schema';
 
-export function ExtraAboutContentForm({
-  lang = "ar_",
-}: {
-  lang?: "ar_" | "en_";
-}) {
+export function ExtraAboutContentForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
   const { control, setValue, watch } = useFormContext<SettingSchema>();
   const { append, remove } = useFieldArray({
     control,
-    name: "extraAboutPages",
+    name: 'extraAboutPages',
   });
 
-  const watchFields = watch("extraAboutPages");
+  const watchFields = watch('extraAboutPages');
 
   const appendNewEmpty = () => {
     append({
       id: crypto.randomUUID(),
-      ar_title: "",
-      en_title: "",
-      ar_content: "",
-      en_content: "",
-      slug: "",
+      ar_title: '',
+      en_title: '',
+      ar_content: '',
+      en_content: '',
+      slug: '',
       seo: { ar_metaKeywords: [], en_metaKeywords: [] },
       showOnFooter: true,
       showOnMenu: true,
@@ -56,15 +40,14 @@ export function ExtraAboutContentForm({
 
   const getButtonTitle = useCallback(
     (index: number) => {
-      if (lang === "ar_")
-        return (watchFields || [])[index]?.ar_title || `New Tab ${index + 1}`;
+      if (lang === 'ar_') return (watchFields || [])[index]?.ar_title || `New Tab ${index + 1}`;
 
       return (watchFields || [])[index]?.en_title || `New Tab ${index + 1}`;
     },
-    [lang, watchFields]
+    [lang, watchFields],
   );
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
   return (
     <Card>
       <CardHeader>
@@ -81,7 +64,7 @@ export function ExtraAboutContentForm({
           collisionDetection={closestCorners}
           value={watchFields || []}
           onValueChange={(e) => {
-            setValue("extraAboutPages", e);
+            setValue('extraAboutPages', e);
           }}
           buttonTitle={getButtonTitle}
           onAddNewTab={appendNewEmpty}
@@ -111,11 +94,7 @@ export function ExtraAboutContentForm({
                   <FormItem className="h-max w-full">
                     <FormLabel>Slug</FormLabel>
                     <FormControl>
-                      <SlugInput
-                        firstText="/content/"
-                        placeholder="Enter a slug..."
-                        {...field}
-                      />
+                      <SlugInput firstText="/content/" placeholder="Enter a slug..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -184,9 +163,9 @@ export function ExtraAboutContentForm({
                     <FormLabel>{title} content</FormLabel>
                     <FormControl>
                       <RichTextEditor
-                        isRtL={lang == "ar_" ? true : false}
+                        isRtL={lang === 'ar_'}
                         throttleDelay={0}
-                        className={cn("h-full min-h-56 w-full rounded-xl")}
+                        className={cn('h-full min-h-56 w-full rounded-xl')}
                         editorContentClassName="overflow-auto h-full"
                         placeholder="This is your placeholder..."
                         editable={true}

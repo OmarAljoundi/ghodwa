@@ -1,28 +1,23 @@
-"use client";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { createOne } from "@/lib/generic.server";
-import { LangTabs } from "@/components/lang-tabs";
-import { NewsForm } from "./form";
-import {
-  createNewsSchema,
-  CreateNewsSchema,
-  NewsSchema,
-} from "@/schema/news-schema";
-import { StatusSwitcher } from "@/components/status-switcher";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useForm, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { StatusSwitcher } from '@/components/status-switcher';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { createOne } from '@/lib/generic.server';
+import { type CreateNewsSchema, createNewsSchema, type NewsSchema } from '@/schema/news-schema';
+import { NewsForm } from './form';
 
 export function CreateNews() {
-  const form = useForm<CreateNewsSchema>({
+  const form = useForm({
     resolver: zodResolver(createNewsSchema),
     defaultValues: {
-      ar_summary: "",
-      ar_title: "",
-      en_title: "",
-      en_summary: "",
+      ar_summary: '',
+      ar_title: '',
+      en_title: '',
+      en_summary: '',
       is_published: false,
       image: [],
     },
@@ -31,9 +26,9 @@ export function CreateNews() {
   const route = useRouter();
 
   async function onSubmit(body: CreateNewsSchema) {
-    const result = await createOne<NewsSchema>("news", body);
+    const result = await createOne<NewsSchema>('news', body);
     if (result.success) {
-      toast.success("News created successfully");
+      toast.success('News created successfully');
       route.replace(`/admin/news/${result.data?.id}`);
       route.refresh();
     }

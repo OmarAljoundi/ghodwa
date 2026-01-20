@@ -1,7 +1,7 @@
-"use client";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ReactNode } from "react";
-import { menuItems } from "./lib";
+'use client';
+import type { ReactNode } from 'react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { menuItems } from './lib';
 
 export function ConfigurationMenu({ children }: { children: ReactNode }) {
   return (

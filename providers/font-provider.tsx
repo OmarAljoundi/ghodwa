@@ -1,5 +1,5 @@
-"use client";
-import React, { ReactNode, useEffect, useState } from "react";
+'use client';
+import { type ReactNode, useEffect, useState } from 'react';
 
 export function FontProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);

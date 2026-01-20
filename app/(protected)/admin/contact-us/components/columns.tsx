@@ -1,16 +1,15 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { type ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
-import RowDate from "@/components/data-table/common/row-date";
-import ToolbarAction from "@/components/toolbar-action";
-import { Contact } from "@prisma/client";
+import type { ColumnDef } from '@tanstack/react-table';
+import RowDate from '@/components/data-table/common/row-date';
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import ToolbarAction from '@/components/toolbar-action';
+import type { Contact } from '@/generated/client/client';
 
 export function getNewsColumns(): ColumnDef<Contact>[] {
   return [
     {
-      accessorKey: "name",
+      accessorKey: 'name',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Name" column={column} />;
       },
@@ -19,7 +18,7 @@ export function getNewsColumns(): ColumnDef<Contact>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "email",
+      accessorKey: 'email',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Email" column={column} />;
       },
@@ -28,7 +27,7 @@ export function getNewsColumns(): ColumnDef<Contact>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "subject",
+      accessorKey: 'subject',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Subject" column={column} />;
       },
@@ -37,7 +36,7 @@ export function getNewsColumns(): ColumnDef<Contact>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "message",
+      accessorKey: 'message',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Message" column={column} />;
       },
@@ -46,7 +45,7 @@ export function getNewsColumns(): ColumnDef<Contact>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "createdAt",
+      accessorKey: 'createdAt',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Created At" column={column} />;
       },
@@ -55,15 +54,10 @@ export function getNewsColumns(): ColumnDef<Contact>[] {
       enableSorting: false,
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: function Cell({ row: { original } }) {
         return (
-          <ToolbarAction
-            data={original}
-            tableName="contact"
-            showEdit={false}
-            showDelete={true}
-          />
+          <ToolbarAction data={original} tableName="contact" showEdit={false} showDelete={true} />
         );
       },
       size: 40,

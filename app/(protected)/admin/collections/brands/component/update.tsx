@@ -1,20 +1,20 @@
-"use client";
-import React, { use } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
-import { toast } from "sonner";
-import { notFound, useRouter } from "next/navigation";
-import { getAll, updateOne } from "@/lib/generic.server";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { notFound, useRouter } from 'next/navigation';
+import { use } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { Form } from '@/components/ui/form';
+import { type getAll, updateOne } from '@/lib/generic.server';
 import {
-  BrandSchema,
-  BrandWithRelationsSchema,
-  CategorySchema,
+  type BrandSchema,
+  type BrandWithRelationsSchema,
+  type CategorySchema,
+  type UpdateBrandSchema,
   updateBrandSchema,
-  UpdateBrandSchema,
-} from "@/schema";
-import { BrandForm } from "./form";
-import { LangTabs } from "@/components/lang-tabs";
+} from '@/schema';
+import { BrandForm } from './form';
 
 export function UpdateBrand({
   dataPromise,
@@ -26,7 +26,7 @@ export function UpdateBrand({
   const { data: categories } = use(datePromiseCategory);
   const { data } = use(dataPromise);
 
-  const form = useForm<UpdateBrandSchema>({
+  const form = useForm({
     resolver: zodResolver(updateBrandSchema),
     defaultValues: {
       ...data?.[0],
@@ -43,19 +43,18 @@ export function UpdateBrand({
   const route = useRouter();
 
   async function onSubmit(body: UpdateBrandSchema) {
-    console.log("body", body);
-    const response = await updateOne<BrandSchema>("brand", data![0]!.id, body);
+    const response = await updateOne<BrandSchema>('brand', data![0]!.id, body);
 
     if (response.success) {
-      toast.success("Brand update successfully");
+      toast.success('Brand update successfully');
       route.replace(`/admin/collections/brands`);
       return;
     }
 
-    toast.error("Brand couldnt be updated");
+    toast.error('Brand couldnt be updated');
   }
 
-  if (!data || data.length == 0) return notFound();
+  if (!data || data.length === 0) return notFound();
 
   return (
     <Form {...form}>

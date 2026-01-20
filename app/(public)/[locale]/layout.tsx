@@ -1,23 +1,27 @@
-import initTranslations from "@/app/i18n";
-import { Toaster } from "@/components/ui/sonner";
-import TranslationsProvider from "@/providers/translations-provider";
-import React from "react";
-import Scroll from "@/providers/scroll";
-import { Navigation } from "@/components/menu/navigation";
-import { Footer } from "@/components/footer";
-import { getBrands, getServices, getSettings } from "@/query";
-import { BrandWithRelationsSchema } from "@/schema";
-import { CustomDirectionProvider } from "@/providers/custom-direction-provider";
-import { dir } from "i18next";
-import { Metadata, Viewport } from "next";
-import { generateLayoutBilingualSeo } from "./generate-bilingual-seo";
-
-const i18nNamespaces = ["common", "errors"];
-
+import type { Metadata, Viewport } from 'next';
+import { notFound } from 'next/navigation';
+import { hasLocale } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import type React from 'react';
+import { monaSans, notoKufiArabic, notoSans } from '@/app/fonts';
+import { Footer } from '@/components/footer';
+import { Navigation } from '@/components/menu/navigation';
+import { Toaster } from '@/components/ui/sonner';
+import { routing } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
+import { CustomDirectionProvider } from '@/providers/custom-direction-provider';
+import { CustomNextIntlClientProvider } from '@/providers/custom-next-intl-client-provider';
+import { ReactQueryProvider } from '@/providers/react-query-provider';
+import Scroll from '@/providers/scroll';
+import { TooltipProvider } from '@/providers/tooltip-provider';
+import { getBrands, getServices, getSettings } from '@/query';
+import type { BrandWithRelationsSchema } from '@/schema';
+import { generateLayoutBilingualSeo } from './generate-bilingual-seo';
+import "../../globals.css"
 export const viewport: Viewport = {
-  themeColor: "#EFB14E",
-  colorScheme: "light",
-  width: "device-width",
+  themeColor: '#EFB14E',
+  colorScheme: 'light',
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
 };
@@ -25,7 +29,7 @@ export const viewport: Viewport = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: "ar" | "en" }>;
+  params: Promise<{ locale: 'ar' | 'en' }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const dictionary = generateLayoutBilingualSeo()[locale];
@@ -41,7 +45,13 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  const { resources } = await initTranslations(locale, i18nNamespaces);
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  const isArabic = locale === 'ar';
+  setRequestLocale(locale);
+  const messages = await getMessages();
 
   const [settings, brands, services] = await Promise.all([
     getSettings(),
@@ -50,29 +60,33 @@ export default async function RootLayout({
   ]);
 
   return (
-    <CustomDirectionProvider dir={dir(locale)}>
-      <Scroll />
+    <html lang={locale} dir={isArabic ? 'rtl' : 'ltr'}>
+      <body className={cn(notoKufiArabic.variable, notoSans.variable, monaSans.variable)}>
+        <CustomNextIntlClientProvider locale={locale} messages={messages}>
+          <ReactQueryProvider>
+            <CustomDirectionProvider dir={isArabic ? 'rtl' : 'ltr'}>
+              <TooltipProvider>
+                <Scroll />
 
-      <TranslationsProvider
-        namespaces={i18nNamespaces}
-        locale={locale}
-        resources={resources}
-      >
-        <div className="flex flex-grow flex-col lg:p-4 relative">
-          <Navigation
-            settings={settings}
-            brands={brands as unknown as BrandWithRelationsSchema[]}
-            services={services}
-          />
-          <main className="flex-grow">{children}</main>
-          <Footer
-            settings={settings}
-            brands={brands as unknown as BrandWithRelationsSchema[]}
-            services={services}
-          />
-        </div>
-      </TranslationsProvider>
-      <Toaster richColors />
-    </CustomDirectionProvider>
+                <div className="flex flex-grow flex-col lg:p-4 relative">
+                  <Navigation
+                    settings={settings}
+                    brands={brands as unknown as BrandWithRelationsSchema[]}
+                    services={services}
+                  />
+                  <main className="flex-grow">{children}</main>
+                  <Footer
+                    settings={settings}
+                    brands={brands as unknown as BrandWithRelationsSchema[]}
+                    services={services}
+                  />
+                </div>
+                <Toaster richColors />
+              </TooltipProvider>
+            </CustomDirectionProvider>
+          </ReactQueryProvider>
+        </CustomNextIntlClientProvider>
+      </body>
+    </html>
   );
 }

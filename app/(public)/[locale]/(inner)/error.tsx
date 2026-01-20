@@ -1,19 +1,15 @@
-"use client";
+'use client';
 
-import { Illustration, NotFound } from "@/components/not-found";
-import { useAddInnerPage } from "@/store/inner-page";
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { Illustration, NotFound } from '@/components/not-found';
+import { useAddInnerPage } from '@/store/inner-page';
 
-export default function Error({
-  error,
-}: {
-  error: Error & { digest?: string };
-}) {
+export default function ErrorPage({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
 
-  useAddInnerPage("Page not found");
+  useAddInnerPage('Page not found');
 
   return (
     <div className="relative flex flex-col w-full justify-center  bg-background p-6 md:p-10">

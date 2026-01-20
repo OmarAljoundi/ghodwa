@@ -1,29 +1,16 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CreateCategorySchema } from "@/schema";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
-import { SeoForm } from "@/components/seo-form";
-import { SlugInput } from "@/components/ui/slug-input";
+import { useFormContext } from 'react-hook-form';
+import { SeoForm } from '@/components/seo-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { SlugInput } from '@/components/ui/slug-input';
+import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import type { CreateCategorySchema } from '@/schema';
 
-export function CategoryForm({ lang }: { lang: "ar_" | "en_" }) {
+export function CategoryForm({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<CreateCategorySchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="flex justify-start items-start gap-x-4">
@@ -38,11 +25,7 @@ export function CategoryForm({ lang }: { lang: "ar_" | "en_" }) {
                   <FormItem className="w-full">
                     <FormLabel>{title} name</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        placeholder={`Enter ${title} Name`}
-                      />
+                      <Input {...field} value={field.value} placeholder={`Enter ${title} Name`} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -103,10 +86,7 @@ export function CategoryForm({ lang }: { lang: "ar_" | "en_" }) {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <UploaderFormSingle
-                    defaultUploadedFile={field.value}
-                    onChange={field.onChange}
-                  />
+                  <UploaderFormSingle defaultUploadedFile={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

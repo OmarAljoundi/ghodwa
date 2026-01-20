@@ -1,6 +1,5 @@
-import React from "react";
-import { BlurFade } from "../ui/blur-fade";
-import Image from "next/image";
+import Image from 'next/image';
+import { BlurFade } from '../ui/blur-fade';
 
 export function ModelLogo({
   logo,
@@ -16,7 +15,7 @@ export function ModelLogo({
   className?: string;
 }) {
   return (
-    <BlurFade direction={"up"} className={className}>
+    <BlurFade direction={'up'} className={className}>
       <Image
         src={logo}
         alt={name}

@@ -1,20 +1,19 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import Link from "next/link";
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion';
 
 export function ColumnGroup<
   T extends {
     title: string;
     url: string;
-  }
+  },
 >({ items, title }: { items: T[]; title: string }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
 
   return (
     <>
@@ -56,15 +55,12 @@ function ColumnItemGroup<
   T extends {
     title: string;
     url: string;
-  }
+  },
 >({ item }: { item: T }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   return (
     <li>
-      <Link
-        href={item.url ?? ""}
-        className="hover:text-primary transition-colors"
-      >
+      <Link href={item.url ?? ''} className="hover:text-primary transition-colors">
         {t(item.title)}
       </Link>
     </li>

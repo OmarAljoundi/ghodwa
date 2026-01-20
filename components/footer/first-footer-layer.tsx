@@ -1,15 +1,10 @@
-import React from "react";
-import { ColumnGroup } from "./column-group";
-import { BrandWithRelationsSchema } from "@/schema";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { useBrandsPages } from "@/hooks/use-render-items";
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useBrandsPages } from '@/hooks/use-render-items';
+import type { BrandWithRelationsSchema } from '@/schema';
+import { ColumnGroup } from './column-group';
 
-export function FirstFooterLayer({
-  brands,
-}: {
-  brands: BrandWithRelationsSchema[];
-}) {
-  const items = useBrandsPages(brands, "footer");
+export function FirstFooterLayer({ brands }: { brands: BrandWithRelationsSchema[] }) {
+  const items = useBrandsPages(brands, 'footer');
   const filtredItems = useFilteredLanguageData(items);
 
   const mappedItems = filtredItems.map((o) => {

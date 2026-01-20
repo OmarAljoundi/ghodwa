@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { ServicesPagesSitemap } from "./components/services-pages-sitemap";
-import { getServices } from "@/query";
+import type { ReactNode } from 'react';
+import { getServices } from '@/query';
+import { ServicesPagesSitemap } from './components/services-pages-sitemap';
 
 export default async function Layout({ children }: { children: ReactNode }) {
   const services = await getServices();

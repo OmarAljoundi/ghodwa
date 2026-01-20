@@ -1,19 +1,18 @@
-"use client";
-import { Globe, MapPin, Phone } from "lucide-react";
-import React from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { useTranslation } from "react-i18next";
-import { BrandBadge } from "../brand-badge";
-import { SettingSchema } from "@/schema/setting-schema";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+'use client';
+import { Globe, MapPin, Phone } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { SettingSchema } from '@/schema/setting-schema';
+import { BrandBadge } from '../brand-badge';
+import { BlurFade } from '../ui/blur-fade';
 
-export function Offices({ offices }: { offices: SettingSchema["offices"] }) {
-  const { t } = useTranslation("common");
+export function Offices({ offices }: { offices: SettingSchema['offices'] }) {
+  const t = useTranslations();
   const filtredOffices = useFilteredLanguageData(offices.items);
   return (
     <section className="flex flex-col gap-y-4 sm:gap-y-0 sm:flex-row sm:gap-x-16 xl:grid xl:grid-cols-[4fr,8fr] xl:gap-x-8">
       <div className="flex-auto w-fit ltr:sm:ml-auto rtl:sm:mr-auto">
-        <BrandBadge title={t("Our Offices")} />
+        <BrandBadge title={t('Our Offices')} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-10 xl:gap-x-16">
         {filtredOffices.map((office, index) => (

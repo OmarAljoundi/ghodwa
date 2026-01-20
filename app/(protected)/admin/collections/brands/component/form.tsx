@@ -1,43 +1,30 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CategorySchema, CreateBrandSchema } from "@/schema";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
-import { Checkbox } from "@/components/ui/checkbox";
-import Image from "next/image";
-import { Label } from "@/components/ui/label";
-import { SeoForm } from "@/components/seo-form";
-import { EmptyState } from "@/components/empty-state";
-import { BiSolidCategory } from "react-icons/bi";
-import { FaRegFile } from "react-icons/fa6";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { SlugInput } from "@/components/ui/slug-input";
-import { ControlForm } from "../../../configuration/components/control-form";
+import Image from 'next/image';
+import { useFormContext } from 'react-hook-form';
+import { BiSolidCategory } from 'react-icons/bi';
+import { FaCloudUploadAlt } from 'react-icons/fa';
+import { FaRegFile } from 'react-icons/fa6';
+import { EmptyState } from '@/components/empty-state';
+import { SeoForm } from '@/components/seo-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { SlugInput } from '@/components/ui/slug-input';
+import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import type { CategorySchema, CreateBrandSchema } from '@/schema';
+import { ControlForm } from '../../../configuration/components/control-form';
 
 export function BrandForm({
   lang,
   categories,
 }: {
-  lang: "ar_" | "en_";
+  lang: 'ar_' | 'en_';
   categories: Array<CategorySchema>;
 }) {
   const { control } = useFormContext<CreateBrandSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="flex justify-start items-start gap-x-4">
@@ -52,11 +39,7 @@ export function BrandForm({
                   <FormItem className="w-full">
                     <FormLabel>{title} name</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        placeholder={`Enter ${title} Name`}
-                      />
+                      <Input {...field} value={field.value} placeholder={`Enter ${title} Name`} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,7 +84,7 @@ export function BrandForm({
             <ControlForm showPage={false} />
             <h1 className="text-xl mb-4">Assign the categories</h1>
             <div className="flex flex-row flex-wrap gap-4">
-              {categories.length == 0 && (
+              {categories.length === 0 && (
                 <EmptyState
                   title="No categories found"
                   description="You need to create categories to assigned it here"
@@ -132,27 +115,20 @@ export function BrandForm({
                             className="order-1 after:absolute after:inset-0"
                             onCheckedChange={(checked) => {
                               if (checked) {
-                                const newConnect = [
-                                  ...currentValue.connect,
-                                  { id: item.id },
-                                ];
-                                const newDisconnect =
-                                  currentValue.disconnect.filter(
-                                    (x) => x.id !== item.id
-                                  );
+                                const newConnect = [...currentValue.connect, { id: item.id }];
+                                const newDisconnect = currentValue.disconnect.filter(
+                                  (x) => x.id !== item.id,
+                                );
                                 field.onChange({
                                   connect: newConnect,
                                   disconnect: newDisconnect,
                                 });
                               } else {
                                 const newConnect = currentValue.connect.filter(
-                                  (x) => x.id !== item.id
+                                  (x) => x.id !== item.id,
                                 );
 
-                                const newDisconnect = [
-                                  ...currentValue.disconnect,
-                                  { id: item.id },
-                                ];
+                                const newDisconnect = [...currentValue.disconnect, { id: item.id }];
 
                                 field.onChange({
                                   connect: newConnect,
@@ -167,23 +143,21 @@ export function BrandForm({
                           {item?.image?.url && (
                             <Image
                               src={item?.image.url}
-                              alt={"category"}
+                              alt={'category'}
                               width={60}
                               height={60}
                               className="object-cover"
                             />
                           )}
                           <div className="grid gap-2">
-                            <Label htmlFor={`${item.id}-${item.en_name}`}>
-                              {item.en_name}
-                            </Label>
+                            <Label htmlFor={`${item.id}-${item.en_name}`}>{item.en_name}</Label>
                             <p
                               id={`${item.id}-${item.en_name}-description`}
                               className="text-xs text-muted-foreground"
                             >
                               {item.en_description ||
                                 item.ar_description ||
-                                "No description available"}
+                                'No description available'}
                             </p>
                           </div>
                         </div>
@@ -211,10 +185,7 @@ export function BrandForm({
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <UploaderFormSingle
-                    defaultUploadedFile={field.value}
-                    onChange={field.onChange}
-                  />
+                  <UploaderFormSingle defaultUploadedFile={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

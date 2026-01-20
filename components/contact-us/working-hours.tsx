@@ -1,37 +1,37 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
-import { SettingSchema } from "@/schema/setting-schema";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+import { motion } from 'framer-motion';
+import { Clock } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { cn } from '@/lib/utils';
+import type { SettingSchema } from '@/schema/setting-schema';
+
+const formatTime = (hour: number, minute: number) => {
+  const adjustedHour = hour % 12 || 12;
+  const period = hour >= 12 ? 'PM' : 'AM';
+  return `${adjustedHour.toString().padStart(2, '0')}:${minute
+    .toString()
+    .padStart(2, '0')} ${period}`;
+};
 
 export function WorkingHours({
   className,
   workingHours,
 }: {
   className?: string;
-  workingHours: SettingSchema["workingHours"];
+  workingHours: SettingSchema['workingHours'];
 }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
 
   const filtredWorkingItems = useFilteredLanguageData(workingHours.items);
 
-  const formatTime = (hour: number, minute: number) => {
-    const adjustedHour = hour % 12 || 12;
-    const period = hour >= 12 ? "PM" : "AM";
-    return `${adjustedHour.toString().padStart(2, "0")}:${minute
-      .toString()
-      .padStart(2, "0")} ${period}`;
-  };
-
   const mappedWorkingHours = useMemo(() => {
     return filtredWorkingItems.map(({ day, office }) => {
-      let hours: string = "";
-      if (office.state === "closed") {
-        hours = "Closed";
+      let hours: string = '';
+      if (office.state === 'closed') {
+        hours = 'Closed';
       } else {
         const fromTime = formatTime(office.from.hour, office.from.minute);
         const toTime = formatTime(office.to.hour, office.to.minute);
@@ -47,16 +47,11 @@ export function WorkingHours({
   }, [filtredWorkingItems]);
 
   return (
-    <div
-      className={cn(
-        "p-6 bg-white rounded-3xl shadow-sm relative h-fit",
-        className
-      )}
-    >
+    <div className={cn('p-6 bg-white rounded-3xl shadow-sm relative h-fit', className)}>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-normal text-gray-800 flex items-center">
           <Clock className="mr-2 rtl:ml-2" />
-          {t("Working Hours")}
+          {t('Working Hours')}
         </h2>
       </div>
 

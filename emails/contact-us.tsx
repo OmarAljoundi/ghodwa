@@ -1,13 +1,14 @@
 // "use client";
-import * as React from "react";
-import { Body } from "@react-email/body";
-import { Html } from "@react-email/html";
-import { Head } from "@react-email/head";
-import { Container } from "@react-email/container";
-import { Section } from "@react-email/section";
-import { Img } from "@react-email/img";
-import { Text } from "@react-email/text";
-import CustomFont from "@/email-helpers/custom-font";
+
+import { Body } from '@react-email/body';
+import { Container } from '@react-email/container';
+import { Head } from '@react-email/head';
+import { Html } from '@react-email/html';
+import { Img } from '@react-email/img';
+import { Section } from '@react-email/section';
+import { Text } from '@react-email/text';
+import type * as React from 'react';
+import CustomFont from '@/email-helpers/custom-font';
 import {
   button,
   container,
@@ -16,7 +17,7 @@ import {
   hr,
   main,
   paragraph,
-} from "@/email-helpers/email-styles";
+} from '@/email-helpers/email-styles';
 
 interface ContactUsProps {
   username: string;
@@ -24,18 +25,18 @@ interface ContactUsProps {
 }
 
 const ContactUs: React.FC<Readonly<ContactUsProps>> = ({
-  username = "Omar Aljundi",
+  username = 'Omar Aljundi',
   isArabic = true,
 }): React.ReactNode => {
   return (
-    <Html lang={isArabic ? "ar" : "en"} dir={isArabic ? "rtl" : "ltr"}>
+    <Html lang={isArabic ? 'ar' : 'en'} dir={isArabic ? 'rtl' : 'ltr'}>
       <Head>
         <CustomFont
           fontFamily="Lato"
           fallbackFontFamily="sans-serif"
           webFont={{
-            url: "https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wXiWtFCc.woff2",
-            format: "woff2",
+            url: 'https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wXiWtFCc.woff2',
+            format: 'woff2',
           }}
           fontWeight={400}
           fontStyle="normal"
@@ -44,9 +45,9 @@ const ContactUs: React.FC<Readonly<ContactUsProps>> = ({
       <Body
         style={{
           ...main,
-          fontFamily: "Marcellus",
-          direction: isArabic ? "rtl" : "ltr",
-          textAlign: isArabic ? "right" : "left",
+          fontFamily: 'Marcellus',
+          direction: isArabic ? 'rtl' : 'ltr',
+          textAlign: isArabic ? 'right' : 'left',
         }}
       >
         <Container style={container}>
@@ -59,29 +60,23 @@ const ContactUs: React.FC<Readonly<ContactUsProps>> = ({
             width="158"
             height="28"
             alt="Ghodwa"
-            style={{ margin: "auto" }}
+            style={{ margin: 'auto' }}
           />
           <Section style={content}>
             <Text style={heading}>
-              {isArabic ? "شكراً لتواصلك معنا!" : "Thank You for Reaching Out!"}
+              {isArabic ? 'شكراً لتواصلك معنا!' : 'Thank You for Reaching Out!'}
             </Text>
-            <Text style={paragraph}>
-              {isArabic ? `عزيزي ${username}،` : `Dear ${username},`}
-            </Text>
+            <Text style={paragraph}>{isArabic ? `عزيزي ${username}،` : `Dear ${username},`}</Text>
             <Text style={paragraph}>
               {isArabic
-                ? "شكراً لتواصلك معنا! لقد استلمنا رسالتك وسنعود إليك في أقرب وقت ممكن."
-                : "Thank you for getting in touch with us! We have received your message and will be getting back to you as soon as possible."}
+                ? 'شكراً لتواصلك معنا! لقد استلمنا رسالتك وسنعود إليك في أقرب وقت ممكن.'
+                : 'Thank you for getting in touch with us! We have received your message and will be getting back to you as soon as possible.'}
             </Text>
             <Section style={hr} />
-            <Text style={paragraph}>
-              {isArabic ? "أطيب التحيات،" : "Warm regards,"}
-            </Text>
-            <Text style={paragraph}>
-              {isArabic ? "مجموعة الغدوة" : "Alghodwa Group"}
-            </Text>
+            <Text style={paragraph}>{isArabic ? 'أطيب التحيات،' : 'Warm regards,'}</Text>
+            <Text style={paragraph}>{isArabic ? 'مجموعة الغدوة' : 'Alghodwa Group'}</Text>
             <a style={button} href={process.env.NEXT_PUBLIC_APP_URL}>
-              {isArabic ? "زيارة موقعنا" : "Visit Our Website"}
+              {isArabic ? 'زيارة موقعنا' : 'Visit Our Website'}
             </a>
           </Section>
         </Container>

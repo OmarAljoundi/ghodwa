@@ -1,8 +1,7 @@
-import * as React from "react";
-import { flexRender, type Table as TanstackTable } from "@tanstack/react-table";
-
-import { getCommonPinningStyles } from "@/lib/data-table";
-import { cn } from "@/lib/utils";
+import { flexRender, type Table as TanstackTable } from '@tanstack/react-table';
+import { Search } from 'lucide-react';
+import type * as React from 'react';
+import { DataTablePagination } from '@/components/data-table/data-table-pagination';
 import {
   Table,
   TableBody,
@@ -10,11 +9,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { DataTablePagination } from "@/components/data-table/data-table-pagination";
-import { Input } from "../ui/input";
-
-import { Search } from "lucide-react";
+} from '@/components/ui/table';
+import { getCommonPinningStyles } from '@/lib/data-table';
+import { cn } from '@/lib/utils';
+import { Input } from '../ui/input';
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   table: TanstackTable<TData>;
@@ -29,10 +27,7 @@ export function DataTable<TData>({
   ...props
 }: DataTableProps<TData>) {
   return (
-    <div
-      className={cn("w-full space-y-2.5 overflow-auto p-2", className)}
-      {...props}
-    >
+    <div className={cn('w-full space-y-2.5 overflow-auto p-2', className)} {...props}>
       <div className="flex justify-between">
         <div className="space-y-2">
           <div className="relative">
@@ -71,10 +66,7 @@ export function DataTable<TData>({
                     >
                       {header.isPlaceholder
                         ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                        : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -86,7 +78,7 @@ export function DataTable<TData>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                   className="*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r"
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -96,20 +88,14 @@ export function DataTable<TData>({
                         ...getCommonPinningStyles({ column: cell.column }),
                       }}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={table.getAllColumns().length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>

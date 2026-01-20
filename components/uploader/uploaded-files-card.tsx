@@ -1,17 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { AnimatePresence } from "framer-motion";
-import { closestCorners } from "@dnd-kit/core";
-import { Trash2 } from "lucide-react";
-
-import { Sortable, SortableItem } from "@/components/ui/sortable";
-import { Card, CardContent } from "@/components/ui/card";
-
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { UploadedFileOmit } from "@/lib/types";
+import { closestCorners } from '@dnd-kit/core';
+import { AnimatePresence } from 'framer-motion';
+import { Trash2 } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Sortable, SortableItem } from '@/components/ui/sortable';
+import type { UploadedFileOmit } from '@/lib/types';
 
 interface UploadedFilesCardProps {
   uploadedFiles: UploadedFileOmit[];
@@ -68,9 +65,7 @@ export default function UploadedFilesCard({
                       </Button>
                     </div>
                     <div className="p-3">
-                      <p className="truncate text-sm font-medium">
-                        {file.name}
-                      </p>
+                      <p className="truncate text-sm font-medium">{file.name}</p>
                     </div>
                   </CardContent>
                 </Card>

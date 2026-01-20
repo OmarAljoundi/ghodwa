@@ -1,11 +1,9 @@
-"use client";
+'use client';
 
-import ContentWrapper from "@/components/admin-panel/contet-wrapper";
-import { motion } from "framer-motion";
-import { Edit3, Layout, Newspaper, PenTool } from "lucide-react";
-
-import React from "react";
-import { LinearBackground } from "./liner-bg";
+import { motion } from 'framer-motion';
+import { Edit3, Layout, Newspaper, PenTool } from 'lucide-react';
+import ContentWrapper from '@/components/admin-panel/contet-wrapper';
+import { LinearBackground } from './liner-bg';
 
 export default function AdminMainPage() {
   const fadeInUp = {
@@ -37,19 +35,12 @@ export default function AdminMainPage() {
             >
               Welcome to Your Ultimate CMS
             </motion.h1>
-            <motion.p
-              className="text-xl text-muted-foreground"
-              variants={fadeInUp}
-            >
-              Empower your creativity, manage your content, and build your
-              digital empire
+            <motion.p className="text-xl text-muted-foreground" variants={fadeInUp}>
+              Empower your creativity, manage your content, and build your digital empire
             </motion.p>
           </motion.section>
 
-          <motion.section
-            className="grid grid-cols-1 gap-16 md:grid-cols-2"
-            variants={stagger}
-          >
+          <motion.section className="grid grid-cols-1 gap-16 md:grid-cols-2" variants={stagger}>
             <motion.div className="space-y-4" variants={fadeInUp}>
               <motion.div
                 className="inline-block rounded-full bg-purple-700 p-4"
@@ -58,9 +49,7 @@ export default function AdminMainPage() {
               >
                 <Edit3 size={40} />
               </motion.div>
-              <h2 className="text-3xl font-semibold">
-                Craft Compelling Articles
-              </h2>
+              <h2 className="text-3xl font-semibold">Craft Compelling Articles</h2>
               <p className="text-muted-foreground">
                 Create, edit, and publish articles with our intuitive editor
               </p>
@@ -102,9 +91,7 @@ export default function AdminMainPage() {
               >
                 <Layout size={40} />
               </motion.div>
-              <h2 className="text-3xl font-semibold">
-                Configure Your Home Page
-              </h2>
+              <h2 className="text-3xl font-semibold">Configure Your Home Page</h2>
               <p className="text-muted-foreground">
                 Customize your landing page with drag-and-drop simplicity
               </p>

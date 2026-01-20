@@ -1,9 +1,9 @@
-"use client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getServiceBySlug } from "@/query";
-import React, { use } from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { notFound } from "next/navigation";
+'use client';
+import { notFound } from 'next/navigation';
+import { use } from 'react';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getServiceBySlug } from '@/query';
+import { BlurFade } from '../ui/blur-fade';
 
 export function ServiceDetails({
   dataPromise,
@@ -21,17 +21,8 @@ export function ServiceDetails({
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
       </BlurFade>
 
-      <BlurFade
-        delay={0.75}
-        blur="16px"
-        inView
-        direction="up"
-        className="minimal-tiptap-editor"
-      >
-        <div
-          className="ProseMirror"
-          dangerouslySetInnerHTML={{ __html: content ?? "" }}
-        />
+      <BlurFade delay={0.75} blur="16px" inView direction="up" className="minimal-tiptap-editor">
+        <div className="ProseMirror" dangerouslySetInnerHTML={{ __html: content ?? '' }} />
       </BlurFade>
     </article>
   );

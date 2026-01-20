@@ -1,20 +1,16 @@
-import { parseISO, format, formatDistanceToNow } from "date-fns";
-import { CalendarDays } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import { CalendarDays } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 interface FriendlyDateProps {
   date: string | Date;
   className?: string;
 }
 
-export default function RowDate({ date, className = "" }: FriendlyDateProps) {
-  const dateObj = typeof date === "string" ? parseISO(date) : date;
-  const formattedDate = format(dateObj, "PPPP");
+export default function RowDate({ date, className = '' }: FriendlyDateProps) {
+  const dateObj = typeof date === 'string' ? parseISO(date) : date;
+  const formattedDate = format(dateObj, 'PPPP');
   const relativeDate = formatDistanceToNow(dateObj, { addSuffix: true });
 
   return (
@@ -25,7 +21,7 @@ export default function RowDate({ date, className = "" }: FriendlyDateProps) {
             `inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300
              hover:text-gray-800 dark:hover:text-gray-100
              transition-colors`,
-            className
+            className,
           )}
         >
           <CalendarDays className="size-4" />

@@ -1,17 +1,13 @@
-"use client";
-import React, { use } from "react";
-import { Button } from "../ui/button";
-import { ArrowRight } from "lucide-react";
-import { getSettings } from "@/query";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import Link from "next/link";
-import ResponsiveImage from "../responsive-image";
+'use client';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { use } from 'react';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getSettings } from '@/query';
+import ResponsiveImage from '../responsive-image';
+import { Button } from '../ui/button';
 
-export function SubHeroSection({
-  dataPromise,
-}: {
-  dataPromise: ReturnType<typeof getSettings>;
-}) {
+export function SubHeroSection({ dataPromise }: { dataPromise: ReturnType<typeof getSettings> }) {
   const {
     home: { moreSection },
   } = use(dataPromise);
@@ -25,7 +21,7 @@ export function SubHeroSection({
         smallSrc={mobile_media?.url}
         alt={title}
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: 'cover' }}
         className="rounded-none lg:rounded-3xl"
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
@@ -41,14 +37,9 @@ export function SubHeroSection({
             <h1 className="font-normal text-2xl md:text-6xl text-gray-50 relative z-10 whitespace-pre-line rtl:md:leading-[75px] rtl:leading-10">
               {title}
             </h1>
-            <p className="font-light text-base text-gray-50 relative z-10">
-              {subtitle}
-            </p>
+            <p className="font-light text-base text-gray-50 relative z-10">{subtitle}</p>
             <Link href={url} className="block">
-              <Button
-                className="z-10 bg-primary text-black px-5 rounded-xl py-6"
-                size="lg"
-              >
+              <Button className="z-10 bg-primary text-black px-5 rounded-xl py-6" size="lg">
                 {text}
                 <div className="bg-black rounded-sm -me-1 ms-2 py-1 px-1">
                   <ArrowRight

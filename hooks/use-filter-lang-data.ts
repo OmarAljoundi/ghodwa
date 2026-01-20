@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useLocale } from 'next-intl';
+import { useMemo } from 'react';
 
 // Type for filtering object properties
 export type FilterLanguageObject<T, L extends string> = {
@@ -22,10 +22,9 @@ function isArray<T>(value: T | T[]): value is T[] {
 }
 
 export function useFilteredLanguageData<
-  T extends Record<string, unknown> | Record<string, unknown>[]
->(data?: T): FilterLanguageArray<T, "ar" | "en"> {
-  const { i18n } = useTranslation();
-  const currentLocale = i18n.language as "ar" | "en";
+  T extends Record<string, unknown> | Record<string, unknown>[],
+>(data?: T): FilterLanguageArray<T, 'ar' | 'en'> {
+  const currentLocale = useLocale() as 'ar' | 'en';
 
   const filteredData = useMemo(() => {
     if (!data) return undefined;
@@ -45,7 +44,7 @@ export function useFilteredLanguageData<
 // Helper function to filter individual objects
 function filterObjectByLanguage<T extends Record<string, unknown>>(
   obj: T,
-  locale: "ar" | "en"
+  locale: 'ar' | 'en',
 ): FilterLanguageObject<T, typeof locale> {
   const result: Partial<Record<string, unknown>> = {};
 
@@ -54,7 +53,7 @@ function filterObjectByLanguage<T extends Record<string, unknown>>(
       // Remove the language prefix from the key
       const newKey = key.slice(3); // Strips 'ar_' or 'en_'
       result[newKey] = obj[key];
-    } else if (!key.includes("_")) {
+    } else if (!key.includes('_')) {
       // Include language-agnostic fields as-is
       result[key] = obj[key];
     }

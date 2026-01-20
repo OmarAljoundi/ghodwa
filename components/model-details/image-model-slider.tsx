@@ -1,14 +1,13 @@
-import React from "react";
-import { BlurFade } from "../ui/blur-fade";
+import Image from 'next/image';
+import type { Model } from '@/generated/client/client';
+import { BlurFade } from '../ui/blur-fade';
 import {
   Carousel,
   CarouselIndicator,
   CarouselMainContainer,
   CarouselThumbsContainer,
   SliderMainItem,
-} from "../ui/carousel";
-import Image from "next/image";
-import { Model } from "@prisma/client";
+} from '../ui/carousel';
 
 export function ImageModelSlider({
   className,
@@ -18,17 +17,11 @@ export function ImageModelSlider({
   currentModel: Model;
 }) {
   return (
-    <BlurFade direction={"up"} className={className}>
+    <BlurFade direction={'up'} className={className}>
       <Carousel className="w-full h-[300px] lg:h-[500px]">
-        <CustomCarousel
-          slides={
-            currentModel?.image.map((prop: any) => prop.url as string) ?? []
-          }
-        />
+        <CustomCarousel slides={currentModel?.image.map((prop: any) => prop.url as string) ?? []} />
         <CustomCarouselControls
-          slides={
-            currentModel?.image.map((prop: any) => prop.url as string) ?? []
-          }
+          slides={currentModel?.image.map((prop: any) => prop.url as string) ?? []}
         />
       </Carousel>
     </BlurFade>
@@ -53,7 +46,7 @@ function CustomCarouselItem({ index, item }: { item: string; index: number }) {
           src={item}
           alt={item}
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
           className="rounded-3xl aspect-video"
           priority={index === 0}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"

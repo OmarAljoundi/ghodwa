@@ -1,30 +1,24 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { type ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
-import RowDate from "@/components/data-table/common/row-date";
-import ToolbarAction from "@/components/toolbar-action";
-import { useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ServiceSchema } from "@/schema/service-schema";
-import RowStatus from "@/components/data-table/common/row-status";
+import type { ColumnDef } from '@tanstack/react-table';
+import { useRouter } from 'next/navigation';
+import RowDate from '@/components/data-table/common/row-date';
+import RowStatus from '@/components/data-table/common/row-status';
+import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
+import ToolbarAction from '@/components/toolbar-action';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import type { ServiceSchema } from '@/schema/service-schema';
 
 export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
   return [
     {
-      accessorKey: "image",
+      accessorKey: 'image',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Logo" column={column} />;
       },
       cell: ({ row: { original } }) => (
         <Avatar className="dark:bg-white">
-          <AvatarImage
-            src={original.image?.url}
-            alt="logo"
-            width={50}
-            className="object-contain"
-          />
+          <AvatarImage src={original.image?.url} alt="logo" width={50} className="object-contain" />
           <AvatarFallback>SV</AvatarFallback>
         </Avatar>
       ),
@@ -33,7 +27,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       size: 40,
     },
     {
-      accessorKey: "ar_title",
+      accessorKey: 'ar_title',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Arabic Title" column={column} />;
       },
@@ -42,7 +36,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "en_title",
+      accessorKey: 'en_title',
       header: ({ column }) => {
         return <DataTableColumnHeader title="English Title" column={column} />;
       },
@@ -51,7 +45,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "slug",
+      accessorKey: 'slug',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Slug" column={column} />;
       },
@@ -60,7 +54,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "is_published",
+      accessorKey: 'is_published',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Status" column={column} />;
       },
@@ -69,7 +63,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       enableSorting: false,
     },
     {
-      accessorKey: "createdAt",
+      accessorKey: 'createdAt',
       header: ({ column }) => {
         return <DataTableColumnHeader title="Created At" column={column} />;
       },
@@ -78,7 +72,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       enableSorting: false,
     },
     {
-      id: "actions",
+      id: 'actions',
       cell: function Cell({ row: { original } }) {
         const route = useRouter();
         return (

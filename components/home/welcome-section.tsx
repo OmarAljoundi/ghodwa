@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { use } from "react";
-import { Button } from "../ui/button";
-import { getServices, getSettings } from "@/query";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import Link from "next/link";
-import { ServiceCard } from "../service-card";
-import { Service } from "@prisma/client";
-import { BlurFade } from "../ui/blur-fade";
-import { ArrowRight } from "lucide-react";
-import { useServicesPages } from "@/hooks/use-render-items";
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { use } from 'react';
+import type { Service } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useServicesPages } from '@/hooks/use-render-items';
+import type { getServices, getSettings } from '@/query';
+import { ServiceCard } from '../service-card';
+import { BlurFade } from '../ui/blur-fade';
+import { Button } from '../ui/button';
 
 export function WelcomeSection({
   dataPromise,
@@ -22,9 +22,7 @@ export function WelcomeSection({
   const services = use(dataPromiseServices);
   const serviceItems = useServicesPages(services.slice(0, 3));
 
-  const { callToAction, subtitle, title } = useFilteredLanguageData(
-    data.home.welcomeSection
-  );
+  const { callToAction, subtitle, title } = useFilteredLanguageData(data.home.welcomeSection);
   const { url, text } = useFilteredLanguageData(callToAction);
   return (
     <div className="grid grid-cols-[12fr] xl:grid-cols-[4fr,8fr] container mx-auto lg:gap-x-6 xl:gap-10 2xl:gap-x-20 gap-y-8">
@@ -38,23 +36,14 @@ export function WelcomeSection({
           >
             {text}
             <div className="bg-primary text-black  duration-300 transition-all rounded-sm -me-1 ms-2 p-1">
-              <ArrowRight
-                className="size-6 rtl:rotate-180"
-                strokeWidth={1.5}
-                aria-hidden="true"
-              />
+              <ArrowRight className="size-6 rtl:rotate-180" strokeWidth={1.5} aria-hidden="true" />
             </div>
           </Button>
         </Link>
       </div>
       <div className="grid grid-cols-[12fr] gap-y-4 lg:gap-y-0 lg:grid-cols-[4fr,4fr,4fr] lg:gap-x-4 xl:gap-6 2xl:gap-x-8 ">
         {serviceItems.map((service, index) => (
-          <BlurFade
-            key={service.id}
-            inView
-            delay={0.3 * index}
-            className="h-60 lg:h-96 xl:h-full"
-          >
+          <BlurFade key={service.id} inView delay={0.3 * index} className="h-60 lg:h-96 xl:h-full">
             <ServiceCardItem service={service} />
           </BlurFade>
         ))}
@@ -64,8 +53,7 @@ export function WelcomeSection({
 }
 
 function ServiceCardItem({ service }: { service: Service }) {
-  const { image, icon, slug, title, addGridBg } =
-    useFilteredLanguageData(service);
+  const { image, icon, slug, title, addGridBg } = useFilteredLanguageData(service);
 
   return (
     <Link href={`/services/${slug}`} className="hover:zoom-in-95">

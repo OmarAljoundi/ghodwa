@@ -1,22 +1,21 @@
-import { NewsContainer } from "@/components/news/news-container";
-import { getNews, getSettings } from "@/query";
-import { InnerPageClient } from "@/store/inner-page-client";
-import { Metadata } from "next";
-import React, { Suspense } from "react";
-import { generatePageBilingualSeo } from "../../generate-bilingual-seo";
+import type { Metadata } from 'next';
+import React, { Suspense } from 'react';
+import { NewsContainer } from '@/components/news/news-container';
+import { getNews, getSettings } from '@/query';
+import { InnerPageClient } from '@/store/inner-page-client';
+import { generatePageBilingualSeo } from '../../generate-bilingual-seo';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: "ar" | "en" }>;
+  params: Promise<{ locale: 'ar' | 'en' }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const { seoStaticPagesNewsListing } = await getSettings();
 
-  const dictionary = generatePageBilingualSeo(
-    seoStaticPagesNewsListing?.seo ?? {},
-    "/news"
-  )[locale];
+  const dictionary = generatePageBilingualSeo(seoStaticPagesNewsListing?.seo ?? {}, '/news')[
+    locale
+  ];
 
   return dictionary;
 }
@@ -24,7 +23,7 @@ export async function generateMetadata({
 export default function Page() {
   return (
     <React.Fragment>
-      <InnerPageClient currentPage={"News"} />
+      <InnerPageClient currentPage={'News'} />
       <Suspense fallback={<h1>Loading..</h1>}>
         <NewsContainer dataPromise={getNews()} />
       </Suspense>

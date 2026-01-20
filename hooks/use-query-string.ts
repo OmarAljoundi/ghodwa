@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 type QueryParams = Record<string, string | number | null>;
 
@@ -17,7 +17,7 @@ export function useQueryString(searchParams: URLSearchParams) {
 
       return newSearchParams.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   return { createQueryString };

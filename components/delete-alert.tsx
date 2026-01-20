@@ -1,7 +1,10 @@
-"use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { AlertTriangle, XCircle } from "lucide-react";
+'use client';
+import { useMutation } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'framer-motion';
+import { AlertTriangle, XCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -9,13 +12,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "./ui/alert-dialog";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+} from './ui/alert-dialog';
 
-interface DeleteAlertProps
-  extends React.ComponentPropsWithoutRef<typeof AlertDialog> {
+interface DeleteAlertProps extends React.ComponentPropsWithoutRef<typeof AlertDialog> {
   title: string;
   description: string;
   onDelete: () => Promise<{ success: boolean; message?: string }>;
@@ -35,7 +34,7 @@ export default function DeleteAlert({
     mutationKey: [mutateKey],
     onSuccess({ success, message }) {
       if (success) {
-        toast.success("Delete successfully");
+        toast.success('Delete successfully');
         route.refresh();
         rest.onOpenChange?.(false);
         return;
@@ -61,7 +60,7 @@ export default function DeleteAlert({
                   <motion.div
                     initial={{ rotate: -90 }}
                     animate={{ rotate: 0 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 10 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 10 }}
                   >
                     <AlertTriangle className="h-5 w-5" />
                   </motion.div>
@@ -78,7 +77,7 @@ export default function DeleteAlert({
                 transition={{ duration: 0.3 }}
               />
               <AnimatePresence>
-                {data?.success == false && data?.message && (
+                {data?.success === false && data?.message && (
                   <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -107,11 +106,11 @@ export default function DeleteAlert({
                     <span className="relative z-10">Delete</span>
                     <motion.div
                       className="absolute inset-0 bg-red-800"
-                      initial={{ y: "100%" }}
+                      initial={{ y: '100%' }}
                       whileHover={{ y: 0 }}
                       transition={{
-                        type: "tween",
-                        ease: "easeInOut",
+                        type: 'tween',
+                        ease: 'easeInOut',
                         duration: 0.3,
                       }}
                     />
@@ -132,11 +131,11 @@ export default function DeleteAlert({
                     <span className="relative z-10">Cancel</span>
                     <motion.div
                       className="absolute inset-0 bg-gray-200 dark:bg-gray-800"
-                      initial={{ x: "-100%" }}
+                      initial={{ x: '-100%' }}
                       whileHover={{ x: 0 }}
                       transition={{
-                        type: "tween",
-                        ease: "easeInOut",
+                        type: 'tween',
+                        ease: 'easeInOut',
                         duration: 0.3,
                       }}
                     />

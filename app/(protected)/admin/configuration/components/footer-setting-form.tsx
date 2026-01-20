@@ -1,42 +1,24 @@
-"use client";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import React, { useCallback, useId } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { FaBan, FaPhoneAlt } from "react-icons/fa";
+'use client';
+import { DragHandleDots2Icon } from '@radix-ui/react-icons';
+import { Files, FileText, Link, Plus, TrashIcon } from 'lucide-react';
+import { useCallback, useId } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { FaBan, FaPhoneAlt } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa6';
+import type { IconType } from 'react-icons/lib';
+import { EmptyState } from '@/components/empty-state';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { Sortable, SortableDragHandle, SortableItem } from '@/components/ui/sortable';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import type { SettingSchema } from '@/schema/setting-schema';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-import { Separator } from "@/components/ui/separator";
-
-import {
-  Sortable,
-  SortableDragHandle,
-  SortableItem,
-} from "@/components/ui/sortable";
-import { Files, FileText, Link, Plus, TrashIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DragHandleDots2Icon } from "@radix-ui/react-icons";
-import { SettingSchema } from "@/schema/setting-schema";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { EmptyState } from "@/components/empty-state";
-import { FaWhatsapp } from "react-icons/fa6";
-import { IconType } from "react-icons/lib";
-import { Textarea } from "@/components/ui/textarea";
-
-export function FooterSettingForm({ lang = "en_" }: { lang?: "ar_" | "en_" }) {
+export function FooterSettingForm({ lang = 'en_' }: { lang?: 'ar_' | 'en_' }) {
   return (
     <div className="flex flex-col gap-y-4">
       <Card>
@@ -68,7 +50,7 @@ export function FooterSettingForm({ lang = "en_" }: { lang?: "ar_" | "en_" }) {
   );
 }
 
-function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
+function ContactInfoForm({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
 
   const { fields, append, move, remove } = useFieldArray({
@@ -78,25 +60,25 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
 
   const appendNewEmpty = useCallback(() => {
     append({
-      ar_title: "",
-      en_title: "",
-      number: "",
+      ar_title: '',
+      en_title: '',
+      number: '',
       showCall: true,
       showWhatsapp: true,
     });
-  }, []);
+  }, [append]);
 
   return (
     <div className="border border-border p-6 rounded-lg gap-x-2">
       <div>
-        {fields.length == 0 && (
+        {fields.length === 0 && (
           <EmptyState
             title="No contact info is created"
             description="You can create new contact items to show it in your site footer"
             className="max-w-full"
             icons={[FileText, Link, Files]}
             action={{
-              label: "Create new contact",
+              label: 'Create new contact',
               onClick: () => appendNewEmpty(),
             }}
           />
@@ -126,7 +108,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     name={`footer.contactInfo.${index}.${lang}title`}
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
-                        {index == 0 && <FormItem>Title</FormItem>}
+                        {index === 0 && <FormItem>Title</FormItem>}
                         <FormControl>
                           <Input {...field} placeholder="Contact title" />
                         </FormControl>
@@ -138,7 +120,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     name={`footer.contactInfo.${index}.number`}
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
-                        {index == 0 && <FormItem>Contact number</FormItem>}
+                        {index === 0 && <FormItem>Contact number</FormItem>}
 
                         <FormControl>
                           <Input {...field} placeholder="Contact number" />
@@ -152,11 +134,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormControl>
-                          <ShowContact
-                            OffIcon={FaBan}
-                            OnIcon={FaPhoneAlt}
-                            {...field}
-                          />
+                          <ShowContact OffIcon={FaBan} OnIcon={FaPhoneAlt} {...field} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -167,11 +145,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormControl>
-                          <ShowContact
-                            OffIcon={FaBan}
-                            OnIcon={FaWhatsapp}
-                            {...field}
-                          />
+                          <ShowContact OffIcon={FaBan} OnIcon={FaWhatsapp} {...field} />
                         </FormControl>
                       </FormItem>
                     )}
@@ -188,15 +162,8 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     <span className="sr-only">Add</span>
                   </Button>
 
-                  <SortableDragHandle
-                    variant="outline"
-                    size="icon"
-                    className="size-9 shrink-0"
-                  >
-                    <DragHandleDots2Icon
-                      className="size-4"
-                      aria-hidden="true"
-                    />
+                  <SortableDragHandle variant="outline" size="icon" className="size-9 shrink-0">
+                    <DragHandleDots2Icon className="size-4" aria-hidden="true" />
                   </SortableDragHandle>
                   <Button
                     type="button"
@@ -205,10 +172,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
                     className="size-9 shrink-0"
                     onClick={() => remove(index)}
                   >
-                    <TrashIcon
-                      className="size-4 text-destructive"
-                      aria-hidden="true"
-                    />
+                    <TrashIcon className="size-4 text-destructive" aria-hidden="true" />
                     <span className="sr-only">Remove</span>
                   </Button>
                 </div>
@@ -221,7 +185,7 @@ function ContactInfoForm({ lang }: { lang: "ar_" | "en_" }) {
   );
 }
 
-function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
+function CompanyForm({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
 
   const { fields, append, move, remove } = useFieldArray({
@@ -231,9 +195,9 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
 
   const appendNewEmpty = useCallback(() => {
     append({
-      email: "",
+      email: '',
     });
-  }, []);
+  }, [append]);
 
   return (
     <div>
@@ -251,14 +215,14 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
           )}
         />
 
-        {fields.length == 0 && (
+        {fields.length === 0 && (
           <EmptyState
             title="No email info is created"
             description="You can create new email items to show it in your site footer"
             className="max-w-full"
             icons={[FileText, Link, Files]}
             action={{
-              label: "Create new email",
+              label: 'Create new email',
               onClick: () => appendNewEmpty(),
             }}
           />
@@ -286,10 +250,7 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Please enter an email"
-                          />
+                          <Input {...field} placeholder="Please enter an email" />
                         </FormControl>
                       </FormItem>
                     )}
@@ -306,15 +267,8 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
                     <span className="sr-only">Add</span>
                   </Button>
 
-                  <SortableDragHandle
-                    variant="outline"
-                    size="icon"
-                    className="size-9 shrink-0"
-                  >
-                    <DragHandleDots2Icon
-                      className="size-4"
-                      aria-hidden="true"
-                    />
+                  <SortableDragHandle variant="outline" size="icon" className="size-9 shrink-0">
+                    <DragHandleDots2Icon className="size-4" aria-hidden="true" />
                   </SortableDragHandle>
                   <Button
                     type="button"
@@ -323,10 +277,7 @@ function CompanyForm({ lang }: { lang: "ar_" | "en_" }) {
                     className="size-9 shrink-0"
                     onClick={() => remove(index)}
                   >
-                    <TrashIcon
-                      className="size-4 text-destructive"
-                      aria-hidden="true"
-                    />
+                    <TrashIcon className="size-4 text-destructive" aria-hidden="true" />
                     <span className="sr-only">Remove</span>
                   </Button>
                 </div>

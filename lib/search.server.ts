@@ -1,13 +1,10 @@
-"use server";
+'use server';
 
-import { db } from "@/db.server";
-import { searchClient } from "@algolia/client-search";
-import { AlgoliaSearchResult, GlobleIndex } from "./types";
+import { searchClient } from '@algolia/client-search';
+import { db } from '@/db.server';
+import type { AlgoliaSearchResult, GlobleIndex } from './types';
 
-const client = searchClient(
-  process.env.ALGOLIA_APP_ID!,
-  process.env.ALGOLIA_API_KEY!
-);
+const client = searchClient(process.env.ALGOLIA_APP_ID!, process.env.ALGOLIA_API_KEY!);
 
 export async function GetModelsGlobleIndex() {
   const result = await db.model.findMany({
@@ -24,16 +21,16 @@ export async function GetModelsGlobleIndex() {
     return {
       ar: {
         title: o.ar_name,
-        description: o.ar_description ?? "",
+        description: o.ar_description ?? '',
         slug: href,
-        type: "نماذج",
+        type: 'نماذج',
         objectID: `Brands-${o.id}`,
       },
       en: {
         title: o.en_name,
-        description: o.en_description ?? "",
+        description: o.en_description ?? '',
         slug: href,
-        type: "Brands",
+        type: 'Brands',
         objectID: `Brands-${o.id}`,
       },
     };
@@ -56,16 +53,16 @@ export async function GetCategoriesGlobleIndex() {
     return {
       ar: {
         title: o.ar_name,
-        description: o.ar_description ?? "",
+        description: o.ar_description ?? '',
         slug: href,
-        type: "فئات",
+        type: 'فئات',
         objectID: `Categories-${o.id}`,
       },
       en: {
         title: o.en_name,
-        description: o.en_description ?? "",
+        description: o.en_description ?? '',
         slug: href,
-        type: "Categories",
+        type: 'Categories',
         objectID: `Categories-${o.id}`,
       },
     };
@@ -85,16 +82,16 @@ export async function GetBrandsGlobleIndex() {
     return {
       ar: {
         title: o.ar_name,
-        description: o.ar_description ?? "",
+        description: o.ar_description ?? '',
         slug: href,
-        type: "ماركات",
+        type: 'ماركات',
         objectID: `Brands-${o.id}`,
       },
       en: {
         title: o.en_name,
-        description: o.en_description ?? "",
+        description: o.en_description ?? '',
         slug: href,
-        type: "Brands",
+        type: 'Brands',
         objectID: `Brands-${o.id}`,
       },
     };
@@ -114,16 +111,16 @@ export async function GetServicesGlobleIndex() {
     return {
       ar: {
         title: o.ar_title,
-        description: "",
+        description: '',
         slug: href,
-        type: "خدمات",
+        type: 'خدمات',
         objectID: `Services-${o.id}`,
       },
       en: {
         title: o.en_title,
-        description: "",
+        description: '',
         slug: href,
-        type: "Services",
+        type: 'Services',
         objectID: `Services-${o.id}`,
       },
     };
@@ -142,16 +139,16 @@ export async function GetNewsGlobleIndex() {
     return {
       ar: {
         title: o.ar_title,
-        description: o.ar_summary ?? "",
+        description: o.ar_summary ?? '',
         slug: href,
-        type: "أخبار",
+        type: 'أخبار',
         objectID: `News-${o.id}`,
       },
       en: {
         title: o.en_title,
-        description: o.en_summary ?? "",
+        description: o.en_summary ?? '',
         slug: href,
-        type: "News",
+        type: 'News',
         objectID: `News-${o.id}`,
       },
     };
@@ -165,37 +162,31 @@ export async function GetNewsGlobleIndex() {
 
 export async function searchWebsite(
   query: string,
-  indexName: "ghodwa_globle_index_en" | "ghodwa_globle_index_ar"
-): Promise<Array<Omit<AlgoliaSearchResult, "_highlightResult">>> {
+  indexName: 'ghodwa_globle_index_en' | 'ghodwa_globle_index_ar',
+): Promise<Array<Omit<AlgoliaSearchResult, '_highlightResult'>>> {
   const { results } = await client.search<GlobleIndex>({
     requests: [
       {
         indexName,
         query,
-        queryLanguages: [indexName.includes("ar") ? "ar" : "en"],
+        queryLanguages: [indexName.includes('ar') ? 'ar' : 'en'],
       },
     ],
   });
 
-  const hits: Array<AlgoliaSearchResult> =
-    results.length > 0 ? (results[0] as any).hits : [];
+  const hits: Array<AlgoliaSearchResult> = results.length > 0 ? (results[0] as any).hits : [];
 
   return hits.map(({ objectID, slug, _highlightResult }) => {
     const highlightStyle = '<em style="background: yellow; padding: 0 2px;">';
 
-    const titleHighlighted = _highlightResult["title"].value.replaceAll(
-      "<em>",
-      highlightStyle
+    const titleHighlighted = _highlightResult.title.value.replaceAll('<em>', highlightStyle);
+
+    const descriptionHighlighted = _highlightResult.description.value.replaceAll(
+      '<em>',
+      highlightStyle,
     );
 
-    const descriptionHighlighted = _highlightResult[
-      "description"
-    ].value.replaceAll("<em>", highlightStyle);
-
-    const typeHighlighted = _highlightResult["type"].value.replaceAll(
-      "<em>",
-      highlightStyle
-    );
+    const typeHighlighted = _highlightResult.type.value.replaceAll('<em>', highlightStyle);
 
     return {
       objectID,

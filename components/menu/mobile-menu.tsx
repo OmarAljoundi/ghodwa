@@ -1,32 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import type { BrandWithRelationsSchema } from "@/schema";
-import type { Service } from "@prisma/client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import ActionMenu from "./action-menu";
-import { useTranslation } from "react-i18next";
-import { SettingSchema } from "@/schema/setting-schema";
-import {
-  useBrandsPages,
-  useExtraPages,
-  useServicesPages,
-} from "@/hooks/use-render-items";
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import type { Service } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useBrandsPages, useExtraPages, useServicesPages } from '@/hooks/use-render-items';
+import type { BrandWithRelationsSchema } from '@/schema';
+import type { SettingSchema } from '@/schema/setting-schema';
+import ActionMenu from './action-menu';
 
 export default function MobileMenu({
   isRTL,
@@ -41,15 +32,15 @@ export default function MobileMenu({
 }) {
   const [open, setOpen] = useState(false);
 
-  const allAboutPages = useExtraPages(settings, "menu");
-  const serviceItems = useServicesPages(services, "menu");
-  const brandItems = useBrandsPages(brands, "menu");
+  const allAboutPages = useExtraPages(settings, 'menu');
+  const serviceItems = useServicesPages(services, 'menu');
+  const brandItems = useBrandsPages(brands, 'menu');
 
   const brandsFilter = useFilteredLanguageData(brandItems);
   const servicesFilter = useFilteredLanguageData(serviceItems);
   const alghodowaFilter = useFilteredLanguageData(allAboutPages);
 
-  const { t } = useTranslation("common");
+  const t = useTranslations();
 
   return (
     <div className="flex lg:hidden gap-x-2">
@@ -62,7 +53,7 @@ export default function MobileMenu({
             size="icon"
             onClick={() => setOpen((prevState) => !prevState)}
             aria-expanded={open}
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? 'Close menu' : 'Open menu'}
           >
             <svg
               className="pointer-events-none"
@@ -92,7 +83,7 @@ export default function MobileMenu({
           </Button>
         </SheetTrigger>
         <SheetContent
-          side={isRTL ? "right" : "left"}
+          side={isRTL ? 'right' : 'left'}
           className="w-[300px] sm:w-[400px]  backdrop-blur-md text-black overflow-y-auto"
         >
           <SheetTitle className="sr-only">Menu Item</SheetTitle>
@@ -102,12 +93,12 @@ export default function MobileMenu({
               href="/"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              {t("Home")}
+              {t('Home')}
             </Link>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="alghodowa">
                 <AccordionTrigger className="text-lg font-semibold">
-                  {t("Al Ghodwa")}
+                  {t('Al Ghodwa')}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 pl-4">
@@ -126,7 +117,7 @@ export default function MobileMenu({
               </AccordionItem>
               <AccordionItem value="brands">
                 <AccordionTrigger className="text-lg font-semibold">
-                  {t("Our Brands")}
+                  {t('Our Brands')}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="grid grid-cols-2 gap-4 ">
@@ -138,7 +129,7 @@ export default function MobileMenu({
                         className="flex flex-col items-center justify-center gap-y-2 hover:bg-white/10 rounded-md p-2 transition-colors"
                       >
                         <Image
-                          src={brand.logo?.url || "/placeholder.svg"}
+                          src={brand.logo?.url || '/placeholder.svg'}
                           alt="logo"
                           width={35}
                           height={35}
@@ -152,7 +143,7 @@ export default function MobileMenu({
               </AccordionItem>
               <AccordionItem value="services">
                 <AccordionTrigger className="text-lg font-semibold">
-                  {t("Our Services")}
+                  {t('Our Services')}
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="flex flex-col space-y-2 ">
@@ -182,14 +173,14 @@ export default function MobileMenu({
               href="/news"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              {t("News")}
+              {t('News')}
             </Link>
             <Link
               onClick={() => setOpen(false)}
               href="/contact-us"
               className="text-lg font-semibold hover:text-gray-300 transition-colors"
             >
-              {t("Contact us")}
+              {t('Contact us')}
             </Link>
           </nav>
         </SheetContent>

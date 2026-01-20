@@ -1,17 +1,15 @@
-"use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { Sortable, SortableItem } from "@/components/ui/sortable";
-import { Button } from "@/components/ui/button";
-import { Plus, TrendingUpDown, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+'use client';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import { Plus, TrendingUpDown, X } from 'lucide-react';
+import type React from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Sortable, SortableItem } from '@/components/ui/sortable';
+import { cn } from '@/lib/utils';
 
 const MotionButton = motion(Button);
 interface CreatableTabsProps<TData>
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof Sortable<TData>>,
-    "children"
-  > {
+  extends Omit<React.ComponentPropsWithoutRef<typeof Sortable<TData>>, 'children'> {
   onAddNewTab: () => void;
   onTabRemove: (index: number) => void;
   maxNumberOfTabs?: number;
@@ -42,18 +40,16 @@ export function CreatableTabs<TData>({
     <div className="mx-auto w-full">
       <div
         className={cn(
-          rest.value?.length == 0
-            ? "hidden"
-            : "relative flex flex-wrap items-center gap-4 overflow-x-auto py-3"
+          rest.value?.length === 0
+            ? 'hidden'
+            : 'relative flex flex-wrap items-center gap-4 overflow-x-auto py-3',
         )}
       >
         <AnimatePresence mode="wait">
           <Sortable
             {...rest}
             onDragEnd={(e) => {
-              const index = rest?.value?.findIndex(
-                (x: any) => x.id == e.over?.id
-              );
+              const index = rest?.value?.findIndex((x: any) => x.id === e.over?.id);
               setActiveTab(index);
             }}
           >
@@ -66,7 +62,7 @@ export function CreatableTabs<TData>({
               >
                 <Button
                   type="button"
-                  variant={activeTab === index ? "default" : "outline"}
+                  variant={activeTab === index ? 'default' : 'outline'}
                   className="relative h-9 cursor-pointer transition-all duration-300 hover:bg-secondary hover:text-secondary-foreground"
                   onClick={() => setActiveTab(index)}
                 >
@@ -78,8 +74,7 @@ export function CreatableTabs<TData>({
                     onClick={(e) => {
                       e.stopPropagation();
                       onTabRemove(index);
-                      if (activeTab === index)
-                        setActiveTab(Math.max(0, index - 1));
+                      if (activeTab === index) setActiveTab(Math.max(0, index - 1));
                     }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -103,7 +98,7 @@ export function CreatableTabs<TData>({
             type="button"
             variant="outline"
             onClick={appendNewTab}
-            disabled={rest.value?.length == maxNumberOfTabs}
+            disabled={rest.value?.length === maxNumberOfTabs}
           >
             <Plus className="h-4 w-4" />
           </Button>
@@ -117,7 +112,7 @@ export function CreatableTabs<TData>({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="mt-4 space-y-4"
           >
             {rest.children(activeTab)}
@@ -131,39 +126,43 @@ export function CreatableTabs<TData>({
 }
 
 function EmptyBlock({ onAdd }: { onAdd: () => void }) {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: 'easeOut',
         staggerChildren: 0.2,
       },
     },
   };
 
-  const childVariants = {
+  const childVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 24 },
+      transition: { type: 'spring', stiffness: 300, damping: 24 },
     },
   };
 
-  const iconVariants = {
+  const iconVariants: Variants = {
     hidden: { rotate: -90, opacity: 0 },
     visible: {
       rotate: 0,
       opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: 'easeOut' },
     },
     hover: {
       scale: 1.2,
       rotate: 15,
-      transition: { yoyo: Infinity, duration: 0.3 },
+      transition: {
+        repeat: Infinity,
+        repeatType: 'reverse',
+        duration: 0.3
+      },
     },
   };
 
@@ -184,18 +183,12 @@ function EmptyBlock({ onAdd }: { onAdd: () => void }) {
             <TrendingUpDown size={64} />
           </motion.div>
         </motion.div>
-        <motion.h2
-          className="text-3xl font-bold text-primary"
-          variants={childVariants}
-        >
+        <motion.h2 className="text-3xl font-bold text-primary" variants={childVariants}>
           No items are found
         </motion.h2>
-        <motion.p
-          className="mx-auto max-w-md text-muted-foreground"
-          variants={childVariants}
-        >
-          It looks like you haven&apos;t created any items yet. Why not start by
-          creating your first one?
+        <motion.p className="mx-auto max-w-md text-muted-foreground" variants={childVariants}>
+          It looks like you haven&apos;t created any items yet. Why not start by creating your first
+          one?
         </motion.p>
         <motion.div variants={childVariants}>
           <Button size="lg" className="group" type="button" onClick={onAdd}>

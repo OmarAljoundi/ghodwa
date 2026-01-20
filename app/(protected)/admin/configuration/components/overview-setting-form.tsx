@@ -1,34 +1,17 @@
-"use client";
-import RichTextEditor from "@/components/minimal-tiptap/editor";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
-import { SettingSchema } from "@/schema/setting-schema";
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import { ControlForm } from "./control-form";
-import { Input } from "@/components/ui/input";
+'use client';
+import { useFormContext } from 'react-hook-form';
+import RichTextEditor from '@/components/minimal-tiptap/editor';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
+import type { SettingSchema } from '@/schema/setting-schema';
+import { ControlForm } from './control-form';
 
-export function OverviewSettingForm({
-  lang = "ar_",
-}: {
-  lang?: "ar_" | "en_";
-}) {
+export function OverviewSettingForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
   return (
     <Card>
       <CardHeader>
@@ -63,9 +46,9 @@ export function OverviewSettingForm({
                 <FormLabel>Content</FormLabel>
                 <FormControl>
                   <RichTextEditor
-                    isRtL={lang == "ar_" ? true : false}
+                    isRtL={lang === 'ar_'}
                     throttleDelay={0}
-                    className={cn("h-full min-h-56 w-full rounded-xl")}
+                    className={cn('h-full min-h-56 w-full rounded-xl')}
                     editorContentClassName="overflow-auto h-full"
                     placeholder="This is your placeholder..."
                     editable={true}

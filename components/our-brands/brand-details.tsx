@@ -1,12 +1,13 @@
-"use client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getBrandBySlug } from "@/query";
-import { useAddInnerPage } from "@/store/inner-page";
-import { Category } from "@prisma/client";
-import React, { use } from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { CommonCard } from "../common-card";
-import { notFound, useRouter } from "next/navigation";
+'use client';
+import { notFound } from 'next/navigation';
+import { use } from 'react';
+import type { Category } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useRouter } from '@/i18n/navigation';
+import type { getBrandBySlug } from '@/query';
+import { useAddInnerPage } from '@/store/inner-page';
+import { CommonCard } from '../common-card';
+import { BlurFade } from '../ui/blur-fade';
 
 export default function BrandDetails({
   dataPromise,
@@ -21,9 +22,9 @@ export default function BrandDetails({
 
   if (!brand || brand.categories.length === 0) return notFound();
 
-  if (categories.length == 1) {
+  if (categories.length === 1) {
     route.replace(`/our-brands/${slug}/${categories[0].slug}`);
-    return <></>;
+    return null;
   }
 
   return (
@@ -41,13 +42,7 @@ export default function BrandDetails({
   );
 }
 
-function BrandCategory({
-  category,
-  brandSlug,
-}: {
-  brandSlug: string;
-  category: Category;
-}) {
+function BrandCategory({ category, brandSlug }: { brandSlug: string; category: Category }) {
   const { image, name, slug } = useFilteredLanguageData(category);
   return (
     <CommonCard

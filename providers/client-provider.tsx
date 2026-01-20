@@ -1,8 +1,7 @@
-"use client";
-import { monaSans, notoKufiArabic, notoSans } from "@/app/fonts";
-import { cn } from "@/lib/utils";
-import { dir } from "i18next";
-import React, { ReactNode, useEffect, useState } from "react";
+'use client';
+import { type ReactNode, useEffect, useState } from 'react';
+import { monaSans, notoKufiArabic, notoSans } from '@/app/fonts';
+import { cn } from '@/lib/utils';
 
 export default function ClientProvider({
   locale,
@@ -21,14 +20,15 @@ export default function ClientProvider({
     return <>{children}</>;
   }
 
+  const dir = locale === 'ar' ? 'rtl' : 'ltr';
   return (
-    <html lang={locale} dir={dir(locale)}>
+    <html lang={locale} dir={dir}>
       <body
         className={cn(
-          "flex min-h-screen flex-col overflow-x-hidden antialiased",
+          'flex min-h-screen flex-col overflow-x-hidden antialiased',
           notoKufiArabic.variable,
           notoSans.variable,
-          monaSans.variable
+          monaSans.variable,
         )}
       >
         {children}

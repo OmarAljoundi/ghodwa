@@ -1,42 +1,30 @@
-"use client";
-import React from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+'use client';
 import {
-  Youtube,
   Facebook,
-  Linkedin,
   Instagram,
-  Twitter,
+  Linkedin,
   Mail,
-  Phone,
   MessageCircle,
-  Trash2,
+  Phone,
   Plus,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+  Trash2,
+  Twitter,
+  Youtube,
+} from 'lucide-react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { SettingSchema } from "@/schema/setting-schema";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import type { SettingSchema } from '@/schema/setting-schema';
 
 const socialIcons = {
   Youtube: <Youtube className="h-5 w-5" />,
@@ -50,26 +38,21 @@ const socialIcons = {
 };
 
 const channels = [
-  "Youtube",
-  "Facebook",
-  "LinkedIn",
-  "Instagram",
-  "X",
-  "Email",
-  "Whatsapp",
-  "Phone",
+  'Youtube',
+  'Facebook',
+  'LinkedIn',
+  'Instagram',
+  'X',
+  'Email',
+  'Whatsapp',
+  'Phone',
 ] as const;
 
-export function SocialMediaSettingForm({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  lang = "ar_",
-}: {
-  lang?: "ar_" | "en_";
-}) {
+export function SocialMediaSettingForm(_: { lang?: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "socialMediaContact.items",
+    name: 'socialMediaContact.items',
   });
   return (
     <Card>
@@ -92,8 +75,8 @@ export function SocialMediaSettingForm({
               onClick={() =>
                 append({
                   id: crypto.randomUUID(),
-                  channel: "Youtube",
-                  url: "",
+                  channel: 'Youtube',
+                  url: '',
                 })
               }
             >
@@ -115,10 +98,7 @@ export function SocialMediaSettingForm({
                           name={`socialMediaContact.items.${index}.channel`}
                           render={({ field }) => (
                             <FormItem className="flex-1">
-                              <Select
-                                value={field.value}
-                                onValueChange={field.onChange}
-                              >
+                              <Select value={field.value} onValueChange={field.onChange}>
                                 <SelectTrigger className="w-[200px]">
                                   <SelectValue placeholder="Select channel">
                                     {field.value && (
@@ -156,7 +136,7 @@ export function SocialMediaSettingForm({
                                 <Input
                                   {...field}
                                   placeholder={`Enter ${
-                                    fields[index].channel || "channel"
+                                    fields[index].channel || 'channel'
                                   } URL or contact`}
                                 />
                               </FormControl>

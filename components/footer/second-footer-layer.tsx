@@ -1,9 +1,8 @@
-import React from "react";
-import { ColumnGroup } from "./column-group";
-import { Service } from "@prisma/client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { useExtraPages, useServicesPages } from "@/hooks/use-render-items";
-import { SettingSchema } from "@/schema/setting-schema";
+import type { Service } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { useExtraPages, useServicesPages } from '@/hooks/use-render-items';
+import type { SettingSchema } from '@/schema/setting-schema';
+import { ColumnGroup } from './column-group';
 
 export function SecondFooterLayer({
   services,
@@ -12,7 +11,7 @@ export function SecondFooterLayer({
   services: Service[];
   settings: SettingSchema;
 }) {
-  const items = useServicesPages(services, "footer");
+  const items = useServicesPages(services, 'footer');
   const itemsFiltered = useFilteredLanguageData(items);
 
   const mappedItems = itemsFiltered.map((x) => {
@@ -22,7 +21,7 @@ export function SecondFooterLayer({
     };
   });
 
-  const extraAlGhodwaMenu = useExtraPages(settings, "footer");
+  const extraAlGhodwaMenu = useExtraPages(settings, 'footer');
   const alGhodwaMenuFiltered = useFilteredLanguageData(extraAlGhodwaMenu);
 
   return (

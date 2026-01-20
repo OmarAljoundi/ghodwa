@@ -1,5 +1,8 @@
-"use client";
-import React, { use, useRef } from "react";
+'use client';
+import Autoplay from 'embla-carousel-autoplay';
+import { use, useRef } from 'react';
+import { RiPauseLine, RiPlayLine } from 'react-icons/ri';
+import { Button } from '@/components/ui/button';
 import {
   Carousel,
   CarouselIndicator,
@@ -7,14 +10,11 @@ import {
   CarouselThumbsContainer,
   SliderMainItem,
   useCarousel,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import { Button } from "@/components/ui/button";
-import { getSettings } from "@/query";
-import { SettingSchema } from "@/schema/setting-schema";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import ResponsiveImage from "../responsive-image";
-import { RiPauseLine, RiPlayLine } from "react-icons/ri";
+} from '@/components/ui/carousel';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getSettings } from '@/query';
+import type { SettingSchema } from '@/schema/setting-schema';
+import ResponsiveImage from '../responsive-image';
 
 export default function HeroSection({
   dataPromise,
@@ -30,7 +30,7 @@ export default function HeroSection({
       delay: 10000,
       stopOnInteraction: true,
       playOnInit: true,
-    })
+    }),
   );
   return (
     <div className="relative w-full h-[400px] md:h-[700px] p-2 lg:p-0">
@@ -46,11 +46,7 @@ export default function HeroSection({
   );
 }
 
-function CustomCarousel({
-  homehero,
-}: {
-  homehero: SettingSchema["home"]["homehero"];
-}) {
+function CustomCarousel({ homehero }: { homehero: SettingSchema['home']['homehero'] }) {
   return (
     <CarouselMainContainer className="w-full h-full ">
       {homehero.map((item, index) => (
@@ -64,7 +60,7 @@ function CustomCarouselItem({
   index,
   item,
 }: {
-  item: SettingSchema["home"]["homehero"][number];
+  item: SettingSchema['home']['homehero'][number];
   index: number;
 }) {
   const { title, media, mobile_media } = useFilteredLanguageData(item);
@@ -75,12 +71,12 @@ function CustomCarouselItem({
           alt={title}
           priority={index === 0}
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
           largeSrc={media?.url}
           smallSrc={mobile_media?.url}
           className="rounded-3xl"
         />
-        <div className="absolute inset-0 bg-black/50 lg:bg-transparent lg:bg-gradient-to-r rtl:lg:bg-gradient-to-l lg:from-black/60 lg:via-black/30 lg:to-transparent rounded-3xl" />{" "}
+        <div className="absolute inset-0 bg-black/50 lg:bg-transparent lg:bg-gradient-to-r rtl:lg:bg-gradient-to-l lg:from-black/60 lg:via-black/30 lg:to-transparent rounded-3xl" />{' '}
         <div className="relative h-full w-full ">
           <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
             <div
@@ -98,38 +94,32 @@ function CustomCarouselItem({
   );
 }
 
-function CustomCarouselControls({
-  homehero,
-}: {
-  homehero: SettingSchema["home"]["homehero"];
-}) {
+function CustomCarouselControls({ homehero }: { homehero: SettingSchema['home']['homehero'] }) {
   const { toggleAutoplay, autoplayIsPlaying } = useCarousel();
 
   return (
-    <React.Fragment>
-      <div className="absolute bottom-0 right-0  gap-2 bg-background py-2 rounded-tl-3xl px-8">
-        <CarouselThumbsContainer className="space-x-1 flex flex-row items-center">
-          {homehero.map((_, index) => (
-            <CarouselIndicator className="size-4" key={index} index={index} />
-          ))}
-          <div className="ps-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 text-black hover:text-black/50 hover:bg-transparent"
-              onClick={() => toggleAutoplay()}
-            >
-              {autoplayIsPlaying ? (
-                <RiPauseLine className="size-5" />
-              ) : (
-                <RiPlayLine className="size-5" />
-              )}
-            </Button>
-          </div>
-        </CarouselThumbsContainer>
-        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-full right-0 -rotate-90"></div>
-        <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-full -rotate-90"></div>
-      </div>
-    </React.Fragment>
+    <div className="absolute bottom-0 right-0  gap-2 bg-background py-2 rounded-tl-3xl px-8">
+      <CarouselThumbsContainer className="space-x-1 flex flex-row items-center">
+        {homehero.map((_, index) => (
+          <CarouselIndicator className="size-4" key={index} index={index} />
+        ))}
+        <div className="ps-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-black hover:text-black/50 hover:bg-transparent"
+            onClick={() => toggleAutoplay()}
+          >
+            {autoplayIsPlaying ? (
+              <RiPauseLine className="size-5" />
+            ) : (
+              <RiPlayLine className="size-5" />
+            )}
+          </Button>
+        </div>
+      </CarouselThumbsContainer>
+      <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-full right-0 -rotate-90"></div>
+      <div className="bg-background size-[30px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute  bottom-0 right-full -rotate-90"></div>
+    </div>
   );
 }

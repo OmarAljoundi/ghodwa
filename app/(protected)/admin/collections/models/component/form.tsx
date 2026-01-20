@@ -1,51 +1,35 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import React, { useCallback } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { BrandWithRelationsSchema, CreateModelSchema } from "@/schema";
-import { SeoForm } from "@/components/seo-form";
-import { SlugInput } from "@/components/ui/slug-input";
-import UploaderForm from "@/components/uploader/uploader-form";
-import Image from "next/image";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import {
-  Sortable,
-  SortableDragHandle,
-  SortableItem,
-} from "@/components/ui/sortable";
-import { Files, FileText, Link, Plus, TrashIcon } from "lucide-react";
-import { EmptyState } from "@/components/empty-state";
-import { Button } from "@/components/ui/button";
-import { DragHandleDots2Icon } from "@radix-ui/react-icons";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
-import { cn } from "@/lib/utils";
-import RichTextEditor from "@/components/minimal-tiptap/editor";
-import { FormErrors } from "@/components/form-errors";
+import { DragHandleDots2Icon } from '@radix-ui/react-icons';
+import { Files, FileText, Link, Plus, TrashIcon } from 'lucide-react';
+import Image from 'next/image';
+import { useCallback } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { EmptyState } from '@/components/empty-state';
+import { FormErrors } from '@/components/form-errors';
+import RichTextEditor from '@/components/minimal-tiptap/editor';
+import { SeoForm } from '@/components/seo-form';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { SlugInput } from '@/components/ui/slug-input';
+import { Sortable, SortableDragHandle, SortableItem } from '@/components/ui/sortable';
+import UploaderForm from '@/components/uploader/uploader-form';
+import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import { cn } from '@/lib/utils';
+import type { BrandWithRelationsSchema, CreateModelSchema } from '@/schema';
 
 export function ModelForm({
   lang,
   brands,
 }: {
-  lang: "ar_" | "en_";
+  lang: 'ar_' | 'en_';
   brands: Array<BrandWithRelationsSchema>;
 }) {
   const { control } = useFormContext<CreateModelSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="flex justify-start items-start gap-x-4">
@@ -60,11 +44,7 @@ export function ModelForm({
                   <FormItem className="w-full">
                     <FormLabel>{title} name</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value}
-                        placeholder={`Enter ${title} Name`}
-                      />
+                      <Input {...field} value={field.value} placeholder={`Enter ${title} Name`} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -102,9 +82,9 @@ export function ModelForm({
                   <FormLabel>{title} description</FormLabel>
                   <FormControl>
                     <RichTextEditor
-                      isRtL={lang == "ar_" ? true : false}
+                      isRtL={lang === 'ar_'}
                       throttleDelay={0}
-                      className={cn("h-full min-h-56 w-full rounded-xl")}
+                      className={cn('h-full min-h-56 w-full rounded-xl')}
                       editorContentClassName="overflow-auto h-full"
                       placeholder="This is your placeholder..."
                       editable={true}
@@ -161,7 +141,6 @@ export function ModelForm({
               control={control}
               name={`brochure`}
               render={({ field }) => {
-                console.log("field", field.value);
                 return (
                   <FormItem className="w-full">
                     <FormControl>
@@ -212,9 +191,7 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
                       />
                     )}
                     <div>
-                      <h2 className="text-lg font-bold tracking-tight">
-                        {group.en_name}
-                      </h2>
+                      <h2 className="text-lg font-bold tracking-tight">{group.en_name}</h2>
                       <p className="text-sm text-muted-foreground line-clamp-1">
                         {group.en_description}
                       </p>
@@ -236,10 +213,9 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
                           className={`
                             relative h-full p-3 rounded-lg border transition-colors cursor-pointer
                             flex flex-row justify-start gap-x-4 
-                            ${
-                              field.value == category.id
-                                ? "border-primary bg-primary/10 shadow-md"
-                                : "border-input hover:bg-muted/50"
+                            ${field.value === category.id
+                              ? 'border-primary bg-primary/10 shadow-md'
+                              : 'border-input hover:bg-muted/50'
                             }
                           `}
                         >
@@ -253,9 +229,7 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
                             />
                           )}
                           <div>
-                            <h3 className="text-xl font-semibold">
-                              {category.en_name}
-                            </h3>
+                            <h3 className="text-xl font-semibold">{category.en_name}</h3>
                             {category.en_description && (
                               <p className="text-muted-foreground text-xs line-clamp-2">
                                 {category.en_description}
@@ -276,7 +250,7 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
   );
 }
 
-function Specification({ lang }: { lang: "ar_" | "en_" }) {
+function Specification({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<CreateModelSchema>();
 
   const { append, remove, fields, move } = useFieldArray({
@@ -287,23 +261,23 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
   const appendNewEmpty = useCallback(() => {
     append({
       id: crypto.randomUUID(),
-      ar_key: "",
-      en_key: "",
-      ar_value: "",
-      en_value: "",
+      ar_key: '',
+      en_key: '',
+      ar_value: '',
+      en_value: '',
     });
-  }, []);
+  }, [append]);
 
   return (
     <div className="mb-8">
-      {fields.length == 0 ? (
+      {fields.length === 0 ? (
         <EmptyState
           title="No specification created"
           description="You can create new specification item to show it in your model"
           className="max-w-full"
           icons={[FileText, Link, Files]}
           action={{
-            label: "Create new specification",
+            label: 'Create new specification',
             onClick: () => appendNewEmpty(),
           }}
         />
@@ -313,9 +287,7 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
             <Sortable
               uniqueId="id"
               value={fields}
-              onMove={({ activeIndex, overIndex }) =>
-                move(activeIndex, overIndex)
-              }
+              onMove={({ activeIndex, overIndex }) => move(activeIndex, overIndex)}
               overlay={
                 <div className="grid grid-cols-[5.5fr,5.5fr,auto,auto,auto] items-center gap-2">
                   <div className="h-8 w-full rounded-sm bg-primary/10" />
@@ -335,14 +307,9 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
                         name={`specification.${index}.${lang}key`}
                         render={({ field }) => (
                           <FormItem className="w-full">
-                            {index == 0 && (
-                              <FormLabel>Specification Key</FormLabel>
-                            )}
+                            {index === 0 && <FormLabel>Specification Key</FormLabel>}
                             <FormControl>
-                              <Input
-                                {...field}
-                                placeholder="Specification key"
-                              />
+                              <Input {...field} placeholder="Specification key" />
                             </FormControl>
                           </FormItem>
                         )}
@@ -352,14 +319,9 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
                         name={`specification.${index}.${lang}value`}
                         render={({ field }) => (
                           <FormItem className="w-full">
-                            {index == 0 && (
-                              <FormLabel>Specification Value</FormLabel>
-                            )}
+                            {index === 0 && <FormLabel>Specification Value</FormLabel>}
                             <FormControl>
-                              <Input
-                                {...field}
-                                placeholder="Specification value"
-                              />
+                              <Input {...field} placeholder="Specification value" />
                             </FormControl>
                           </FormItem>
                         )}
@@ -372,22 +334,12 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
                         className="size-9 shrink-0"
                         onClick={() => appendNewEmpty()}
                       >
-                        <Plus
-                          className="size-4 text-primary"
-                          aria-hidden="true"
-                        />
+                        <Plus className="size-4 text-primary" aria-hidden="true" />
                         <span className="sr-only">Add</span>
                       </Button>
 
-                      <SortableDragHandle
-                        variant="outline"
-                        size="icon"
-                        className="size-9 shrink-0"
-                      >
-                        <DragHandleDots2Icon
-                          className="size-4"
-                          aria-hidden="true"
-                        />
+                      <SortableDragHandle variant="outline" size="icon" className="size-9 shrink-0">
+                        <DragHandleDots2Icon className="size-4" aria-hidden="true" />
                       </SortableDragHandle>
                       <Button
                         type="button"
@@ -396,10 +348,7 @@ function Specification({ lang }: { lang: "ar_" | "en_" }) {
                         className="size-9 shrink-0"
                         onClick={() => remove(index)}
                       >
-                        <TrashIcon
-                          className="size-4 text-destructive"
-                          aria-hidden="true"
-                        />
+                        <TrashIcon className="size-4 text-destructive" aria-hidden="true" />
                         <span className="sr-only">Remove</span>
                       </Button>
                     </div>

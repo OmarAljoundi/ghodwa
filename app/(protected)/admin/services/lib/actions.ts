@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { db } from "@/db.server";
+import { db } from '@/db.server';
 
 export async function updateServicesOrder(
-  newOrder: { id: number; order: number }[]
+  newOrder: { id: number; order: number }[],
 ): Promise<void> {
   try {
     await db.$transaction(async (tx) => {
@@ -14,9 +14,8 @@ export async function updateServicesOrder(
         });
       }
     });
-    console.log("service order updated successfully");
   } catch (error) {
-    console.error("Error updating service order:", error);
+    console.error('Error updating service order:', error);
     throw error;
   }
 }

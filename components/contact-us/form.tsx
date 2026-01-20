@@ -1,10 +1,9 @@
-"use client";
-import React from "react";
-import { useForm } from "react-hook-form";
-import { contactSchema, ContactSchema } from "@/schema/contact-schema";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocale, useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,39 +11,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslation } from "react-i18next";
-import { submitForm } from "@/query";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { submitForm } from '@/query';
+import { type ContactSchema, contactSchema } from '@/schema/contact-schema';
 
 export function ContactUsForm() {
-  const { t, i18n } = useTranslation("common");
-  const lang = i18n.language;
+  const t = useTranslations();
+  const lang = useLocale();
   const form = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
     },
   });
 
   async function onSubmit(data: ContactSchema) {
-    const isArabic = lang == "ar";
+    const isArabic = lang === 'ar';
     const { success } = await submitForm(data, isArabic);
     if (success) {
-      toast.success(t("Thank you for reaching out, we will contact you soon"));
-      form.reset({ email: "", name: "", message: "", subject: "" });
+      toast.success(t('Thank you for reaching out, we will contact you soon'));
+      form.reset({ email: '', name: '', message: '', subject: '' });
       return;
     }
-    toast.error(t("We are facing a tecnical issue, please try again later"));
+    toast.error(t('We are facing a tecnical issue, please try again later'));
   }
 
   return (
     <div className="flex flex-col gap-y-8">
-      <h1 className="text-4xl lg:text-5xl">{t("We are ready to help you")}</h1>
+      <h1 className="text-4xl lg:text-5xl">{t('We are ready to help you')}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="-space-y-3">
           <FormField
@@ -52,12 +51,12 @@ export function ContactUsForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Name")}</FormLabel>
+                <FormLabel>{t('Name')}</FormLabel>
                 <FormControl>
                   <Input
                     className="rtl:text-right"
-                    dir={lang == "ar" ? "rtl" : "ltr"}
-                    placeholder={t("Your name")}
+                    dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                    placeholder={t('Your name')}
                     {...field}
                   />
                 </FormControl>
@@ -70,12 +69,12 @@ export function ContactUsForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Email")}</FormLabel>
+                <FormLabel>{t('Email')}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
                     className="rtl:text-right"
-                    placeholder={t("Your email")}
+                    placeholder={t('Your email')}
                     {...field}
                   />
                 </FormControl>
@@ -88,12 +87,12 @@ export function ContactUsForm() {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Subject")}</FormLabel>
+                <FormLabel>{t('Subject')}</FormLabel>
                 <FormControl>
                   <Input
-                    dir={lang == "ar" ? "rtl" : "ltr"}
+                    dir={lang === 'ar' ? 'rtl' : 'ltr'}
                     className="rtl:text-right"
-                    placeholder={t("Subject of your message")}
+                    placeholder={t('Subject of your message')}
                     {...field}
                   />
                 </FormControl>
@@ -106,12 +105,12 @@ export function ContactUsForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("Message")}</FormLabel>
+                <FormLabel>{t('Message')}</FormLabel>
                 <FormControl>
                   <Textarea
-                    dir={lang == "ar" ? "rtl" : "ltr"}
+                    dir={lang === 'ar' ? 'rtl' : 'ltr'}
                     className="rtl:text-right"
-                    placeholder={t("Your message")}
+                    placeholder={t('Your message')}
                     {...field}
                     rows={6}
                   />
@@ -120,12 +119,8 @@ export function ContactUsForm() {
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={form.formState.isSubmitting}
-          >
-            {t("Send Message")}
+          <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+            {t('Send Message')}
           </Button>
         </form>
       </Form>

@@ -1,74 +1,56 @@
-"use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CreatableTabs } from "@/components/ui/creatable-tabs";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
-import { SettingSchema } from "@/schema/setting-schema";
-import { closestCorners } from "@dnd-kit/core";
-import React, { useCallback } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { ControlForm } from "./control-form";
+'use client';
+import { closestCorners } from '@dnd-kit/core';
+import { useCallback } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CreatableTabs } from '@/components/ui/creatable-tabs';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import type { SettingSchema } from '@/schema/setting-schema';
+import { ControlForm } from './control-form';
 
-export function ManagementTeamSettingForm({
-  lang = "ar_",
-}: {
-  lang?: "ar_" | "en_";
-}) {
+export function ManagementTeamSettingForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
   const { control, setValue, watch } = useFormContext<SettingSchema>();
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
-  const watchFields = watch("managementTeam.team");
+  const watchFields = watch('managementTeam.team');
 
   const { append, remove } = useFieldArray({
     control: control,
-    name: "managementTeam.team",
+    name: 'managementTeam.team',
   });
 
   const getButtonTitle = useCallback(
     (index: number) => {
-      if (lang === "ar_")
-        return watchFields[index]?.ar_name || `New Tab ${index + 1}`;
+      if (lang === 'ar_') return watchFields[index]?.ar_name || `New Tab ${index + 1}`;
 
       return watchFields[index]?.en_name || `New Tab ${index + 1}`;
     },
-    [lang, watchFields]
+    [lang, watchFields],
   );
 
   const appendNewEmpty = useCallback(() => {
     append({
-      ar_jobTitle: "",
-      ar_name: "",
-      contactNumber: "",
-      en_jobTitle: "",
-      en_name: "",
-      ar_summary: "",
-      en_summary: "",
+      ar_jobTitle: '',
+      ar_name: '',
+      contactNumber: '',
+      en_jobTitle: '',
+      en_name: '',
+      ar_summary: '',
+      en_summary: '',
       id: crypto.randomUUID(),
     });
-  }, []);
+  }, [append]);
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>Management Team settings</CardTitle>
         <CardDescription>
-          This will appear in the alghodwa (Management Team section) for the
-          website
+          This will appear in the alghodwa (Management Team section) for the website
         </CardDescription>
       </CardHeader>
       <Separator className="my-2" />
@@ -125,31 +107,23 @@ export function ManagementTeamSettingForm({
           collisionDetection={closestCorners}
           value={watchFields || []}
           onValueChange={(e) => {
-            setValue("managementTeam.team", e);
+            setValue('managementTeam.team', e);
           }}
           buttonTitle={getButtonTitle}
           onAddNewTab={appendNewEmpty}
           onTabRemove={remove}
           overlay={<div className="size-full rounded-md bg-primary/10" />}
         >
-          {(activeTab) => (
-            <TeamColumn activeTab={activeTab} lang={lang} key={activeTab} />
-          )}
+          {(activeTab) => <TeamColumn activeTab={activeTab} lang={lang} key={activeTab} />}
         </CreatableTabs>
       </CardContent>
     </Card>
   );
 }
 
-function TeamColumn({
-  activeTab,
-  lang,
-}: {
-  activeTab: number;
-  lang: "ar_" | "en_";
-}) {
+function TeamColumn({ activeTab, lang }: { activeTab: number; lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="border border-border flex flex-row p-6 rounded-lg gap-x-6">
@@ -201,11 +175,7 @@ function TeamColumn({
             <FormItem className="w-full">
               <FormLabel>{title} summary</FormLabel>
               <FormControl>
-                <Textarea
-                  rows={9}
-                  {...field}
-                  placeholder="A brief description about the member"
-                />
+                <Textarea rows={9} {...field} placeholder="A brief description about the member" />
               </FormControl>
               <FormMessage />
             </FormItem>

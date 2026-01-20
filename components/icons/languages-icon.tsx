@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import type { Variants } from "motion/react";
-import { motion, useAnimation } from "motion/react";
-import type { HTMLAttributes } from "react";
-import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
-import { cn } from "@/lib/utils";
+import type { Variants } from 'motion/react';
+import { motion, useAnimation } from 'motion/react';
+import type { HTMLAttributes } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface LanguagesIconHandle {
   startAnimation: () => void;
@@ -24,7 +24,7 @@ const pathVariants: Variants = {
     transition: {
       opacity: { duration: 0.01, delay: custom * 0.1 },
       pathLength: {
-        type: "spring",
+        type: 'spring',
         duration: 0.5,
         bounce: 0,
         delay: custom * 0.1,
@@ -56,12 +56,12 @@ const LanguagesIcon = forwardRef<LanguagesIconHandle, LanguagesIconProps>(
 
       return {
         startAnimation: () => {
-          svgControls.start("animate");
-          pathControls.start("animate");
+          svgControls.start('animate');
+          pathControls.start('animate');
         },
         stopAnimation: () => {
-          svgControls.start("normal");
-          pathControls.start("normal");
+          svgControls.start('normal');
+          pathControls.start('normal');
         },
       };
     });
@@ -69,32 +69,32 @@ const LanguagesIcon = forwardRef<LanguagesIconHandle, LanguagesIconProps>(
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          svgControls.start("animate");
-          pathControls.start("animate");
+          svgControls.start('animate');
+          pathControls.start('animate');
         } else {
           onMouseEnter?.(e);
         }
       },
-      [onMouseEnter, pathControls, svgControls]
+      [onMouseEnter, pathControls, svgControls],
     );
 
     const handleMouseLeave = useCallback(
       (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isControlledRef.current) {
-          svgControls.start("normal");
-          pathControls.start("normal");
+          svgControls.start('normal');
+          pathControls.start('normal');
         } else {
           onMouseLeave?.(e);
         }
       },
-      [svgControls, pathControls, onMouseLeave]
+      [svgControls, pathControls, onMouseLeave],
     );
 
     return (
       <div
         className={cn(
           `cursor-pointer select-none p-2 hover:bg-accent rounded-md transition-colors duration-200 flex items-center justify-center`,
-          className
+          className,
         )}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -113,48 +113,28 @@ const LanguagesIcon = forwardRef<LanguagesIconHandle, LanguagesIconProps>(
           variants={svgVariants}
           animate={svgControls}
         >
-          <motion.path
-            d="m5 8 6 6"
-            variants={pathVariants}
-            custom={3}
-            animate={pathControls}
-          />
+          <motion.path d="m5 8 6 6" variants={pathVariants} custom={3} animate={pathControls} />
           <motion.path
             d="m4 14 6-6 3-3"
             variants={pathVariants}
             custom={2}
             animate={pathControls}
           />
-          <motion.path
-            d="M2 5h12"
-            variants={pathVariants}
-            custom={1}
-            animate={pathControls}
-          />
-          <motion.path
-            d="M7 2h1"
-            variants={pathVariants}
-            custom={0}
-            animate={pathControls}
-          />
+          <motion.path d="M2 5h12" variants={pathVariants} custom={1} animate={pathControls} />
+          <motion.path d="M7 2h1" variants={pathVariants} custom={0} animate={pathControls} />
           <motion.path
             d="m22 22-5-10-5 10"
             variants={pathVariants}
             custom={3}
             animate={pathControls}
           />
-          <motion.path
-            d="M14 18h6"
-            variants={pathVariants}
-            custom={3}
-            animate={pathControls}
-          />
+          <motion.path d="M14 18h6" variants={pathVariants} custom={3} animate={pathControls} />
         </motion.svg>
       </div>
     );
-  }
+  },
 );
 
-LanguagesIcon.displayName = "LanguagesIcon";
+LanguagesIcon.displayName = 'LanguagesIcon';
 
 export { LanguagesIcon };

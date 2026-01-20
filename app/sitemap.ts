@@ -1,11 +1,5 @@
-import {
-  getAllCategory,
-  getAllModels,
-  getBrands,
-  getNews,
-  getServices,
-} from "@/query";
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next';
+import { getAllCategory, getAllModels, getBrands, getNews, getServices } from '@/query';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = process.env.NEXT_PUBLIC_APP_URL!;
@@ -13,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 1,
       alternates: {
         languages: {
@@ -25,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/our-brands`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 1,
       alternates: {
         languages: {
@@ -37,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/services`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.9,
       alternates: {
         languages: {
@@ -49,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/news`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.9,
       alternates: {
         languages: {
@@ -61,7 +55,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/contact-us`,
       lastModified: new Date(),
-      changeFrequency: "never",
+      changeFrequency: 'never',
       priority: 0.9,
       alternates: {
         languages: {
@@ -74,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/alghodwa/management-and-team`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
@@ -86,7 +80,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/alghodwa/management-systems`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
@@ -98,7 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/alghodwa/mission-vision`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
@@ -110,7 +104,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${url}/alghodwa/overview`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
@@ -132,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const servicesSiteMap = services.map((service) => ({
     url: `${url}/services/${service.slug}`,
     lastModified: service.updatedAt,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {
@@ -145,7 +139,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const newsSiteMap = news.map((n) => ({
     url: `${url}/news/${n.slug}`,
     lastModified: n.updatedAt,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {
@@ -158,7 +152,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const brandsSiteMap = brands.map((brand) => ({
     url: `${url}/our-brands/${brand.slug}`,
     lastModified: brand.updatedAt,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {
@@ -171,7 +165,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const categoriesSiteMap = categories.map((category) => ({
     url: `${url}/services/${category.brand?.slug}/${category.slug}`,
     lastModified: category.updatedAt,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {
@@ -184,7 +178,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const modelsSiteMap = models.map((model) => ({
     url: `${url}/our-brands/${model.category?.slug}/${model.category.brand?.slug}/${model.slug}`,
     lastModified: model.updatedAt,
-    changeFrequency: "monthly",
+    changeFrequency: 'monthly',
     priority: 0.7,
     alternates: {
       languages: {

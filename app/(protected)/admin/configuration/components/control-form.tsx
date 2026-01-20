@@ -1,12 +1,7 @@
-import { CheckboxCard } from "@/components/ui/checkbox-card";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import React, { ReactNode } from "react";
-import { useFormContext } from "react-hook-form";
+import type { ReactNode } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { CheckboxCard } from '@/components/ui/checkbox-card';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
 export function ControlForm({
   prefix,
@@ -18,7 +13,7 @@ export function ControlForm({
   children?: ReactNode;
 }) {
   const { control } = useFormContext();
-  const key = prefix ? `${prefix}.` : "";
+  const key = prefix ? `${prefix}.` : '';
   return (
     <div className="flex justify-between gap-x-2">
       {showPage && (

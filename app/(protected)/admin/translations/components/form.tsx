@@ -1,25 +1,21 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useEffect } from "react";
-import { getTranslations, saveTranslations } from "@/lib/translations.server";
-import { toast } from "sonner";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
+import { getTranslations, saveTranslations } from '@/lib/translations.server';
 
-const TranslationItemSchema = z.record(z.string().optional().default(""));
-
+const TranslationItemSchema = z.record(
+  z.string(),
+  z.string().optional().default('')
+);
 const TranslationFormSchema = z.object({
   translations: TranslationItemSchema,
 });
@@ -31,13 +27,13 @@ export function TranslationForm({
   searchTerm,
 }: {
   searchTerm: string;
-  currentLanguage: "tab-en" | "tab-ar";
-  lang: "ar_" | "en_";
+  currentLanguage: 'tab-en' | 'tab-ar';
+  lang: 'ar_' | 'en_';
 }) {
   const queryClient = useQueryClient();
   const route = useRouter();
   const { data: translations, isLoading: isTranslationsLoading } = useQuery({
-    queryKey: ["translations", currentLanguage],
+    queryKey: ['translations', currentLanguage],
     queryFn: async () => {
       const { translations } = await getTranslations(currentLanguage);
       return translations;
@@ -50,27 +46,27 @@ export function TranslationForm({
       lang,
       data,
     }: {
-      lang: "tab-en" | "tab-ar";
+      lang: 'tab-en' | 'tab-ar';
       data: Record<string, string>;
     }) => {
       await saveTranslations(lang, data);
     },
     onSuccess: async () => {
-      toast.success("Translations saved", {
+      toast.success('Translations saved', {
         description: `Successfully updated ${currentLanguage} translations.`,
       });
       await queryClient.invalidateQueries();
       route.refresh();
     },
     onError: (error) => {
-      toast.error("Error saving translations", {
-        description: "Failed to save translation data. Please try again.",
+      toast.error('Error saving translations', {
+        description: 'Failed to save translation data. Please try again.',
       });
       console.error(error);
     },
   });
 
-  const form = useForm<TranslationFormValues>({
+  const form = useForm({
     resolver: zodResolver(TranslationFormSchema),
     defaultValues: {
       translations: {},
@@ -101,15 +97,15 @@ export function TranslationForm({
 
   const translationKeys = translations
     ? Object.keys(translations)
-        .sort()
-        .filter((key) => {
-          if (!searchTerm || searchTerm.trim() === "") return true;
-          const searchTermLower = searchTerm.toLowerCase();
-          return (
-            key.toLowerCase().includes(searchTermLower) ||
-            translations[key].toLowerCase().includes(searchTermLower)
-          );
-        })
+      .sort()
+      .filter((key) => {
+        if (!searchTerm || searchTerm.trim() === '') return true;
+        const searchTermLower = searchTerm.toLowerCase();
+        return (
+          key.toLowerCase().includes(searchTermLower) ||
+          translations[key].toLowerCase().includes(searchTermLower)
+        );
+      })
     : [];
 
   return (
@@ -133,19 +129,13 @@ export function TranslationForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex flex-col mb-1">
-                        <span className="break-words text-sm font-medium">
-                          {key}
-                        </span>
+                        <span className="break-words text-sm font-medium">{key}</span>
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          dir={currentLanguage === "tab-ar" ? "rtl" : "ltr"}
-                          className={
-                            currentLanguage == "tab-ar"
-                              ? "font-arabic-body"
-                              : ""
-                          }
+                          dir={currentLanguage === 'tab-ar' ? 'rtl' : 'ltr'}
+                          className={currentLanguage === 'tab-ar' ? 'font-arabic-body' : ''}
                         />
                       </FormControl>
                     </FormItem>
@@ -163,11 +153,9 @@ export function TranslationForm({
         <div className="flex justify-end">
           <Button
             type="submit"
-            disabled={
-              isTranslationsLoading || saveTranslationsMutation.isPending
-            }
+            disabled={isTranslationsLoading || saveTranslationsMutation.isPending}
           >
-            {saveTranslationsMutation.isPending ? "Saving..." : "Save changes"}
+            {saveTranslationsMutation.isPending ? 'Saving...' : 'Save changes'}
           </Button>
         </div>
       </form>

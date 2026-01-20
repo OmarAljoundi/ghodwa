@@ -1,27 +1,21 @@
-import { isCreationPage } from "@/lib/utils";
-import { Suspense } from "react";
-import { FormLoading } from "@/components/form-loading";
-import ContentWrapper from "@/components/admin-panel/contet-wrapper";
-import { getAll } from "@/lib/generic.server";
-import { CreateService } from "../components/create";
-import { UpdateService } from "../components/update";
+import { Suspense } from 'react';
+import ContentWrapper from '@/components/admin-panel/contet-wrapper';
+import { FormLoading } from '@/components/form-loading';
+import { getAll } from '@/lib/generic.server';
+import { isCreationPage } from '@/lib/utils';
+import { CreateService } from '../components/create';
+import { UpdateService } from '../components/update';
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: paramsId } = await params;
   const { isCreation, id } = isCreationPage(paramsId);
-  const currentBreadcrumb = isCreation
-    ? { item: "New Service" }
-    : { item: `Edit Service ${id}` };
+  const currentBreadcrumb = isCreation ? { item: 'New Service' } : { item: `Edit Service ${id}` };
 
   return (
     <ContentWrapper
       breadcrumbs={[
-        { item: "Dashboard", url: "/admin" },
-        { item: "All Service", url: "/admin/services" },
+        { item: 'Dashboard', url: '/admin' },
+        { item: 'All Service', url: '/admin/services' },
         { ...currentBreadcrumb, currentPage: true },
       ]}
     >
@@ -30,7 +24,7 @@ export default async function Page({
           <CreateService />
         ) : (
           <UpdateService
-            dataPromise={getAll("service", {
+            dataPromise={getAll('service', {
               where: {
                 id: Number(id),
               },

@@ -1,58 +1,45 @@
-"use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CreatableTabs } from "@/components/ui/creatable-tabs";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Textarea } from "@/components/ui/textarea";
-import { SettingSchema } from "@/schema/setting-schema";
-import { closestCorners } from "@dnd-kit/core";
-import React, { useCallback } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+'use client';
+import { closestCorners } from '@dnd-kit/core';
+import { useCallback } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CreatableTabs } from '@/components/ui/creatable-tabs';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import type { SettingSchema } from '@/schema/setting-schema';
 
-export function OfficesSettingForm({ lang = "ar_" }: { lang?: "ar_" | "en_" }) {
+export function OfficesSettingForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
   const { control, setValue, watch } = useFormContext<SettingSchema>();
 
   const { append, remove } = useFieldArray({
     control: control,
-    name: "offices.items",
+    name: 'offices.items',
   });
 
   const appendNewEmpty = useCallback(() => {
     append({
-      ar_address: "",
-      ar_city: "",
-      ar_country: "",
-      contactNumber: "",
-      en_address: "",
-      en_city: "",
-      en_country: "",
+      ar_address: '',
+      ar_city: '',
+      ar_country: '',
+      contactNumber: '',
+      en_address: '',
+      en_city: '',
+      en_country: '',
       id: crypto.randomUUID(),
     });
-  }, []);
+  }, [append]);
 
-  const watchFields = watch("offices.items");
+  const watchFields = watch('offices.items');
 
   const getButtonTitle = useCallback(
     (index: number) => {
-      if (lang === "ar_")
-        return watchFields[index]?.ar_country || `New Tab ${index + 1}`;
+      if (lang === 'ar_') return watchFields[index]?.ar_country || `New Tab ${index + 1}`;
 
       return watchFields[index]?.en_country || `New Tab ${index + 1}`;
     },
-    [lang, watchFields]
+    [lang, watchFields],
   );
   return (
     <Card>
@@ -71,7 +58,7 @@ export function OfficesSettingForm({ lang = "ar_" }: { lang?: "ar_" | "en_" }) {
           collisionDetection={closestCorners}
           value={watchFields || []}
           onValueChange={(e) => {
-            setValue("offices.items", e);
+            setValue('offices.items', e);
           }}
           buttonTitle={getButtonTitle}
           onAddNewTab={appendNewEmpty}
@@ -79,22 +66,14 @@ export function OfficesSettingForm({ lang = "ar_" }: { lang?: "ar_" | "en_" }) {
           maxNumberOfTabs={3}
           overlay={<div className="size-full rounded-md bg-primary/10" />}
         >
-          {(activeTab) => (
-            <OfficeItem activeTab={activeTab} lang={lang} key={activeTab} />
-          )}
+          {(activeTab) => <OfficeItem activeTab={activeTab} lang={lang} key={activeTab} />}
         </CreatableTabs>
       </CardContent>
     </Card>
   );
 }
 
-function OfficeItem({
-  activeTab,
-  lang,
-}: {
-  activeTab: number;
-  lang: "ar_" | "en_";
-}) {
+function OfficeItem({ activeTab, lang }: { activeTab: number; lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<SettingSchema>();
 
   return (

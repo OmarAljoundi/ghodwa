@@ -1,7 +1,7 @@
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { BrandWithRelationsSchema } from "@/schema";
-import { Service } from "@prisma/client";
-import { useMemo } from "react";
+import { useMemo } from 'react';
+import type { Service } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { BrandWithRelationsSchema } from '@/schema';
 
 export interface NavigationItemsProps {
   title: string;
@@ -29,40 +29,38 @@ export function useGenerateMenu({
   const navigationItems = useMemo((): NavigationItemsProps[] => {
     return [
       {
-        title: "Home",
-        href: "/",
+        title: 'Home',
+        href: '/',
       },
       {
-        title: "AlGhodwa",
-        href: "/about-us",
+        title: 'AlGhodwa',
+        href: '/about-us',
       },
       {
-        title: "Our Brands",
-        href: "#",
+        title: 'Our Brands',
+        href: '#',
         callToAction: {
-          title: "View all brands",
+          title: 'View all brands',
           description:
-            "We take pride in offering a diverse portfolio of brands that cater to a wide range of needs and preferences, experience the excellence that defines us.",
-          herf: "/our-brands",
+            'We take pride in offering a diverse portfolio of brands that cater to a wide range of needs and preferences, experience the excellence that defines us.',
+          herf: '/our-brands',
         },
         items: brandsFilter.map(({ name, slug, categories }) => {
           return {
             title: name,
             href: `/our-brands/${slug}`,
-            items: (categories ?? [])?.map(
-              ({ en_name, slug: categorySlug }) => {
-                return {
-                  title: en_name,
-                  href: `/our-brands/${slug}/${categorySlug}`,
-                };
-              }
-            ),
+            items: (categories ?? [])?.map(({ en_name, slug: categorySlug }) => {
+              return {
+                title: en_name,
+                href: `/our-brands/${slug}/${categorySlug}`,
+              };
+            }),
           };
         }),
       },
       {
-        title: "Services",
-        href: "/services",
+        title: 'Services',
+        href: '/services',
         items: servicesFilter.map(({ title, slug }) => {
           return {
             title: title,

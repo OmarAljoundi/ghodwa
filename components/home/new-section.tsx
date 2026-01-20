@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getNews, getSettings } from "@/query";
-import { News } from "@prisma/client";
-import { format } from "date-fns";
-import Image from "next/image";
-import Link from "next/link";
-import React, { use } from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { useTranslation } from "react-i18next";
+import { format } from 'date-fns';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { use } from 'react';
+import type { News } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getNews, getSettings } from '@/query';
+import { BlurFade } from '../ui/blur-fade';
 
 export function NewSection({
   dataPromise,
@@ -39,9 +39,8 @@ export function NewSection({
 }
 
 function NewsItem(props: News) {
-  const { createdAt, image, slug, summary, title } =
-    useFilteredLanguageData(props);
-  const { t } = useTranslation("common");
+  const { createdAt, image, slug, summary, title } = useFilteredLanguageData(props);
+  const t = useTranslations();
 
   return (
     <Link href={`/news/${slug}`}>
@@ -59,11 +58,9 @@ function NewsItem(props: News) {
 
           <div className="absolute -bottom-[1px] -left-[1px] gap-2 bg-background py-2 rounded-tr-[50px] px-8">
             <div className="flex items-center gap-3 pe-4 pt-3">
-              <span className="text-primary font-medium text-sm">
-                {t("NEWS")}
-              </span>
+              <span className="text-primary font-medium text-sm">{t('NEWS')}</span>
               <span className="text-gray-500 text-sm tracking-wider">
-                {format(createdAt, "dd. MM. yyyy")}
+                {format(createdAt, 'dd. MM. yyyy')}
               </span>
             </div>
             <div className="bg-background size-[29px] [clip-path:path('M0_0_Q0,30_30,30_L_0_30_Z')] absolute bottom-[97.47%] left-0 "></div>
@@ -72,9 +69,7 @@ function NewsItem(props: News) {
         </div>
         <div className="space-y-2">
           <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-          <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">
-            {summary}
-          </p>
+          <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{summary}</p>
         </div>
       </div>
     </Link>

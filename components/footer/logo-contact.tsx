@@ -1,55 +1,43 @@
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { SettingSchema } from "@/schema/setting-schema";
-import { Mail } from "lucide-react";
-import Image from "next/image";
-import React from "react";
-import { FaWhatsapp } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
-import { PiMapPinAreaLight } from "react-icons/pi";
+import { Mail } from 'lucide-react';
+import Image from 'next/image';
+import { FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
+import { PiMapPinAreaLight } from 'react-icons/pi';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { SettingSchema } from '@/schema/setting-schema';
 
-export default function LogoContact({
-  footer,
-}: {
-  footer: SettingSchema["footer"];
-}) {
+export default function LogoContact({ footer }: { footer: SettingSchema['footer'] }) {
   return (
-    <React.Fragment>
-      <div className="space-y-4 col-span-full  md:col-span-2 flex flex-col w-full flex-1 items-start">
-        <Image
-          src={"/english-logo.png"}
-          alt="Alghodwa Group Logo"
-          width={180}
-          height={60}
-          quality={85}
-          priority={false}
-          sizes="(max-width: 768px) 120px, 150px"
-          className="mb-4 rtl:hidden"
-        />
-        <Image
-          src={"/arabic-logo.png"}
-          alt="Alghodwa Group Logo"
-          width={180}
-          height={60}
-          quality={85}
-          priority={false}
-          sizes="(max-width: 768px) 120px, 150px"
-          className="mb-4 ltr:hidden"
-        />
+    <div className="space-y-4 col-span-full  md:col-span-2 flex flex-col w-full flex-1 items-start">
+      <Image
+        src={'/english-logo.png'}
+        alt="Alghodwa Group Logo"
+        width={180}
+        height={60}
+        quality={85}
+        priority={false}
+        sizes="(max-width: 768px) 120px, 150px"
+        className="mb-4 rtl:hidden"
+      />
+      <Image
+        src={'/arabic-logo.png'}
+        alt="Alghodwa Group Logo"
+        width={180}
+        height={60}
+        quality={85}
+        priority={false}
+        sizes="(max-width: 768px) 120px, 150px"
+        className="mb-4 ltr:hidden"
+      />
 
-        <div className="flex flex-col lg:!flex-row md:gap-x-6 lg:gap-y-0 gap-y-6 justify-start items-start  gap-x-3 xl:gap-x-12 pe-3 xl:pe-6 w-full">
-          <AddressInfo company={footer.company} />
-          <ContactNumbers contactInfo={footer.contactInfo} />
-        </div>
+      <div className="flex flex-col lg:!flex-row md:gap-x-6 lg:gap-y-0 gap-y-6 justify-start items-start  gap-x-3 xl:gap-x-12 pe-3 xl:pe-6 w-full">
+        <AddressInfo company={footer.company} />
+        <ContactNumbers contactInfo={footer.contactInfo} />
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 
-function AddressInfo({
-  company,
-}: {
-  company?: SettingSchema["footer"]["company"];
-}) {
+function AddressInfo({ company }: { company?: SettingSchema['footer']['company'] }) {
   const { details, location } = useFilteredLanguageData(company);
   return (
     <div className="flex flex-col space-y-4">
@@ -62,11 +50,7 @@ function AddressInfo({
           <Mail className="size-6 text-primary" />
           <div className="text-sm flex flex-col">
             {details.map(({ email }) => (
-              <a
-                key={email}
-                href={`mailto:${email}`}
-                className="hover:text-primary"
-              >
+              <a key={email} href={`mailto:${email}`} className="hover:text-primary">
                 {email}
               </a>
             ))}
@@ -77,11 +61,7 @@ function AddressInfo({
   );
 }
 
-function ContactNumbers({
-  contactInfo,
-}: {
-  contactInfo: SettingSchema["footer"]["contactInfo"];
-}) {
+function ContactNumbers({ contactInfo }: { contactInfo: SettingSchema['footer']['contactInfo'] }) {
   return (
     <div className="space-y-3 flex-1  xl:pe-16  w-full">
       <div className="divide-y divide-gray-700">
@@ -96,10 +76,9 @@ function ContactNumbers({
 function ContactInfoItem({
   contactInfo,
 }: {
-  contactInfo: SettingSchema["footer"]["contactInfo"][number];
+  contactInfo: SettingSchema['footer']['contactInfo'][number];
 }) {
-  const { number, showCall, showWhatsapp, title } =
-    useFilteredLanguageData(contactInfo);
+  const { number, showCall, showWhatsapp, title } = useFilteredLanguageData(contactInfo);
   return (
     <div className="flex justify-between py-3 first:pt-0 last:pb-0">
       <div className="flex flex-col">
@@ -111,10 +90,7 @@ function ContactInfoItem({
       <div className="flex items-center space-x-4   rtl:flex-row-reverse">
         {showCall && (
           <a
-            href={`tel:${number
-              .trim()
-              .replaceAll(" ", "")
-              .replaceAll("+", "")}`}
+            href={`tel:${number.trim().replaceAll(' ', '').replaceAll('+', '')}`}
             className="flex flex-col items-center hover:text-primary transition-all duration-300"
           >
             <FaPhoneAlt className="size-6 mb-1" />
@@ -124,10 +100,7 @@ function ContactInfoItem({
 
         {showWhatsapp && (
           <a
-            href={`https://wa.me/${number
-              .trim()
-              .replaceAll(" ", "")
-              .replaceAll("+", "")}`}
+            href={`https://wa.me/${number.trim().replaceAll(' ', '').replaceAll('+', '')}`}
             className="flex flex-col items-center hover:text-primary group transition-all duration-300"
           >
             <FaWhatsapp className="size-6 mb-1 text-green-700 group-hover:text-primary transition-all duration-300" />

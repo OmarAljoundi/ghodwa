@@ -1,14 +1,13 @@
-import { Button } from "@/components/ui/button";
-import i18nConfig from "@/i18nConfig";
-import { cn } from "@/lib/utils";
-import { ArrowDown, Globe, Search } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import Image from "next/image";
-import { Separator } from "../ui/separator";
-import React, { useState } from "react";
-import { CommandSearch } from "./command-search";
+import { ArrowDown, Globe, Search } from 'lucide-react';
+import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Separator } from '../ui/separator';
+import { CommandSearch } from './command-search';
 
 export default function ActionMenu() {
   const [open, setOpen] = useState(false);
@@ -21,7 +20,7 @@ export default function ActionMenu() {
           variant="ghost"
           size="icon"
           onClick={() => setOpen(true)}
-          className={cn("bg-primary  text-black")}
+          className={cn('bg-primary  text-black')}
         >
           <Search className="size-5 " />
           <span className="sr-only">Search</span>
@@ -35,44 +34,28 @@ export default function ActionMenu() {
 
 function LangaugeMenu() {
   const router = useRouter();
-  const currentPathname = usePathname();
-  const { t } = useTranslation("common");
-  const { i18n } = useTranslation();
+  const locale = useLocale();
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
-  const currentLocale = i18n.language;
+  const currentLocale = locale;
 
   const handleChange = (newLocale: string) => {
-    const days = 30;
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `NEXT_LOCALE=${newLocale};expires=${date.toUTCString()};path=/`;
-
-    if (currentLocale === i18nConfig.defaultLocale) {
-      router.push("/" + newLocale + currentPathname);
-    } else {
-      router.push(
-        currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
-      );
-    }
-
-    router.refresh();
+    setOpen(false);
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button className="text-black flex items-center h-9 w-9 lg:h-9 lg:w-auto ">
-          <span className="hidden lg:inline-block">{t("Language")}</span>
-          <Globe
-            className="lg:hidden size-4"
-            strokeWidth={2}
-            aria-hidden="true"
-          />
+          <span className="hidden lg:inline-block">{t('Language')}</span>
+          <Globe className="lg:hidden size-4" strokeWidth={2} aria-hidden="true" />
           <ArrowDown
             className={cn(
-              "hidden lg:block -me-1 ms-2 opacity-60 transition-all duration-500 size-4",
-              open ? "rotate-180" : ""
+              'hidden lg:block -me-1 ms-2 opacity-60 transition-all duration-500 size-4',
+              open ? 'rotate-180' : '',
             )}
             strokeWidth={2}
             aria-hidden="true"
@@ -82,12 +65,10 @@ function LangaugeMenu() {
       <PopoverContent className="w-36 p-2">
         <div className="flex flex-col">
           <Button
-            onClick={() => handleChange("ar")}
-            variant={"ghost"}
-            size={"sm"}
-            className={cn(
-              currentLocale == "ar" ? "bg-primary text-primary-foreground" : ""
-            )}
+            onClick={() => handleChange('ar')}
+            variant={'ghost'}
+            size={'sm'}
+            className={cn(currentLocale === 'ar' ? 'bg-primary text-primary-foreground' : '')}
           >
             <span>Arabic</span>
             <Image
@@ -101,12 +82,10 @@ function LangaugeMenu() {
           </Button>
           <Separator className="my-0.5" />
           <Button
-            onClick={() => handleChange("en")}
-            variant={"ghost"}
-            size={"sm"}
-            className={cn(
-              currentLocale == "en" ? "bg-primary text-primary-foreground" : ""
-            )}
+            onClick={() => handleChange('en')}
+            variant={'ghost'}
+            size={'sm'}
+            className={cn(currentLocale === 'en' ? 'bg-primary text-primary-foreground' : '')}
           >
             <span>English</span>
             <Image

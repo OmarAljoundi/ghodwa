@@ -1,5 +1,4 @@
-import { FileRouter } from "@/file-router";
-import { generateReactHelpers } from "@uploadthing/react";
+import { generateReactHelpers } from '@uploadthing/react';
+import type { FileRouter } from '@/file-router';
 
-export const { useUploadThing, uploadFiles } =
-  generateReactHelpers<FileRouter>();
+export const { useUploadThing, uploadFiles } = generateReactHelpers<FileRouter>();

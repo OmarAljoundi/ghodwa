@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 interface ServiceCardProps {
   className?: string;
@@ -21,18 +21,12 @@ export const ServiceCard = ({
   fullHeight = true,
 }: ServiceCardProps) => {
   return (
-    <div
-      className={cn(
-        "relative w-full",
-        fullHeight ? "h-full" : "h-96",
-        className
-      )}
-    >
+    <div className={cn('relative w-full', fullHeight ? 'h-full' : 'h-96', className)}>
       <Image
         src={backgroundImage}
         alt={title}
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: 'cover' }}
         className="rounded-3xl"
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
@@ -41,12 +35,12 @@ export const ServiceCard = ({
       <div className="absolute inset-0  rounded-3xl" />
 
       <div
-        className={cn(`rounded-3xl`, addGridBg ? "grid-pattern" : "")}
+        className={cn(`rounded-3xl`, addGridBg ? 'grid-pattern' : '')}
         style={{
-          maskImage: "none",
-          WebkitMaskImage: "none",
-          maskComposite: "unset",
-          WebkitMaskComposite: "unset",
+          maskImage: 'none',
+          WebkitMaskImage: 'none',
+          maskComposite: 'unset',
+          WebkitMaskComposite: 'unset',
         }}
       />
 
@@ -60,7 +54,7 @@ export const ServiceCard = ({
           alt={title}
           width={100}
           height={100}
-          style={{ objectFit: "contain" }}
+          style={{ objectFit: 'contain' }}
           priority
         />
       </div>

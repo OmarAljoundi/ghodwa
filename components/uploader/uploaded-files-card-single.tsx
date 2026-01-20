@@ -1,8 +1,7 @@
-"use client";
+'use client';
 
-import React from "react";
-import { File, X } from "lucide-react";
-import { UploadedFileOmit } from "@/lib/types";
+import { File, X } from 'lucide-react';
+import type { UploadedFileOmit } from '@/lib/types';
 
 interface UploadedFilesCardSingleProps {
   uploadedFiles?: UploadedFileOmit;
@@ -10,10 +9,7 @@ interface UploadedFilesCardSingleProps {
   className?: string;
 }
 
-export function UploadedFilesCardSingle({
-  uploadedFiles,
-  onDelete,
-}: UploadedFilesCardSingleProps) {
+export function UploadedFilesCardSingle({ uploadedFiles, onDelete }: UploadedFilesCardSingleProps) {
   if (!uploadedFiles) {
     return null;
   }

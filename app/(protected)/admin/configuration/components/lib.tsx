@@ -1,58 +1,58 @@
-import { Clock, House, ListEnd, MessageCircle } from "lucide-react";
-import { GrOverview } from "react-icons/gr";
-import { TbDeviceVisionPro } from "react-icons/tb";
-import { RiTeamLine } from "react-icons/ri";
-import { SiGooglecampaignmanager360 } from "react-icons/si";
-import { HiOutlineOfficeBuilding } from "react-icons/hi";
-import { CgFormatSeparator } from "react-icons/cg";
+import { Clock, House, ListEnd, MessageCircle } from 'lucide-react';
+import { CgFormatSeparator } from 'react-icons/cg';
+import { GrOverview } from 'react-icons/gr';
+import { HiOutlineOfficeBuilding } from 'react-icons/hi';
+import { RiTeamLine } from 'react-icons/ri';
+import { SiGooglecampaignmanager360 } from 'react-icons/si';
+import { TbDeviceVisionPro } from 'react-icons/tb';
 
 export const menuItems = {
   Home: {
     icon: House,
-    value: "Home",
+    value: 'Home',
   },
   ExtraAboutContent: {
     icon: CgFormatSeparator,
-    value: "About Extra Pages",
+    value: 'About Extra Pages',
   },
 
   Overview: {
     icon: GrOverview,
-    value: "Overview",
+    value: 'Overview',
   },
 
   MissionVision: {
     icon: TbDeviceVisionPro,
-    value: "Mission Vision",
+    value: 'Mission Vision',
   },
 
   ManagementTeam: {
     icon: RiTeamLine,
-    value: "Management and Team",
+    value: 'Management and Team',
   },
 
   ManagementSystems: {
     icon: SiGooglecampaignmanager360,
-    value: "Management Systems",
+    value: 'Management Systems',
   },
 
   Offices: {
     icon: HiOutlineOfficeBuilding,
-    value: "Offices",
+    value: 'Offices',
   },
 
   WorkingHours: {
     icon: Clock,
-    value: "Working Hours",
+    value: 'Working Hours',
   },
 
   SocialMedia: {
     icon: MessageCircle,
-    value: "Social Media",
+    value: 'Social Media',
   },
 
   Footer: {
     icon: ListEnd,
-    value: "Footer",
+    value: 'Footer',
   },
 };

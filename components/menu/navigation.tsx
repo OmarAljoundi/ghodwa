@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
-import DesktopMenu from "./desktop-menu";
-import { BrandWithRelationsSchema } from "@/schema";
-import { Service } from "@prisma/client";
-import MobileMenu from "./mobile-menu";
-import { SettingSchema } from "@/schema/setting-schema";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useLocale } from 'next-intl';
+import type { Service } from '@/generated/client/client';
+import { cn } from '@/lib/utils';
+import type { BrandWithRelationsSchema } from '@/schema';
+import type { SettingSchema } from '@/schema/setting-schema';
+import DesktopMenu from './desktop-menu';
+import MobileMenu from './mobile-menu';
 
 export function Navigation({
   brands,
@@ -19,14 +19,13 @@ export function Navigation({
   services: Service[];
   settings: SettingSchema;
 }) {
-  const { i18n } = useTranslation();
-  const currentLocale = i18n.language;
-  const isRTL = currentLocale === "ar";
+  const lang = useLocale();
+  const isRTL = lang === 'ar';
 
   return (
     <header
       className={cn(
-        "absolute top-2 lg:top-12 left-0 right-0 mx-auto z-50 w-full   transition-all duration-300 !bg-transparent"
+        'absolute top-2 lg:top-12 left-0 right-0 mx-auto z-50 w-full   transition-all duration-300 !bg-transparent',
       )}
     >
       <div className="flex h-16 items-center px-6 lg:px-16  justify-between w-full flex-row">
@@ -34,12 +33,12 @@ export function Navigation({
           <Link
             href="/"
             className={cn(
-              "flex items-center space-x-2 rtl:space-x-reverse ltr:justify-end ltr:lg:justify-start rtl:justify-end rtl:lg:justify-start"
+              'flex items-center space-x-2 rtl:space-x-reverse ltr:justify-end ltr:lg:justify-start rtl:justify-end rtl:lg:justify-start',
             )}
           >
             <Image
-              src={"/arabic-logo.png"}
-              className={cn("block ltr:hidden lg:w-[250px] w-[150px]")}
+              src={'/arabic-logo.png'}
+              className={cn('block ltr:hidden lg:w-[250px] w-[150px]')}
               width={250}
               height={50}
               quality={85}
@@ -49,8 +48,8 @@ export function Navigation({
             />
 
             <Image
-              src={"/english-logo.png"}
-              className={cn("block rtl:hidden lg:w-[250px] w-[150px]")}
+              src={'/english-logo.png'}
+              className={cn('block rtl:hidden lg:w-[250px] w-[150px]')}
               width={250}
               height={50}
               quality={85}
@@ -62,12 +61,7 @@ export function Navigation({
         </div>
 
         <DesktopMenu brands={brands} services={services} settings={settings} />
-        <MobileMenu
-          brands={brands}
-          services={services}
-          settings={settings}
-          isRTL={isRTL}
-        />
+        <MobileMenu brands={brands} services={services} settings={settings} isRTL={isRTL} />
       </div>
     </header>
   );

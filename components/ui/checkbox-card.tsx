@@ -1,6 +1,6 @@
-import React, { ReactNode, useId } from "react";
-import { Label } from "./label";
-import { Switch } from "./switch";
+import { type ReactNode, useId } from 'react';
+import { Label } from './label';
+import { Switch } from './switch';
 
 export function CheckboxCard({
   title,
@@ -31,10 +31,7 @@ export function CheckboxCard({
       </div>
       <div className="grid grow gap-2">
         <p>{title} </p>
-        <p
-          id={`${id}-${checked}-${desc}`}
-          className="text-xs text-muted-foreground"
-        >
+        <p id={`${id}-${checked}-${desc}`} className="text-xs text-muted-foreground">
           {desc}
         </p>
       </div>

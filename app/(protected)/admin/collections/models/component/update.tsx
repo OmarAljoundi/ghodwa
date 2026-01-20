@@ -1,19 +1,19 @@
-"use client";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { getAll, updateOne } from "@/lib/generic.server";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { Form } from '@/components/ui/form';
+import { type getAll, updateOne } from '@/lib/generic.server';
 import {
-  BrandWithRelationsSchema,
-  ModelSchema,
+  type BrandWithRelationsSchema,
+  type ModelSchema,
+  type UpdateModelSchema,
   updateModelSchema,
-  UpdateModelSchema,
-} from "@/schema";
-import { ModelForm } from "./form";
-import { LangTabs } from "@/components/lang-tabs";
+} from '@/schema';
+import { ModelForm } from './form';
 
 export function UpdateModel({
   dataPromise,
@@ -25,7 +25,7 @@ export function UpdateModel({
   const { data } = React.use(dataPromise);
   const { data: brands } = React.use(dataPromiseBrands);
 
-  const form = useForm<UpdateModelSchema>({
+  const form = useForm({
     resolver: zodResolver(updateModelSchema),
     defaultValues: data?.[0],
   });
@@ -33,15 +33,15 @@ export function UpdateModel({
   const route = useRouter();
 
   async function onSubmit(body: UpdateModelSchema) {
-    const response = await updateOne<ModelSchema>("model", data![0]!.id, body);
+    const response = await updateOne<ModelSchema>('model', data![0]!.id, body);
 
     if (response.success) {
-      toast.success("Model update successfully");
+      toast.success('Model update successfully');
       route.replace(`/admin/collections/models`);
       return;
     }
 
-    toast.error("Model couldnt be updated");
+    toast.error('Model couldnt be updated');
   }
 
   // if (!Model)

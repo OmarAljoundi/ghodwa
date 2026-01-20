@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { SeoSchema } from "./seo-schema";
-import { fileSchemaRequired } from "./upload-schema";
+import { z } from 'zod';
+import { SeoSchema } from './seo-schema';
+import { fileSchemaRequired } from './upload-schema';
 
-export const buttonVarientsEnums = ["default", "outline", "text"] as const;
+export const buttonVarientsEnums = ['default', 'outline', 'text'] as const;
 export const MAX_ARTWORKS = 3;
 export const MAX_EXPLORE_MORE = 2;
 export const MAX_EXPLORE_MORE_ADDITONALS = 3;
@@ -15,12 +15,10 @@ const callToActionSchema = z.object({
   url: z.string(),
 });
 
-const hourState = z.discriminatedUnion("state", [
+const hourState = z.discriminatedUnion('state', [
   z.object({
-    state: z.literal("open"),
-    from: z
-      .object({ hour: z.number(), minute: z.number() })
-      .default({ hour: 8, minute: 0 }),
+    state: z.literal('open'),
+    from: z.object({ hour: z.number(), minute: z.number() }).default({ hour: 8, minute: 0 }),
     to: z
       .object({
         hour: z.number(),
@@ -29,7 +27,7 @@ const hourState = z.discriminatedUnion("state", [
       .default({ hour: 17, minute: 0 }),
   }),
   z.object({
-    state: z.literal("closed"),
+    state: z.literal('closed'),
   }),
 ]);
 
@@ -98,7 +96,7 @@ export const settingSchema = z.object({
       .optional(),
     socialMedia: z
       .object({
-        media: z.enum(["Youtube", "Facebook", "LinkedIn"]),
+        media: z.enum(['Youtube', 'Facebook', 'LinkedIn']),
         url: z.string().url(),
       })
       .array()
@@ -106,8 +104,8 @@ export const settingSchema = z.object({
   }),
 
   overview: z.object({
-    ar_page_title: z.string().default("ملخص"),
-    en_page_title: z.string().default("Overview"),
+    ar_page_title: z.string().default('ملخص'),
+    en_page_title: z.string().default('Overview'),
 
     ar_content: z.string(),
     en_content: z.string(),
@@ -117,8 +115,8 @@ export const settingSchema = z.object({
   }),
 
   missionVision: z.object({
-    ar_page_title: z.string().default("الرسالة والرؤية"),
-    en_page_title: z.string().default("Mission & Visions"),
+    ar_page_title: z.string().default('الرسالة والرؤية'),
+    en_page_title: z.string().default('Mission & Visions'),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -127,12 +125,12 @@ export const settingSchema = z.object({
   }),
 
   managementTeam: z.object({
-    ar_page_title: z.string().default("الإدارة والفريق"),
-    en_page_title: z.string().default("Management & Team"),
-    ar_title: z.string().default("Our Experts"),
-    en_title: z.string().default("Our Experts"),
-    ar_badgeTitle: z.string().default("Our Experts"),
-    en_badgeTitle: z.string().default("Our Experts"),
+    ar_page_title: z.string().default('الإدارة والفريق'),
+    en_page_title: z.string().default('Management & Team'),
+    ar_title: z.string().default('Our Experts'),
+    en_title: z.string().default('Our Experts'),
+    ar_badgeTitle: z.string().default('Our Experts'),
+    en_badgeTitle: z.string().default('Our Experts'),
     showPage: z.boolean().default(true),
     showOnMenu: z.boolean().default(true),
     showOnFooter: z.boolean().default(true),
@@ -153,8 +151,8 @@ export const settingSchema = z.object({
   }),
 
   managementSystems: z.object({
-    ar_page_title: z.string().default("أنظمة الإدارة"),
-    en_page_title: z.string().default("Management Systems"),
+    ar_page_title: z.string().default('أنظمة الإدارة'),
+    en_page_title: z.string().default('Management Systems'),
     ar_content: z.string(),
     en_content: z.string(),
     showPage: z.boolean().default(true),
@@ -168,7 +166,11 @@ export const settingSchema = z.object({
         id: z.string(),
         en_day: z.string(),
         ar_day: z.string(),
-        office: hourState.default({ state: "open" }),
+        office: hourState.default({
+          state: 'open',
+          from: { hour: 8, minute: 0 },
+          to: { hour: 17, minute: 0 },
+        }),
       })
       .array()
       .max(7)
@@ -197,14 +199,14 @@ export const settingSchema = z.object({
       .object({
         id: z.string(),
         channel: z.enum([
-          "Youtube",
-          "Facebook",
-          "LinkedIn",
-          "Instagram",
-          "X",
-          "Email",
-          "Whatsapp",
-          "Phone",
+          'Youtube',
+          'Facebook',
+          'LinkedIn',
+          'Instagram',
+          'X',
+          'Email',
+          'Whatsapp',
+          'Phone',
         ]),
         url: z.string(),
       })

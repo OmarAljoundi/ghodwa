@@ -1,33 +1,20 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { UploaderFormSingle } from "@/components/uploader/uploader-form-single";
-import { SeoForm } from "@/components/seo-form";
-import { SlugInput } from "@/components/ui/slug-input";
-import { CreateServiceSchema } from "@/schema/service-schema";
-import RichTextEditor from "@/components/minimal-tiptap/editor";
-import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { ControlForm } from "../../configuration/components/control-form";
-import { CheckboxCard } from "@/components/ui/checkbox-card";
+import { useFormContext } from 'react-hook-form';
+import RichTextEditor from '@/components/minimal-tiptap/editor';
+import { SeoForm } from '@/components/seo-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckboxCard } from '@/components/ui/checkbox-card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { SlugInput } from '@/components/ui/slug-input';
+import { Textarea } from '@/components/ui/textarea';
+import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import { cn } from '@/lib/utils';
+import type { CreateServiceSchema } from '@/schema/service-schema';
+import { ControlForm } from '../../configuration/components/control-form';
 
-export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
+export function ServiceForm({ lang }: { lang: 'ar_' | 'en_' }) {
   const { control } = useFormContext<CreateServiceSchema>();
 
-  const title = lang == "ar_" ? "Arabic" : "English";
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
 
   return (
     <div className="flex justify-start items-start gap-x-4">
@@ -100,9 +87,9 @@ export function ServiceForm({ lang }: { lang: "ar_" | "en_" }) {
                   <FormLabel>{title} content</FormLabel>
                   <FormControl>
                     <RichTextEditor
-                      isRtL={lang == "ar_" ? true : false}
+                      isRtL={lang === 'ar_'}
                       throttleDelay={0}
-                      className={cn("h-full min-h-56 w-full rounded-xl")}
+                      className={cn('h-full min-h-56 w-full rounded-xl')}
                       editorContentClassName="overflow-auto h-full"
                       placeholder="This is your placeholder..."
                       editable={true}

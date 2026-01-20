@@ -1,19 +1,19 @@
-"use client";
-import React, { use } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { createOne, getAll } from "@/lib/generic.server";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { use } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { Form } from '@/components/ui/form';
+import { createOne, type getAll } from '@/lib/generic.server';
 import {
-  BrandSchema,
-  CategorySchema,
+  type BrandSchema,
+  type CategorySchema,
+  type CreateBrandSchema,
   createBrandSchema,
-  CreateBrandSchema,
-} from "@/schema";
-import { LangTabs } from "@/components/lang-tabs";
-import { BrandForm } from "./form";
+} from '@/schema';
+import { BrandForm } from './form';
 
 export function CreateBrand({
   datePromiseCategory,
@@ -21,13 +21,13 @@ export function CreateBrand({
   datePromiseCategory: ReturnType<typeof getAll<CategorySchema>>;
 }) {
   const { data: categories } = use(datePromiseCategory);
-  const form = useForm<CreateBrandSchema>({
+  const form = useForm({
     resolver: zodResolver(createBrandSchema),
     defaultValues: {
-      ar_description: "",
-      ar_name: "",
-      en_name: "",
-      en_description: "",
+      ar_description: '',
+      ar_name: '',
+      en_name: '',
+      en_description: '',
       categories: {
         connect: [],
         disconnect: [],
@@ -38,9 +38,9 @@ export function CreateBrand({
   const route = useRouter();
 
   async function onSubmit(body: CreateBrandSchema) {
-    const result = await createOne<BrandSchema>("brand", body);
+    const result = await createOne<BrandSchema>('brand', body);
     if (result.success) {
-      toast.success("Artwork created successfully");
+      toast.success('Artwork created successfully');
       route.replace(`/admin/collections/brands/${result.data?.id}`);
       route.refresh();
     }

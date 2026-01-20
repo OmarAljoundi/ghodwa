@@ -1,36 +1,34 @@
-import * as React from "react";
-import type { Editor } from "@tiptap/react";
-import type { Content, UseEditorOptions } from "@tiptap/react";
-import { StarterKit } from "@tiptap/starter-kit";
-import { useEditor } from "@tiptap/react";
-import { Typography } from "@tiptap/extension-typography";
-import { Placeholder } from "@tiptap/extension-placeholder";
-import { Underline } from "@tiptap/extension-underline";
-import { TextStyle } from "@tiptap/extension-text-style";
-import {
-  Link,
-  Image,
-  HorizontalRule,
-  CodeBlockLowlight,
-  Selection,
-  Color,
-  UnsetAllMarks,
-  ResetMarksOnEnter,
-  FileHandler,
-} from "../extensions";
-import { cn } from "@/lib/utils";
-import { fileToBase64, getOutput, randomId } from "../utils";
-import { useThrottle } from "../hooks/use-throttle";
-import { toast } from "sonner";
-
+import { Placeholder } from '@tiptap/extension-placeholder';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { Typography } from '@tiptap/extension-typography';
+import { Underline } from '@tiptap/extension-underline';
+import type { Content, Editor, UseEditorOptions } from '@tiptap/react';
+import { useEditor } from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
+import * as React from 'react';
+import { toast } from 'sonner';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
-import UniqueId from "tiptap-unique-id";
-import { uploadUTFiles } from "@/lib/uploadthing.server";
+//@ts-expect-error
+import UniqueId from 'tiptap-unique-id';
+import { uploadUTFiles } from '@/lib/uploadthing.server';
+import { cn } from '@/lib/utils';
+import {
+  CodeBlockLowlight,
+  Color,
+  FileHandler,
+  HorizontalRule,
+  Image,
+  Link,
+  ResetMarksOnEnter,
+  Selection,
+  UnsetAllMarks,
+} from '../extensions';
+import { useThrottle } from '../hooks/use-throttle';
+import { fileToBase64, getOutput, randomId } from '../utils';
 
 export interface UseMinimalTiptapEditorProps extends UseEditorOptions {
   value?: Content;
-  output?: "html" | "json" | "text";
+  output?: 'html' | 'json' | 'text';
   placeholder?: string;
   editorClassName?: string;
   throttleDelay?: number;
@@ -42,28 +40,28 @@ const createExtensions = (placeholder: string) => [
   StarterKit.configure({
     horizontalRule: false,
     codeBlock: false,
-    paragraph: { HTMLAttributes: { class: "text-node" } },
+    paragraph: { HTMLAttributes: { class: 'text-node' } },
     heading: {
-      HTMLAttributes: { class: "heading-node", id: randomId() },
+      HTMLAttributes: { class: 'heading-node', id: randomId() },
     },
-    blockquote: { HTMLAttributes: { class: "block-node" } },
-    bulletList: { HTMLAttributes: { class: "list-node" } },
-    orderedList: { HTMLAttributes: { class: "list-node" } },
-    code: { HTMLAttributes: { class: "inline", spellcheck: "false" } },
-    dropcursor: { width: 2, class: "ProseMirror-dropcursor border" },
+    blockquote: { HTMLAttributes: { class: 'block-node' } },
+    bulletList: { HTMLAttributes: { class: 'list-node' } },
+    orderedList: { HTMLAttributes: { class: 'list-node' } },
+    code: { HTMLAttributes: { class: 'inline', spellcheck: 'false' } },
+    dropcursor: { width: 2, class: 'ProseMirror-dropcursor border' },
   }),
   UniqueId.configure({
-    attributeName: "id",
-    types: ["heading"],
+    attributeName: 'id',
+    types: ['heading'],
     createId: () => crypto.randomUUID(),
   }),
 
   Link,
   Underline,
   Image.configure({
-    allowedMimeTypes: ["image/*"],
+    allowedMimeTypes: ['image/*'],
     HTMLAttributes: {
-      class: "object-cover rounded-lg shadow-lg",
+      class: 'object-cover rounded-lg shadow-lg',
     },
     maxFileSize: 10 * 1024 * 1024,
     allowBase64: true,
@@ -71,13 +69,13 @@ const createExtensions = (placeholder: string) => [
       try {
         const [fileResult] = await uploadUTFiles([file]);
 
-        if (fileResult && fileResult.data?.url) {
+        if (fileResult?.data?.url) {
           return { id: randomId(), src: fileResult.data?.url };
         }
-        throw new Error("Image couldnt be uploaded");
+        throw new Error('Image couldnt be uploaded');
       } catch (ex) {
         console.error(ex);
-        throw new Error("Image couldnt be uploaded");
+        throw new Error('Image couldnt be uploaded');
       }
     },
     onToggle(editor, files, pos) {
@@ -88,7 +86,7 @@ const createExtensions = (placeholder: string) => [
           const id = randomId();
 
           return {
-            type: "image",
+            type: 'image',
             attrs: {
               id,
               src: blobUrl,
@@ -97,52 +95,52 @@ const createExtensions = (placeholder: string) => [
               fileName: image.name,
             },
           };
-        })
+        }),
       );
     },
     onImageRemoved({ id, src }) {
-      console.log("Image removed", { id, src });
+      console.log('Image removed', { id, src });
     },
     onValidationError(errors) {
       errors.forEach((error) => {
-        toast.error("Image validation error", {
-          position: "bottom-right",
+        toast.error('Image validation error', {
+          position: 'bottom-right',
           description: error.reason,
         });
       });
     },
     onActionSuccess({ action }) {
       const mapping = {
-        copyImage: "Copy Image",
-        copyLink: "Copy Link",
-        download: "Download",
+        copyImage: 'Copy Image',
+        copyLink: 'Copy Link',
+        download: 'Download',
       };
       toast.success(mapping[action], {
-        position: "bottom-right",
-        description: "Image action success",
+        position: 'bottom-right',
+        description: 'Image action success',
       });
     },
     onActionError(error, { action }) {
       const mapping = {
-        copyImage: "Copy Image",
-        copyLink: "Copy Link",
-        download: "Download",
+        copyImage: 'Copy Image',
+        copyLink: 'Copy Link',
+        download: 'Download',
       };
       toast.error(`Failed to ${mapping[action]}`, {
-        position: "bottom-right",
+        position: 'bottom-right',
         description: error.message,
       });
     },
   }),
   FileHandler.configure({
     allowBase64: true,
-    allowedMimeTypes: ["image/*"],
+    allowedMimeTypes: ['image/*'],
     maxFileSize: 5 * 1024 * 1024,
     onDrop: (editor, files, pos) => {
       files.forEach(async (file) => {
         const src = await fileToBase64(file);
         editor.commands.insertContentAt(pos, {
-          type: "image",
+          type: 'image',
           attrs: { src },
         });
       });
@@ -151,15 +149,15 @@ const createExtensions = (placeholder: string) => [
       files.forEach(async (file) => {
         const src = await fileToBase64(file);
         editor.commands.insertContent({
-          type: "image",
+          type: 'image',
           attrs: { src },
         });
       });
     },
     onValidationError: (errors) => {
       errors.forEach((error) => {
-        toast.error("Image validation error", {
-          position: "bottom-right",
+        toast.error('Image validation error', {
+          position: 'bottom-right',
           description: error.reason,
         });
       });
@@ -178,22 +176,19 @@ const createExtensions = (placeholder: string) => [
 
 export const useMinimalTiptapEditor = ({
   value,
-  output = "html",
-  placeholder = "",
+  output = 'html',
+  placeholder = '',
   editorClassName,
   throttleDelay = 0,
   onUpdate,
   onBlur,
   ...props
 }: UseMinimalTiptapEditorProps) => {
-  const throttledSetValue = useThrottle(
-    (value: Content) => onUpdate?.(value),
-    throttleDelay
-  );
+  const throttledSetValue = useThrottle((value: Content) => onUpdate?.(value), throttleDelay);
 
   const handleUpdate = React.useCallback(
     (editor: Editor) => throttledSetValue(getOutput(editor, output)),
-    [output, throttledSetValue]
+    [output, throttledSetValue],
   );
 
   const handleCreate = React.useCallback(
@@ -202,22 +197,22 @@ export const useMinimalTiptapEditor = ({
         editor.commands.setContent(value);
       }
     },
-    [value]
+    [value],
   );
 
   const handleBlur = React.useCallback(
     (editor: Editor) => onBlur?.(getOutput(editor, output)),
-    [output, onBlur]
+    [output, onBlur],
   );
 
   const editor = useEditor({
     extensions: createExtensions(placeholder),
     editorProps: {
       attributes: {
-        autocomplete: "off",
-        autocorrect: "off",
-        autocapitalize: "off",
-        class: cn("focus:outline-none", editorClassName),
+        autocomplete: 'off',
+        autocorrect: 'off',
+        autocapitalize: 'off',
+        class: cn('focus:outline-none', editorClassName),
       },
     },
     onUpdate: ({ editor }) => handleUpdate(editor),

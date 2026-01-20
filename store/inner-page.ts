@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { create } from "zustand";
+import { useEffect } from 'react';
+import { create } from 'zustand';
 
 type InnerState = {
   currentPage: string;
@@ -8,14 +8,14 @@ type InnerState = {
 };
 
 export const useInnerStore = create<InnerState>((set) => ({
-  currentPage: "",
+  currentPage: '',
   setCurrentPage: (newCurrentPage) =>
     set(() => ({
       currentPage: newCurrentPage,
     })),
   clearCurrentPage: () =>
     set(() => ({
-      currentPage: "",
+      currentPage: '',
     })),
 }));
 

@@ -1,28 +1,27 @@
-"use client";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { createOne } from "@/lib/generic.server";
-import { LangTabs } from "@/components/lang-tabs";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useForm, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { StatusSwitcher } from '@/components/status-switcher';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { createOne } from '@/lib/generic.server';
 import {
+  type CreateServiceSchema,
   createServiceSchema,
-  CreateServiceSchema,
-  ServiceSchema,
-} from "@/schema/service-schema";
-import { ServiceForm } from "./form";
-import { StatusSwitcher } from "@/components/status-switcher";
+  type ServiceSchema,
+} from '@/schema/service-schema';
+import { ServiceForm } from './form';
 
 export function CreateService() {
-  const form = useForm<CreateServiceSchema>({
+  const form = useForm({
     resolver: zodResolver(createServiceSchema),
     defaultValues: {
-      ar_content: "",
-      ar_title: "",
-      en_title: "",
-      en_content: "",
+      ar_content: '',
+      ar_title: '',
+      en_title: '',
+      en_content: '',
       is_published: false,
     },
   });
@@ -30,9 +29,9 @@ export function CreateService() {
   const route = useRouter();
 
   async function onSubmit(body: CreateServiceSchema) {
-    const result = await createOne<ServiceSchema>("service", body);
+    const result = await createOne<ServiceSchema>('service', body);
     if (result.success) {
-      toast.success("Service created successfully");
+      toast.success('Service created successfully');
       route.replace(`/admin/services/${result.data?.id}`);
       route.refresh();
     }

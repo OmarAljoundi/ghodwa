@@ -1,28 +1,26 @@
-import * as React from "react";
-import { toast } from "sonner";
-import { type UploadFilesOptions } from "uploadthing/types";
-import { getErrorMessage } from "@/lib/handle-error";
-import { uploadFiles } from "@/lib/uploadthing";
-import { UploadedFile, UploadedFileOmit } from "@/lib/types";
-import { FileRouter } from "@/file-router";
+import * as React from 'react';
+import { toast } from 'sonner';
+import type { UploadFilesOptions } from 'uploadthing/types';
+import type { FileRouter } from '@/file-router';
+import { getErrorMessage } from '@/lib/handle-error';
+import type { UploadedFile, UploadedFileOmit } from '@/lib/types';
+import { uploadFiles } from '@/lib/uploadthing';
 
 interface UseUploadFileProps
   extends Pick<
     UploadFilesOptions<any>,
-    "headers" | "onUploadBegin" | "onUploadProgress" | "skipPolling"
+    'headers' | 'onUploadBegin' | 'onUploadProgress' | 'skipPolling'
   > {
-  defaultUploadedFiles?: Omit<UploadedFile, "serverData">[];
+  defaultUploadedFiles?: Omit<UploadedFile, 'serverData'>[];
 }
 
 export function useUploadFile(
   endpoint: keyof FileRouter,
-  { defaultUploadedFiles = [], ...props }: UseUploadFileProps = {}
+  { defaultUploadedFiles = [], ...props }: UseUploadFileProps = {},
 ) {
   const [uploadedFiles, setUploadedFiles] =
     React.useState<UploadedFileOmit[]>(defaultUploadedFiles);
-  const [progresses, setProgresses] = React.useState<Record<string, number>>(
-    {}
-  );
+  const [progresses, setProgresses] = React.useState<Record<string, number>>({});
   const [isUploading, setIsUploading] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
 
@@ -59,7 +57,7 @@ export function useUploadFile(
       setUploadedFiles(newMedia);
       setIsDeleting(false);
 
-      return { success: true, message: "Deleted successfully", newMedia };
+      return { success: true, message: 'Deleted successfully', newMedia };
     } catch (err) {
       setIsDeleting(false);
       return { success: false, message: err as string, newMedia: [] };

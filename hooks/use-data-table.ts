@@ -1,31 +1,30 @@
 import {
-  ColumnFiltersState,
-  ColumnOrderState,
+  type ColumnFiltersState,
+  type ColumnOrderState,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
-  TableOptions,
+  type SortingState,
+  type TableOptions,
   useReactTable,
-  VisibilityState,
-} from "@tanstack/react-table";
-import React from "react";
+  type VisibilityState,
+} from '@tanstack/react-table';
+import React from 'react';
 
 type UseDataTableProps<TData> = Omit<
   TableOptions<TData>,
-  "getCoreRowModel" | "manualFiltering" | "manualPagination" | "manualSorting"
+  'getCoreRowModel' | 'manualFiltering' | 'manualPagination' | 'manualSorting'
 >;
 
 export function useDataTable<TData>({ ...props }: UseDataTableProps<TData>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(
+    props.initialState?.columnVisibility ?? {},
   );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>(props.initialState?.columnVisibility ?? {});
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnOrder, setColumnOrder] = React.useState<ColumnOrderState>([]);
   const [globalFilter, setGlobalFilter] = React.useState<any>([]);

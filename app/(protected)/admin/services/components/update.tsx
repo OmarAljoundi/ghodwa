@@ -1,19 +1,19 @@
-"use client";
-import React, { use } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFormContext } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { toast } from "sonner";
-import { notFound, useRouter } from "next/navigation";
-import { getAll, updateOne } from "@/lib/generic.server";
-import { ServiceForm } from "./form";
-import { LangTabs } from "@/components/lang-tabs";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { notFound, useRouter } from 'next/navigation';
+import { use } from 'react';
+import { useForm, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { StatusSwitcher } from '@/components/status-switcher';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { type getAll, updateOne } from '@/lib/generic.server';
 import {
-  ServiceSchema,
+  type ServiceSchema,
+  type UpdateServiceSchema,
   updateServiceSchema,
-  UpdateServiceSchema,
-} from "@/schema/service-schema";
-import { StatusSwitcher } from "@/components/status-switcher";
+} from '@/schema/service-schema';
+import { ServiceForm } from './form';
 
 export function UpdateService({
   dataPromise,
@@ -22,7 +22,7 @@ export function UpdateService({
 }) {
   const { data } = use(dataPromise);
 
-  const form = useForm<UpdateServiceSchema>({
+  const form = useForm({
     resolver: zodResolver(updateServiceSchema),
     defaultValues: {
       ...data?.[0],
@@ -32,22 +32,18 @@ export function UpdateService({
   const route = useRouter();
 
   async function onSubmit(body: UpdateServiceSchema) {
-    const response = await updateOne<ServiceSchema>(
-      "service",
-      data![0]!.id,
-      body
-    );
+    const response = await updateOne<ServiceSchema>('service', data![0]!.id, body);
 
     if (response.success) {
-      toast.success("Service update successfully");
+      toast.success('Service update successfully');
       route.replace(`/admin/services`);
       return;
     }
 
-    toast.error("Service couldnt be updated");
+    toast.error('Service couldnt be updated');
   }
 
-  if (!data || data.length == 0) return notFound();
+  if (!data || data.length === 0) return notFound();
 
   return (
     <Form {...form}>

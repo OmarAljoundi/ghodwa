@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { SeoSchema } from "./seo-schema";
-import { fileSchemaArrayRequired } from "./upload-schema";
+import { z } from 'zod';
+import { SeoSchema } from './seo-schema';
+import { fileSchemaArrayRequired } from './upload-schema';
 
 export const newsSchema = z.object({
   id: z.number().int().positive(),
@@ -8,13 +8,13 @@ export const newsSchema = z.object({
   en_title: z.string().min(1),
   ar_summary: z.string().optional(),
   en_summary: z.string().optional(),
-  ar_content: z.string().min(1, { message: "Content is required" }),
-  en_content: z.string().min(1, { message: "Content is required" }),
+  ar_content: z.string().min(1, { message: 'Content is required' }),
+  en_content: z.string().min(1, { message: 'Content is required' }),
   is_published: z.boolean().default(false),
   seo: SeoSchema.optional(),
   image: fileSchemaArrayRequired,
-  slug: z.string().min(1, { message: "Slug is required and must be unique" }),
-  createdBy: z.string().default("admin"),
+  slug: z.string().min(1, { message: 'Slug is required and must be unique' }),
+  createdBy: z.string().default('admin'),
   createdAt: z.date().default(new Date()),
   updatedAt: z.date(),
 });

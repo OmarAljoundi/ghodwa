@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { Trash2, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { UploadedFileOmit } from "@/lib/types";
+import { Trash2, X } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import type { UploadedFileOmit } from '@/lib/types';
 
 interface UploadedImagesCardSingleProps {
   uploadedFiles?: UploadedFileOmit;

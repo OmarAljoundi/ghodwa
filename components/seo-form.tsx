@@ -1,39 +1,25 @@
-"use client";
+'use client';
 
-import React from "react";
-
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Tag, TagInput } from "emblor";
-import { useFormContext } from "react-hook-form";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
+import { type Tag, TagInput } from 'emblor';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 export function SeoForm({
   lang,
   prefiex,
   ...rest
 }: {
-  lang: "ar_" | "en_";
+  lang: 'ar_' | 'en_';
   prefiex?: string;
   title?: string;
   description?: string;
 }) {
-  const title = rest.title || "Configure SEO for this page";
-  const description =
-    rest.description || "Here you can configure the seo for this page!";
+  const title = rest.title || 'Configure SEO for this page';
+  const description = rest.description || 'Here you can configure the seo for this page!';
   return (
     <Card>
       <CardHeader>
@@ -48,20 +34,12 @@ export function SeoForm({
   );
 }
 
-export function SeoFormInputs({
-  lang,
-  prefiex = "",
-}: {
-  lang: "ar_" | "en_";
-  prefiex?: string;
-}) {
-  const title = lang === "ar_" ? "Arabic" : "English";
-  const [activeTagIndex, setActiveTagIndex] = React.useState<number | null>(
-    null
-  );
+export function SeoFormInputs({ lang, prefiex = '' }: { lang: 'ar_' | 'en_'; prefiex?: string }) {
+  const title = lang === 'ar_' ? 'Arabic' : 'English';
+  const [activeTagIndex, setActiveTagIndex] = React.useState<number | null>(null);
   const { control } = useFormContext();
 
-  const controlPrefix = prefiex ? `${prefiex}.seo` : "seo";
+  const controlPrefix = prefiex ? `${prefiex}.seo` : 'seo';
 
   return (
     <div className="px-2">
@@ -72,11 +50,7 @@ export function SeoFormInputs({
           <FormItem className="w-full">
             <FormLabel>{title} Meta Title</FormLabel>
             <FormControl>
-              <Input
-                {...field}
-                value={field.value ?? ""}
-                placeholder={`Enter a ${title} Title`}
-              />
+              <Input {...field} value={field.value ?? ''} placeholder={`Enter a ${title} Title`} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -96,7 +70,7 @@ export function SeoFormInputs({
                 activeTagIndex={activeTagIndex}
                 setActiveTagIndex={setActiveTagIndex}
                 styleClasses={{
-                  inlineTagsContainer: "bg-input",
+                  inlineTagsContainer: 'bg-input',
                 }}
                 placeholder={`Enter a ${title} Meta Keywords`}
               />
@@ -115,7 +89,7 @@ export function SeoFormInputs({
               <Textarea
                 rows={4}
                 {...field}
-                value={field.value ?? ""}
+                value={field.value ?? ''}
                 placeholder={`Enter a ${title} Meta Description`}
               />
             </FormControl>

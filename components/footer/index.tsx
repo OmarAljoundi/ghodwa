@@ -1,13 +1,12 @@
-"use client";
-import React from "react";
-import LogoContact from "./logo-contact";
-import { SecondFooterLayer } from "./second-footer-layer";
-import { Bottom } from "./bottom";
-import { SettingSchema } from "@/schema/setting-schema";
-import { FirstFooterLayer } from "./first-footer-layer";
-import { BrandWithRelationsSchema } from "@/schema";
-import { Service } from "@prisma/client";
-import { WebsiteBy } from "./website-by";
+'use client';
+import type { Service } from '@/generated/client/client';
+import type { BrandWithRelationsSchema } from '@/schema';
+import type { SettingSchema } from '@/schema/setting-schema';
+import { Bottom } from './bottom';
+import { FirstFooterLayer } from './first-footer-layer';
+import LogoContact from './logo-contact';
+import { SecondFooterLayer } from './second-footer-layer';
+import { WebsiteBy } from './website-by';
 
 export function Footer({
   settings,

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { create } from "zustand";
+import { useEffect } from 'react';
+import { create } from 'zustand';
 
 export type Breadcrumb = {
   label: string;
@@ -19,9 +19,7 @@ export const useBreadcrumbStore = create<BreadcrumbState>((set) => ({
   breadcrumbs: [],
   addBreadcrumb: (crumb) =>
     set((state) => {
-      const existingIndex = state.breadcrumbs.findIndex(
-        (bc) => bc.href === crumb.href
-      );
+      const existingIndex = state.breadcrumbs.findIndex((bc) => bc.href === crumb.href);
       if (existingIndex !== -1) {
         const updated = [...state.breadcrumbs];
         updated[existingIndex] = crumb;
@@ -31,14 +29,12 @@ export const useBreadcrumbStore = create<BreadcrumbState>((set) => ({
     }),
   removeBreadcrumbByHref: (href) =>
     set((state) => ({
-      breadcrumbs: state.breadcrumbs.filter(
-        (breadcrumb) => breadcrumb.href !== href
-      ),
+      breadcrumbs: state.breadcrumbs.filter((breadcrumb) => breadcrumb.href !== href),
     })),
   updateBreadcrumb: (index, updatedBreadcrumb) =>
     set((state) => ({
       breadcrumbs: state.breadcrumbs.map((breadcrumb, i) =>
-        i === index ? updatedBreadcrumb : breadcrumb
+        i === index ? updatedBreadcrumb : breadcrumb,
       ),
     })),
   setBreadcrumbs: (newBreadcrumbs) =>
@@ -60,5 +56,5 @@ export const useAddBreadcrumb = (newBreadcrumb: Breadcrumb) => {
     return () => {
       removeBreadcrumbByHref(newBreadcrumb.href);
     };
-  }, [addBreadcrumb, removeBreadcrumbByHref]);
+  }, [addBreadcrumb, removeBreadcrumbByHref, newBreadcrumb]);
 };

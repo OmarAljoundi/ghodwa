@@ -1,6 +1,6 @@
-import { getBrandBySlug } from "@/query";
-import RegisterBreadcrumbClient from "@/store/register-breadcrumb-client";
-import React, { ReactNode } from "react";
+import type { ReactNode } from 'react';
+import { getBrandBySlug } from '@/query';
+import RegisterBreadcrumbClient from '@/store/register-breadcrumb-client';
 
 export default async function Layout({
   params,
@@ -12,13 +12,11 @@ export default async function Layout({
   const { brandSlug, locale } = await params;
   const brandDetails = await getBrandBySlug(brandSlug);
 
-  const label = locale == "ar" ? brandDetails.ar_name : brandDetails.en_name;
+  const label = locale === 'ar' ? brandDetails.ar_name : brandDetails.en_name;
 
   return (
     <>
-      <RegisterBreadcrumbClient
-        breadcrumb={{ href: `/our-brands/${brandDetails.slug}`, label }}
-      />
+      <RegisterBreadcrumbClient breadcrumb={{ href: `/our-brands/${brandDetails.slug}`, label }} />
       {children}
     </>
   );

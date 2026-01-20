@@ -1,16 +1,16 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useTranslation } from "react-i18next";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+'use client';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
+import { useRouter } from '@/i18n/navigation';
 
 interface NotFoundProps {
   title?: string;
   description?: string;
 }
 
-export function Illustration(props: React.ComponentPropsWithoutRef<"svg">) {
+export function Illustration(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 362 145" {...props}>
       <path
@@ -22,10 +22,10 @@ export function Illustration(props: React.ComponentPropsWithoutRef<"svg">) {
 }
 
 export function NotFound({
-  title = "Page not found",
-  description = "Lost this page is In another system it may be",
+  title = 'Page not found',
+  description = 'Lost this page is In another system it may be',
 }: NotFoundProps) {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   const route = useRouter();
   return (
     <div className="relative text-center z-[1] pt-52">
@@ -36,21 +36,17 @@ export function NotFound({
         {t(description)}
       </p>
       <div className="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-y-3 gap-x-6">
-        <Button
-          variant="secondary"
-          className="group"
-          onClick={() => route.back()}
-        >
+        <Button variant="secondary" className="group" onClick={() => route.back()}>
           <ArrowLeft
             className="ltr:me-2 ltr:ms-0 rtl:ms-2 rtl:me-0 opacity-60 transition-transform group-hover:-translate-x-0.5 rtl:rotate-180"
             size={16}
             strokeWidth={2}
             aria-hidden="true"
           />
-          {t("Go back")}
+          {t('Go back')}
         </Button>
         <Button className="-order-1 sm:order-none" asChild>
-          <Link href="/">{t("Take me home")}</Link>
+          <Link href="/">{t('Take me home')}</Link>
         </Button>
       </div>
     </div>

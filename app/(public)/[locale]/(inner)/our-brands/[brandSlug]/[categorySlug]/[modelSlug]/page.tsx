@@ -1,15 +1,14 @@
-import { generatePageBilingualSeo } from "@/app/(public)/[locale]/generate-bilingual-seo";
-import { ModelDetails } from "@/components/model-details";
-import { getModelBySlug, getSettings } from "@/query";
-import { SeoSchema } from "@/schema/seo-schema";
-import { Metadata } from "next";
-import React from "react";
+import type { Metadata } from 'next';
+import { generatePageBilingualSeo } from '@/app/(public)/[locale]/generate-bilingual-seo';
+import { ModelDetails } from '@/components/model-details';
+import { getModelBySlug, getSettings } from '@/query';
+import type { SeoSchema } from '@/schema/seo-schema';
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{
-    locale: "ar" | "en";
+    locale: 'ar' | 'en';
     categorySlug: string;
     brandSlug: string;
     modelSlug: string;
@@ -22,13 +21,13 @@ export async function generateMetadata({
     url: (modelImage as any)?.url,
     width: 1000,
     height: 500,
-    alt: locale == "ar" ? currentModel.ar_name : currentModel.en_name,
+    alt: locale === 'ar' ? currentModel.ar_name : currentModel.en_name,
   }));
 
   const dictionary = generatePageBilingualSeo(
     (currentModel?.seo as SeoSchema) ?? {},
     `/our-brands/${brandSlug}/${categorySlug}/${modelSlug}`,
-    images
+    images,
   )[locale];
 
   return dictionary;
@@ -42,11 +41,9 @@ export default async function Page({
   const { modelSlug, categorySlug } = await params;
 
   return (
-    <React.Fragment>
-      <ModelDetails
-        dataPromise={getModelBySlug(modelSlug, categorySlug)}
-        dataPromiseSetting={getSettings()}
-      />
-    </React.Fragment>
+    <ModelDetails
+      dataPromise={getModelBySlug(modelSlug, categorySlug)}
+      dataPromiseSetting={getSettings()}
+    />
   );
 }

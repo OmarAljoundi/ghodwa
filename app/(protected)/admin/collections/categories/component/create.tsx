@@ -1,36 +1,31 @@
-"use client";
-import React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/ui/form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { createOne } from "@/lib/generic.server";
-import {
-  CategorySchema,
-  createCategorySchema,
-  CreateCategorySchema,
-} from "@/schema";
-import { LangTabs } from "@/components/lang-tabs";
-import { CategoryForm } from "./form";
+'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { LangTabs } from '@/components/lang-tabs';
+import { Form } from '@/components/ui/form';
+import { createOne } from '@/lib/generic.server';
+import { type CategorySchema, type CreateCategorySchema, createCategorySchema } from '@/schema';
+import { CategoryForm } from './form';
 
 export function CreateCategory() {
-  const form = useForm<CreateCategorySchema>({
+  const form = useForm({
     resolver: zodResolver(createCategorySchema),
     defaultValues: {
-      ar_description: "",
-      ar_name: "",
-      en_name: "",
-      en_description: "",
+      ar_description: '',
+      ar_name: '',
+      en_name: '',
+      en_description: '',
     },
   });
 
   const route = useRouter();
 
   async function onSubmit(body: CreateCategorySchema) {
-    const result = await createOne<CategorySchema>("category", body);
+    const result = await createOne<CategorySchema>('category', body);
     if (result.success) {
-      toast.success("Category created successfully");
+      toast.success('Category created successfully');
       route.replace(`/admin/collections/categories/${result.data?.id}`);
       route.refresh();
     }

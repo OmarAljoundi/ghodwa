@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { TooltipProvider as CustomTooltipProvider } from "@/components/ui/tooltip";
-import { TooltipProviderProps } from "@radix-ui/react-tooltip";
+import type { TooltipProviderProps } from '@radix-ui/react-tooltip';
+import { TooltipProvider as CustomTooltipProvider } from '@/components/ui/tooltip';
 
 export function TooltipProvider({ children, ...props }: TooltipProviderProps) {
   return (

@@ -1,6 +1,6 @@
-import { getServiceBySlug } from "@/query";
-import RegisterBreadcrumbClient from "@/store/register-breadcrumb-client";
-import React, { ReactNode } from "react";
+import type { ReactNode } from 'react';
+import { getServiceBySlug } from '@/query';
+import RegisterBreadcrumbClient from '@/store/register-breadcrumb-client';
 
 export default async function Layout({
   params,
@@ -11,19 +11,13 @@ export default async function Layout({
 }) {
   const { locale, slug } = await params;
 
-  const {
-    ar_title,
-    en_title,
-    slug: serviceSlug,
-  } = await getServiceBySlug(slug);
+  const { ar_title, en_title, slug: serviceSlug } = await getServiceBySlug(slug);
 
-  const label = locale == "ar" ? ar_title : en_title;
+  const label = locale === 'ar' ? ar_title : en_title;
 
   return (
     <>
-      <RegisterBreadcrumbClient
-        breadcrumb={{ href: `/services/${serviceSlug}`, label }}
-      />
+      <RegisterBreadcrumbClient breadcrumb={{ href: `/services/${serviceSlug}`, label }} />
       {children}
     </>
   );

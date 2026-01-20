@@ -1,6 +1,6 @@
-import React, { useId } from "react";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
+import { useId } from 'react';
+import { Label } from './ui/label';
+import { Switch } from './ui/switch';
 
 export function StatusSwitcher({
   value,

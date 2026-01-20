@@ -1,16 +1,16 @@
 export const slideInFromLeft = {
   initial: { x: -200 },
-  animate: { x: 0, transition: { duration: 1.5, ease: "easeOut" } },
+  animate: { x: 0, transition: { duration: 1.5, ease: 'easeOut' } },
 };
 
 export const slideImageInFromLeft = {
   initial: { x: -1100 },
-  animate: { x: 0, transition: { duration: 1.5, ease: "easeOut" } },
+  animate: { x: 0, transition: { duration: 1.5, ease: 'easeOut' } },
 };
 
 export const slideInFromRight = {
   initial: { x: 200 },
-  animate: { x: 0, transition: { duration: 1.5, ease: "easeOut" } },
+  animate: { x: 0, transition: { duration: 1.5, ease: 'easeOut' } },
 };
 
 export const fadeIn = {
@@ -20,7 +20,7 @@ export const fadeIn = {
 
 export const containerVariants = {
   initial: { opacity: 0, y: 50 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
 };
 
 export const textVariants = {
@@ -28,18 +28,18 @@ export const textVariants = {
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: "easeOut", delay: 0.3 },
+    transition: { duration: 1, ease: 'easeOut', delay: 0.3 },
   },
 };
 
 export const parallaxVariants = {
-  initial: { backgroundPositionY: "0%" },
-  animate: { backgroundPositionY: "50%", transition: { duration: 1.2 } },
+  initial: { backgroundPositionY: '0%' },
+  animate: { backgroundPositionY: '50%', transition: { duration: 1.2 } },
 };
 
 export const fadeInFromBottom = {
   initial: { opacity: 0, y: 50 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
 };
 
 export const staggerContainer = {
@@ -52,7 +52,7 @@ export const fadeInFromLeft = {
   whileInView: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: 'easeOut' },
   },
 };
 
@@ -61,7 +61,7 @@ export const fadeInFromRight = {
   whileInView: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
+    transition: { duration: 0.8, ease: 'easeOut' },
   },
 };
 

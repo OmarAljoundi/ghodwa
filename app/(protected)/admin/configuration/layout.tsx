@@ -1,13 +1,13 @@
-import ContentWrapper from "@/components/admin-panel/contet-wrapper";
-import React, { ReactNode } from "react";
-import { ConfigurationMenu } from "./components/configuration-menu";
+import type { ReactNode } from 'react';
+import ContentWrapper from '@/components/admin-panel/contet-wrapper';
+import { ConfigurationMenu } from './components/configuration-menu';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <ContentWrapper
       breadcrumbs={[
-        { item: "Dashboard", url: "/admin" },
-        { item: "Configuration", currentPage: true },
+        { item: 'Dashboard', url: '/admin' },
+        { item: 'Configuration', currentPage: true },
       ]}
     >
       <ConfigurationMenu>{children}</ConfigurationMenu>

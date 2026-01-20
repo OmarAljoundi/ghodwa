@@ -1,14 +1,13 @@
-import BrandDetails from "@/components/our-brands/brand-details";
-import { getBrandBySlug } from "@/query";
-import { SeoSchema } from "@/schema/seo-schema";
-import { Metadata } from "next";
-import React from "react";
-import { generatePageBilingualSeo } from "../../../generate-bilingual-seo";
+import type { Metadata } from 'next';
+import BrandDetails from '@/components/our-brands/brand-details';
+import { getBrandBySlug } from '@/query';
+import type { SeoSchema } from '@/schema/seo-schema';
+import { generatePageBilingualSeo } from '../../../generate-bilingual-seo';
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: "ar" | "en"; brandSlug: string }>;
+  params: Promise<{ locale: 'ar' | 'en'; brandSlug: string }>;
 }): Promise<Metadata> {
   const { locale, brandSlug } = await params;
   const { seo, ar_name, en_name, logo } = await getBrandBySlug(brandSlug);
@@ -17,7 +16,7 @@ export async function generateMetadata({
     ? [
         {
           url: (logo as any).url,
-          alt: locale === "ar" ? ar_name : en_name,
+          alt: locale === 'ar' ? ar_name : en_name,
           width: 300,
           height: 300,
         },
@@ -27,21 +26,13 @@ export async function generateMetadata({
   const dictionary = generatePageBilingualSeo(
     (seo as SeoSchema) ?? {},
     `/our-brands/${brandSlug}`,
-    images
+    images,
   )[locale];
 
   return dictionary;
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ brandSlug: string }>;
-}) {
+export default async function Page({ params }: { params: Promise<{ brandSlug: string }> }) {
   const { brandSlug } = await params;
-  return (
-    <React.Fragment>
-      <BrandDetails dataPromise={getBrandBySlug(brandSlug)} />
-    </React.Fragment>
-  );
+  return <BrandDetails dataPromise={getBrandBySlug(brandSlug)} />;
 }

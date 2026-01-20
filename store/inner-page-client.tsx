@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useAddInnerPage } from "./inner-page";
+import { useAddInnerPage } from './inner-page';
 
 export function InnerPageClient({ currentPage }: { currentPage: string }) {
   useAddInnerPage(currentPage);
 
-  return <></>;
+  return null;
 }

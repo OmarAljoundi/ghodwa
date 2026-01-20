@@ -1,14 +1,10 @@
-import DeleteAlert from "@/components/delete-alert";
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { deleteOne } from "@/lib/generic.server";
-import { PrismaModels } from "@/lib/types";
-import { Edit, Trash2 } from "lucide-react";
-import React, { ReactNode } from "react";
+import { Edit, Trash2 } from 'lucide-react';
+import React, { type ReactNode } from 'react';
+import DeleteAlert from '@/components/delete-alert';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { deleteOne } from '@/lib/generic.server';
+import type { PrismaModels } from '@/lib/types';
 
 type ToolbarActionProps<T extends { id: number }> = {
   showEdit?: boolean;
@@ -64,13 +60,11 @@ export default function ToolbarAction<T extends { id: number }>({
             <TooltipTrigger asChild>
               <Button
                 variant="outline"
-                size={withText ? "sm" : "icon"}
-                onClick={() =>
-                  onEditRedirectTo ? onEditRedirectTo(data?.id ?? 0) : {}
-                }
+                size={withText ? 'sm' : 'icon'}
+                onClick={() => (onEditRedirectTo ? onEditRedirectTo(data?.id ?? 0) : {})}
               >
                 <Edit className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                {withText && "Delete"}
+                {withText && 'Delete'}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
@@ -84,11 +78,11 @@ export default function ToolbarAction<T extends { id: number }>({
             <TooltipTrigger asChild>
               <Button
                 variant="destructive"
-                size={withText ? "sm" : "icon"}
+                size={withText ? 'sm' : 'icon'}
                 onClick={() => setOpenAlert(true)}
               >
                 <Trash2 className="h-4 w-4 text-white dark:text-red-400" />
-                {withText && "Delete"}
+                {withText && 'Delete'}
               </Button>
             </TooltipTrigger>
             <TooltipContent>

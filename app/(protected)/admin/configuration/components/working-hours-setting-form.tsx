@@ -1,40 +1,21 @@
-"use client";
-import { EmptyState } from "@/components/empty-state";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import {
-  Sortable,
-  SortableDragHandle,
-  SortableItem,
-} from "@/components/ui/sortable";
-import { SettingSchema } from "@/schema/setting-schema";
-import { Files, FileText, Link, Plus, TrashIcon } from "lucide-react";
-import React, { useCallback, useId } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { TimePicker } from "@/components/ui/time-picker";
-import { Button } from "@/components/ui/button";
-import { DragHandleDots2Icon } from "@radix-ui/react-icons";
-import { Time } from "@internationalized/date";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-export function WorkingHoursSettingForm({
-  lang = "ar_",
-}: {
-  lang?: "ar_" | "en_";
-}) {
+'use client';
+import { Time } from '@internationalized/date';
+import { DragHandleDots2Icon } from '@radix-ui/react-icons';
+import { Files, FileText, Link, Plus, TrashIcon } from 'lucide-react';
+import { useCallback, useId } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { EmptyState } from '@/components/empty-state';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
+import { Sortable, SortableDragHandle, SortableItem } from '@/components/ui/sortable';
+import { Switch } from '@/components/ui/switch';
+import { TimePicker } from '@/components/ui/time-picker';
+import type { SettingSchema } from '@/schema/setting-schema';
+export function WorkingHoursSettingForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
   const { control, watch } = useFormContext<SettingSchema>();
 
   const { append, remove, fields, move } = useFieldArray({
@@ -42,28 +23,28 @@ export function WorkingHoursSettingForm({
     name: `workingHours.items`,
   });
 
-  const workingHoursItems = watch("workingHours.items");
+  const workingHoursItems = watch('workingHours.items');
 
   const appendNewEmpty = useCallback(() => {
     append({
       id: crypto.randomUUID(),
-      ar_day: "",
-      en_day: "",
+      ar_day: '',
+      en_day: '',
       office: {
-        state: "open",
+        state: 'open',
         from: { hour: 8, minute: 0 },
         to: { hour: 17, minute: 0 },
       },
     });
-  }, []);
+  }, [append]);
 
   const isClosed = useCallback(
     (index: number) => {
-      if (workingHoursItems[index].office.state == "closed") return true;
+      if (workingHoursItems[index].office.state === 'closed') return true;
 
       return false;
     },
-    [workingHoursItems]
+    [workingHoursItems],
   );
 
   return (
@@ -71,21 +52,20 @@ export function WorkingHoursSettingForm({
       <CardHeader>
         <CardTitle>Working hours</CardTitle>
         <CardDescription>
-          This will appear in the Contact us (Working hours section) for the
-          website
+          This will appear in the Contact us (Working hours section) for the website
         </CardDescription>
       </CardHeader>
       <Separator className="my-2" />
 
       <CardContent className="pt-2">
-        {fields.length == 0 ? (
+        {fields.length === 0 ? (
           <EmptyState
             title="No menus created"
             description="You can create new menu items to show it in your site header"
             className="max-w-full"
             icons={[FileText, Link, Files]}
             action={{
-              label: "Create Menu",
+              label: 'Create Menu',
               onClick: () => appendNewEmpty(),
             }}
           />
@@ -95,9 +75,7 @@ export function WorkingHoursSettingForm({
               <Sortable
                 uniqueId="id"
                 value={fields}
-                onMove={({ activeIndex, overIndex }) =>
-                  move(activeIndex, overIndex)
-                }
+                onMove={({ activeIndex, overIndex }) => move(activeIndex, overIndex)}
                 overlay={
                   <div className="grid grid-cols-[4.5fr,1fr,2.75fr,2.75fr,auto,auto,auto] items-center gap-2">
                     <div className="h-8 w-full rounded-sm bg-primary/10" />
@@ -118,7 +96,7 @@ export function WorkingHoursSettingForm({
                           name={`workingHours.items.${index}.${lang}day`}
                           render={({ field }) => (
                             <FormItem className="w-full">
-                              {index == 0 && <FormLabel>Day</FormLabel>}
+                              {index === 0 && <FormLabel>Day</FormLabel>}
 
                               <FormControl>
                                 <Input {...field} placeholder="e.g Saturday" />
@@ -132,16 +110,14 @@ export function WorkingHoursSettingForm({
                           name={`workingHours.items.${index}.office.state`}
                           render={({ field }) => (
                             <FormItem className="w-full">
-                              {index == 0 && <FormLabel>Open Status</FormLabel>}
+                              {index === 0 && <FormLabel>Open Status</FormLabel>}
 
                               <FormControl>
                                 <IsOpen
                                   offText="Closed"
                                   onText="Opened"
-                                  value={field.value == "open" ? true : false}
-                                  onChange={(e) =>
-                                    field.onChange(e ? "open" : "closed")
-                                  }
+                                  value={field.value === 'open'}
+                                  onChange={(e) => field.onChange(e ? 'open' : 'closed')}
                                 />
                               </FormControl>
                             </FormItem>
@@ -152,7 +128,7 @@ export function WorkingHoursSettingForm({
                           name={`workingHours.items.${index}.office.from`}
                           render={({ field }) => (
                             <FormItem className="w-full">
-                              {index == 0 && <FormLabel>From</FormLabel>}
+                              {index === 0 && <FormLabel>From</FormLabel>}
 
                               <FormControl ignoreDir={true}>
                                 <TimePicker
@@ -166,12 +142,7 @@ export function WorkingHoursSettingForm({
                                       minute: w?.minute,
                                     })
                                   }
-                                  value={
-                                    new Time(
-                                      field.value?.hour,
-                                      field.value?.minute
-                                    )
-                                  }
+                                  value={new Time(field.value?.hour, field.value?.minute)}
                                 />
                               </FormControl>
                             </FormItem>
@@ -182,7 +153,7 @@ export function WorkingHoursSettingForm({
                           name={`workingHours.items.${index}.office.to`}
                           render={({ field }) => (
                             <FormItem className="w-full">
-                              {index == 0 && <FormLabel>To</FormLabel>}
+                              {index === 0 && <FormLabel>To</FormLabel>}
 
                               <FormControl ignoreDir={true}>
                                 <TimePicker
@@ -196,12 +167,7 @@ export function WorkingHoursSettingForm({
                                       minute: w?.minute,
                                     })
                                   }
-                                  value={
-                                    new Time(
-                                      field.value?.hour,
-                                      field.value?.minute
-                                    )
-                                  }
+                                  value={new Time(field.value?.hour, field.value?.minute)}
                                 />
                               </FormControl>
                             </FormItem>
@@ -215,10 +181,7 @@ export function WorkingHoursSettingForm({
                           className="size-9 shrink-0"
                           onClick={() => appendNewEmpty()}
                         >
-                          <Plus
-                            className="size-4 text-primary"
-                            aria-hidden="true"
-                          />
+                          <Plus className="size-4 text-primary" aria-hidden="true" />
                           <span className="sr-only">Add</span>
                         </Button>
 
@@ -227,10 +190,7 @@ export function WorkingHoursSettingForm({
                           size="icon"
                           className="size-9 shrink-0"
                         >
-                          <DragHandleDots2Icon
-                            className="size-4"
-                            aria-hidden="true"
-                          />
+                          <DragHandleDots2Icon className="size-4" aria-hidden="true" />
                         </SortableDragHandle>
                         <Button
                           type="button"
@@ -239,10 +199,7 @@ export function WorkingHoursSettingForm({
                           className="size-9 shrink-0"
                           onClick={() => remove(index)}
                         >
-                          <TrashIcon
-                            className="size-4 text-destructive"
-                            aria-hidden="true"
-                          />
+                          <TrashIcon className="size-4 text-destructive" aria-hidden="true" />
                           <span className="sr-only">Remove</span>
                         </Button>
                       </div>

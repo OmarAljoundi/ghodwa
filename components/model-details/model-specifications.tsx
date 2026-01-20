@@ -1,46 +1,35 @@
-import React from "react";
-import { BlurFade } from "../ui/blur-fade";
-import { Separator } from "../ui/separator";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { ModelSchema } from "@/schema";
-import { Model } from "@prisma/client";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl';
+import React from 'react';
+import type { Model } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { ModelSchema } from '@/schema';
+import { BlurFade } from '../ui/blur-fade';
+import { Separator } from '../ui/separator';
 
 export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
   const { description, specification } = useFilteredLanguageData(currentModel);
   const filteredSpecification = useFilteredLanguageData(
-    specification as ModelSchema["specification"]
+    specification as ModelSchema['specification'],
   );
 
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   return (
     <React.Fragment>
       <BlurFade
         delay={0.1}
-        direction={"left"}
+        direction={'left'}
         className="w-full text-black leading-5 minimal-tiptap-editor"
       >
-        <div
-          className="ProseMirror"
-          dangerouslySetInnerHTML={{ __html: description ?? "" }}
-        />
+        <div className="ProseMirror" dangerouslySetInnerHTML={{ __html: description ?? '' }} />
       </BlurFade>
 
-      <BlurFade
-        delay={0.3}
-        direction={"left"}
-        className="flex justify-start  w-full"
-      >
+      <BlurFade delay={0.3} direction={'left'} className="flex justify-start  w-full">
         <h1 className="rounded-lg px-3 py-1  border-2 border-primary text-xl text-black font-bold">
-          {t("Specifications")}
+          {t('Specifications')}
         </h1>
       </BlurFade>
 
-      <BlurFade
-        delay={0.5}
-        direction={"left"}
-        className="flex flex-col w-full space-y-3"
-      >
+      <BlurFade delay={0.5} direction={'left'} className="flex flex-col w-full space-y-3">
         {filteredSpecification.map((prop) => (
           <React.Fragment key={prop.id}>
             <div className="flex justify-between sm:justify-start gap-x-2">

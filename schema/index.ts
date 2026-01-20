@@ -1,16 +1,16 @@
-import { z } from "zod";
-import { fileSchemaArrayRequired, fileSchemaRequired } from "./upload-schema";
+import { z } from 'zod';
+import { fileSchemaArrayRequired, fileSchemaRequired } from './upload-schema';
 
 export const brandSchema = z.object({
   id: z.number().int().positive(),
   ar_name: z.string().min(1),
   en_name: z.string().min(1),
   logo: fileSchemaRequired,
-  slug: z.string().min(1, { message: "Slug is required and must be unique" }),
+  slug: z.string().min(1, { message: 'Slug is required and must be unique' }),
   ar_description: z.string().optional(),
   en_description: z.string().optional(),
   seo: z.any().optional(),
-  createdBy: z.string().default("admin"),
+  createdBy: z.string().default('admin'),
   createdAt: z.date().default(new Date()),
   showOnMenu: z.boolean().default(true),
   showOnFooter: z.boolean().default(true),
@@ -23,11 +23,11 @@ export const categorySchema = z.object({
   en_name: z.string().min(1),
   image: fileSchemaRequired,
   seo: z.any().optional(),
-  slug: z.string().min(1, { message: "Slug is required and must be unique" }),
+  slug: z.string().min(1, { message: 'Slug is required and must be unique' }),
   ar_description: z.string().optional(),
   en_description: z.string().optional(),
   brandId: z.number().nullable().optional().default(null),
-  createdBy: z.string().default("admin"),
+  createdBy: z.string().default('admin'),
   createdAt: z.date().default(new Date()),
   updatedAt: z.date(),
 });
@@ -36,7 +36,7 @@ export const modelSchema = z.object({
   id: z.number().int().positive(),
   ar_name: z.string().min(1),
   en_name: z.string().min(1),
-  slug: z.string().min(1, { message: "Slug is required and must be unique" }),
+  slug: z.string().min(1, { message: 'Slug is required and must be unique' }),
   ar_description: z.string().optional(),
   en_description: z.string().optional(),
   specification: z
@@ -53,7 +53,7 @@ export const modelSchema = z.object({
   image: fileSchemaArrayRequired,
   brochure: z.any().optional(),
   categoryId: z.union([z.string(), z.number()]).transform(Number),
-  createdBy: z.string().default("admin"),
+  createdBy: z.string().default('admin'),
   createdAt: z.date().default(new Date()),
 
   updatedAt: z.date(),
@@ -142,9 +142,7 @@ export type QueryBrandSchema = z.infer<typeof queryBrandSchema>;
 export type CategorySchema = z.infer<typeof categorySchema>;
 export type CreateCategorySchema = z.infer<typeof createCategorySchema>;
 export type UpdateCategorySchema = z.infer<typeof updateCategorySchema>;
-export type CategoryWithRelationsSchema = z.infer<
-  typeof categoryWithRelationsSchema
->;
+export type CategoryWithRelationsSchema = z.infer<typeof categoryWithRelationsSchema>;
 export type QueryCategorySchema = z.infer<typeof queryCategorySchema>;
 export type ModelSchema = z.infer<typeof modelSchema>;
 export type CreateModelSchema = z.infer<typeof createModelSchema>;

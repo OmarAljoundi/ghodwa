@@ -1,15 +1,15 @@
-"use client";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { getModelBySlug, getSettings } from "@/query";
-import { useAddInnerPage } from "@/store/inner-page";
-import React, { use } from "react";
-import { ModelLogo } from "./model-logo";
-import { DownloadBrochure } from "./download-brochure";
-import { OtherModelsList } from "./other-models-list";
-import { ContactSales } from "./contact-sales";
-import { ImageModelSlider } from "./image-model-slider";
-import { Model } from "@prisma/client";
-import { ModelSpecifications } from "./model-specifications";
+'use client';
+import React, { use } from 'react';
+import type { Model } from '@/generated/client/client';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { getModelBySlug, getSettings } from '@/query';
+import { useAddInnerPage } from '@/store/inner-page';
+import { ContactSales } from './contact-sales';
+import { DownloadBrochure } from './download-brochure';
+import { ImageModelSlider } from './image-model-slider';
+import { ModelLogo } from './model-logo';
+import { ModelSpecifications } from './model-specifications';
+import { OtherModelsList } from './other-models-list';
 
 export function ModelDetails({
   dataPromise,
@@ -26,16 +26,10 @@ export function ModelDetails({
   return (
     <React.Fragment>
       <div className="hidden lg:grid grid-cols-[12fr] lg:grid-cols-[4fr,8fr] gap-8 ">
-        <LeftDetails
-          dataPromise={dataPromise}
-          dataPromiseSetting={dataPromiseSetting}
-        />
+        <LeftDetails dataPromise={dataPromise} dataPromiseSetting={dataPromiseSetting} />
         <RightDetails dataPromise={dataPromise} />
       </div>
-      <MobileDetails
-        dataPromise={dataPromise}
-        dataPromiseSetting={dataPromiseSetting}
-      />
+      <MobileDetails dataPromise={dataPromise} dataPromiseSetting={dataPromiseSetting} />
     </React.Fragment>
   );
 }
@@ -63,17 +57,9 @@ function LeftDetails({
         width={250}
         height={250}
       />
-      <OtherModelsList
-        className=" w-full"
-        id={id}
-        models={models}
-        name={currentCategory.name}
-      />
+      <OtherModelsList className=" w-full" id={id} models={models} name={currentCategory.name} />
 
-      <DownloadBrochure
-        className="w-full"
-        brochure={currentModel?.brochure as any}
-      />
+      <DownloadBrochure className="w-full" brochure={currentModel?.brochure as any} />
       <ContactSales
         socialMediaContact={socialMediaContact}
         className="rounded-xl  w-full flex flex-wrap gap-x-4 gap-y-4 justify-between"
@@ -82,19 +68,12 @@ function LeftDetails({
   );
 }
 
-function RightDetails({
-  dataPromise,
-}: {
-  dataPromise: ReturnType<typeof getModelBySlug>;
-}) {
+function RightDetails({ dataPromise }: { dataPromise: ReturnType<typeof getModelBySlug> }) {
   const { currentModel } = use(dataPromise);
 
   return (
     <div className="flex flex-col items-center space-y-8 ">
-      <ImageModelSlider
-        className="w-full"
-        currentModel={currentModel as Model}
-      />
+      <ImageModelSlider className="w-full" currentModel={currentModel as Model} />
 
       <ModelSpecifications currentModel={currentModel as Model} />
     </div>
@@ -123,10 +102,7 @@ function MobileDetails({
         name={currentLogo?.name}
         className="py-6"
       />
-      <ImageModelSlider
-        className="w-full"
-        currentModel={currentModel as Model}
-      />
+      <ImageModelSlider className="w-full" currentModel={currentModel as Model} />
 
       <ModelSpecifications currentModel={currentModel as Model} />
 

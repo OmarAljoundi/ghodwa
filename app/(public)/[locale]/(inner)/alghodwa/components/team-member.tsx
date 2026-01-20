@@ -1,24 +1,15 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useFilteredLanguageData } from "@/hooks/use-filter-lang-data";
-import { SettingSchema } from "@/schema/setting-schema";
-import { DialogTitle } from "@radix-ui/react-dialog";
-import { Plus } from "lucide-react";
-import Image from "next/image";
-import React, { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+'use client';
+import { DialogTitle } from '@radix-ui/react-dialog';
+import { Plus } from 'lucide-react';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import type { ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
+import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import type { SettingSchema } from '@/schema/setting-schema';
 
-export function TeamMember({
-  teamMember,
-}: {
-  teamMember: SettingSchema["managementTeam"];
-}) {
+export function TeamMember({ teamMember }: { teamMember: SettingSchema['managementTeam'] }) {
   const { title } = useFilteredLanguageData(teamMember);
   return (
     <article className="mx-auto animate-fade-in">
@@ -35,7 +26,7 @@ export function TeamMember({
   );
 }
 
-function MemberItem(props: SettingSchema["managementTeam"]["team"][number]) {
+function MemberItem(props: SettingSchema['managementTeam']['team'][number]) {
   const data = useFilteredLanguageData(props);
 
   const { jobTitle, name, media } = data;
@@ -76,7 +67,7 @@ function MemberItem(props: SettingSchema["managementTeam"]["team"][number]) {
             <div className="flex items-center gap-3 ps-4 translate-y-4">
               <Button
                 className="shadow-md rounded-xl p-0 text-black transition-colors duration-300 bg-white group-hover:bg-primary group-hover:text-white"
-                size={"icon"}
+                size={'icon'}
               >
                 <Plus />
               </Button>
@@ -109,7 +100,7 @@ function MemberItemDialog({
   summary,
   children,
 }: ProfileData) {
-  const { t } = useTranslation("common");
+  const t = useTranslations();
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -117,7 +108,7 @@ function MemberItemDialog({
         <div className="grid md:grid-cols-[1fr,1.5fr] gap-6 p-6">
           <div className="relative aspect-square md:aspect-auto">
             <Image
-              src={mediaUrl || "/placeholder.svg"}
+              src={mediaUrl || '/placeholder.svg'}
               alt={name}
               fill
               className="object-cover rounded-lg"
@@ -141,7 +132,7 @@ function MemberItemDialog({
 
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold tracking-tight">
-                {t("Professional Overview")}
+                {t('Professional Overview')}
               </h3>
               <div className="text-muted-foreground space-y-4">
                 <p>{summary}</p>

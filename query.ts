@@ -1,13 +1,13 @@
-"use server";
+'use server';
 
-import { unstable_cache, unstable_noStore } from "next/cache";
-import { db } from "./db.server";
-import { getSettingBySectionAsync } from "./lib/settings.server";
-import { SettingSchema } from "./schema/setting-schema";
-import { ContactSchema } from "./schema/contact-schema";
-import { Resend } from "resend";
-import ContactUs from "./emails/contact-us";
-import { ReactNode } from "react";
+import { unstable_cache, unstable_noStore } from 'next/cache';
+import type { ReactNode } from 'react';
+import { Resend } from 'resend';
+import { db } from './db.server';
+import ContactUs from './emails/contact-us';
+import { getSettingBySectionAsync } from './lib/settings.server';
+import type { ContactSchema } from './schema/contact-schema';
+import type { SettingSchema } from './schema/setting-schema';
 
 export const getBrands = unstable_cache(
   async () => {
@@ -19,11 +19,11 @@ export const getBrands = unstable_cache(
 
     return brands;
   },
-  ["brands"],
+  ['brands'],
   {
     revalidate: 86400,
-    tags: ["brands"],
-  }
+    tags: ['brands'],
+  },
 );
 
 export const getAllModels = unstable_cache(
@@ -40,11 +40,11 @@ export const getAllModels = unstable_cache(
 
     return brands;
   },
-  ["all-models"],
+  ['all-models'],
   {
     revalidate: 86400,
-    tags: ["all-models"],
-  }
+    tags: ['all-models'],
+  },
 );
 
 export const getBrandBySlug = async (slug: string) =>
@@ -58,23 +58,23 @@ export const getBrandBySlug = async (slug: string) =>
       });
       return brand;
     },
-    ["brands", slug],
+    ['brands', slug],
     {
       revalidate: 86400,
-      tags: ["brands", slug],
-    }
+      tags: ['brands', slug],
+    },
   )();
 
 export const getSettings = unstable_cache(
   async () => {
-    const settings = await getSettingBySectionAsync("CMS");
+    const settings = await getSettingBySectionAsync('CMS');
     return settings as SettingSchema;
   },
-  ["settings"],
+  ['settings'],
   {
     revalidate: 86400,
-    tags: ["settings"],
-  }
+    tags: ['settings'],
+  },
 );
 
 export const getServices = unstable_cache(
@@ -82,16 +82,16 @@ export const getServices = unstable_cache(
     const services = await db.service.findMany({
       where: { is_published: true },
       orderBy: {
-        order: "asc",
+        order: 'asc',
       },
     });
     return services;
   },
-  ["services"],
+  ['services'],
   {
     revalidate: 86400,
-    tags: ["services"],
-  }
+    tags: ['services'],
+  },
 );
 
 export const getNews = unstable_cache(
@@ -99,17 +99,17 @@ export const getNews = unstable_cache(
     const news = await db.news.findMany({
       where: { is_published: true },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     });
 
     return news;
   },
-  ["news"],
+  ['news'],
   {
     revalidate: 86400,
-    tags: ["news"],
-  }
+    tags: ['news'],
+  },
 );
 
 export const getAllCategory = unstable_cache(
@@ -121,11 +121,11 @@ export const getAllCategory = unstable_cache(
     });
     return category;
   },
-  ["all-category"],
+  ['all-category'],
   {
     revalidate: 86400,
-    tags: ["all-category"],
-  }
+    tags: ['all-category'],
+  },
 );
 
 export const getCategoryBySlug = async (slug: string) =>
@@ -139,11 +139,11 @@ export const getCategoryBySlug = async (slug: string) =>
       });
       return category;
     },
-    ["category", slug],
+    ['category', slug],
     {
       revalidate: 86400,
-      tags: ["category", slug],
-    }
+      tags: ['category', slug],
+    },
   )();
 
 export const getModelBySlug = async (slug: string, categorySlug: string) =>
@@ -159,14 +159,14 @@ export const getModelBySlug = async (slug: string, categorySlug: string) =>
           },
         },
       });
-      const currentModel = models.find((x) => x.slug == slug);
+      const currentModel = models.find((x) => x.slug === slug);
       return { models, currentModel };
     },
-    ["model", slug],
+    ['model', slug],
     {
       revalidate: 86400,
-      tags: ["model", slug],
-    }
+      tags: ['model', slug],
+    },
   )();
 
 export const getNewsBySlug = async (slug: string) =>
@@ -177,11 +177,11 @@ export const getNewsBySlug = async (slug: string) =>
       });
       return news;
     },
-    ["news", slug],
+    ['news', slug],
     {
       revalidate: 86400,
-      tags: ["news", slug],
-    }
+      tags: ['news', slug],
+    },
   )();
 
 export const getServiceBySlug = async (slug: string) =>
@@ -192,11 +192,11 @@ export const getServiceBySlug = async (slug: string) =>
       });
       return service;
     },
-    ["service", slug],
+    ['service', slug],
     {
       revalidate: 86400,
-      tags: ["service", slug],
-    }
+      tags: ['service', slug],
+    },
   )();
 
 export const submitForm = async (data: ContactSchema, isArabic: boolean) => {
@@ -212,7 +212,7 @@ export const submitForm = async (data: ContactSchema, isArabic: boolean) => {
     const { error } = await resend.emails.send({
       from: process.env.FROMEMAIL!,
       to: data.email,
-      subject: isArabic ? "شكرًا لتواصلك معنا!" : "Thank You for Reaching Out!",
+      subject: isArabic ? 'شكرًا لتواصلك معنا!' : 'Thank You for Reaching Out!',
       react: ContactUs({ username: data.name, isArabic }) as ReactNode,
       bcc: process.env.BCCEMAIL,
     });

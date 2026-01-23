@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { use } from 'react';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { getBrands, getSettings } from '@/query';
 import { Marquee } from '../ui/marquee';
 
@@ -32,7 +33,7 @@ export function BrandSection({
                 key={index}
                 alt={name}
                 aria-label={name}
-                src={(logo as { url: string })?.url ?? ''}
+                src={resolveUrl((logo as { path: string })?.path ?? '')}
                 width={100}
                 className="object-contain size-16 lg:size-28"
                 height={100}

@@ -48,7 +48,7 @@ export default function DeleteAlert({
     <AlertDialog {...rest}>
       <AnimatePresence>
         {rest.open && (
-          <AlertDialogContent forceMount asChild>
+          <AlertDialogContent forceMount >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

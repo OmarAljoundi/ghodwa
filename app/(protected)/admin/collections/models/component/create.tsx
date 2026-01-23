@@ -28,6 +28,7 @@ export function CreateModel({
       ar_name: '',
       en_name: '',
       en_description: '',
+
     },
   });
 

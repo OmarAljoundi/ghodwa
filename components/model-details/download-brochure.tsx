@@ -1,20 +1,23 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { IoArrowDownCircleOutline } from 'react-icons/io5';
-import type { UploadedFileOmit } from '@/lib/types';
+import { resolveUrl, } from '@/lib/utils';
+import type { FileSchema } from '@/schema/upload-schema';
 import { BlurFade } from '../ui/blur-fade';
 import { Spinner } from '../ui/spinner';
 
 interface DownloadBrochureProps {
   className?: string;
-  brochure?: UploadedFileOmit;
+  brochure?: FileSchema;
 }
 
 export function DownloadBrochure({ className, brochure }: DownloadBrochureProps) {
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!brochure || !brochure?.url) {
+  console.log(brochure);
+
+  if (!brochure || !brochure?.path) {
     return null;
   }
 
@@ -22,8 +25,8 @@ export function DownloadBrochure({ className, brochure }: DownloadBrochureProps)
     try {
       setIsLoading(true);
 
-      const response = await fetch(brochure.url, {
-        next: { tags: [brochure.url] },
+      const response = await fetch(resolveUrl(brochure.path), {
+        next: { tags: [brochure.path] },
       });
       if (!response.ok) throw new Error('Download failed');
 
@@ -32,7 +35,7 @@ export function DownloadBrochure({ className, brochure }: DownloadBrochureProps)
 
       const link = document.createElement('a');
       link.href = url;
-      link.download = brochure.name;
+      link.download = `brochure`;
 
       document.body.appendChild(link);
 

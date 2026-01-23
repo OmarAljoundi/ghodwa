@@ -4,6 +4,7 @@ import { use } from 'react';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useServicesPages } from '@/hooks/use-render-items';
 import type { getServices } from '@/query';
+import type { FileSchema } from '@/schema/upload-schema';
 import { ServiceCard } from '../service-card';
 import { BlurFade } from '../ui/blur-fade';
 
@@ -30,8 +31,8 @@ export function ServicesContainer({
           <Link href={`/services/${slug}`}>
             <ServiceCard
               addGridBg={addGridBg}
-              icon={(icon as any)?.url}
-              backgroundImage={(image as any)?.url}
+              icon={(icon as FileSchema)?.path}
+              backgroundImage={(image as FileSchema)?.path}
               title={title}
             />
           </Link>

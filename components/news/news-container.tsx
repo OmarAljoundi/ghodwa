@@ -9,7 +9,7 @@ import type { News } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useHydrated } from '@/hooks/use-hydrated';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { cn } from '@/lib/utils';
+import { cn, resolveUrl } from '@/lib/utils';
 import type { getNews } from '@/query';
 import { BrandBadge } from '../brand-badge';
 
@@ -61,7 +61,7 @@ const NewsItem = ({ newsItem }: { newsItem: News }) => {
           >
             {(image as any[])?.length > 0 && (
               <Image
-                src={(image as any[])[0].url}
+                src={resolveUrl((image as any[])[0].path)}
                 alt={title}
                 fill
                 className="object-cover rounded-lg object-top"

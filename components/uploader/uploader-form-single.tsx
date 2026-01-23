@@ -4,16 +4,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { FileUploader } from '@/components/uploader/file-uploader';
 import { useUploadFile } from '@/hooks/use-upload-file';
-import type { UploadedFileOmit } from '@/lib/types';
+import type { FileSchema } from '@/schema/upload-schema';
 import { UploadedFilesCardSingle } from './uploaded-files-card-single';
 import { UploadedImagesCardSingle } from './uploaded-images-card-single';
 
 type UploaderFormProps = {
-  defaultUploadedFile?: UploadedFileOmit;
+  defaultUploadedFile?: FileSchema;
   type?: 'image' | 'files';
-  onChange: (data: UploadedFileOmit) => void;
+  onChange: (data: FileSchema) => void;
   onSuccessfullyDeletion?: (
-    uploadedFiles: UploadedFileOmit,
+    uploadedFiles: FileSchema,
   ) => Promise<{ success: boolean; message?: string }> | { success: boolean; message?: string };
 };
 
@@ -24,7 +24,6 @@ export function UploaderFormSingle({
   type = 'image',
 }: UploaderFormProps) {
   const { uploadedFiles, onUpload, progresses, onDelete, isDeleting } = useUploadFile(
-    'imageUploader',
     {
       defaultUploadedFiles: defaultUploadedFile ? [defaultUploadedFile] : [],
     },
@@ -46,6 +45,7 @@ export function UploaderFormSingle({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedFiles, onChange]);
 
+
   return (
     <div>
       {uploadedFiles.length === 0 && (
@@ -57,6 +57,7 @@ export function UploaderFormSingle({
           accept={type === 'image' ? { 'image/*': [] } : { '*': [] }}
         />
       )}
+
       <div>
         <AnimatePresence>
           {Object.entries(progresses).map(([fileName, progress]) => (
@@ -70,15 +71,18 @@ export function UploaderFormSingle({
               <Card className="mb-4">
                 <CardContent className="py-4">
                   <div className="flex items-center space-x-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20">
                       <motion.div
                         className="h-6 w-6 rounded-full bg-primary"
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ repeat: Infinity, duration: 1.5 }}
                       />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{fileName}</p>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate" title={fileName}>
+                        {fileName}
+                      </p>
                       <Progress value={progress} className="mt-2" />
                     </div>
                   </div>

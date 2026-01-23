@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import BrandDetails from '@/components/our-brands/brand-details';
 import { getBrandBySlug } from '@/query';
 import type { SeoSchema } from '@/schema/seo-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 import { generatePageBilingualSeo } from '../../../generate-bilingual-seo';
 
 export async function generateMetadata({
@@ -14,13 +15,13 @@ export async function generateMetadata({
 
   const images = logo
     ? [
-        {
-          url: (logo as any).url,
-          alt: locale === 'ar' ? ar_name : en_name,
-          width: 300,
-          height: 300,
-        },
-      ]
+      {
+        path: (logo as FileSchema)?.path,
+        alt: locale === 'ar' ? ar_name : en_name,
+        width: 300,
+        height: 300,
+      },
+    ]
     : [];
 
   const dictionary = generatePageBilingualSeo(

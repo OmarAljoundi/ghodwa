@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
         hostname: 'placehold.co',
       },
       {
+        hostname: 'mwnnffqjyyoyodmavenp.supabase.co',
+      },
+      {
         hostname: 'utfs.io',
       },
     ],

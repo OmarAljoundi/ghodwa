@@ -3,7 +3,7 @@ import { type NodeViewProps, NodeViewWrapper } from '@tiptap/react';
 import Image from 'next/image';
 import * as React from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
-import { cn } from '@/lib/utils';
+import { cn, resolveUrl } from '@/lib/utils';
 import { Spinner } from '../../../components/spinner';
 import { blobUrlToBase64, randomId } from '../../../utils';
 import type { ElementDimensions } from '../hooks/use-drag-resize';
@@ -28,7 +28,7 @@ interface ImageState {
 }
 
 const normalizeUploadResponse = (res: UploadReturnType) => ({
-  src: typeof res === 'string' ? res : res.src,
+  src: typeof res === 'string' ? resolveUrl(res) : resolveUrl(res.src),
   id: typeof res === 'string' ? randomId() : res.id,
 });
 
@@ -196,6 +196,7 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
     handleImage();
   }, [editor, fileName, initSrc, updateAttributes]);
 
+  console.log("imageState.src", imageState.src)
   return (
     <NodeViewWrapper
       ref={containerRef}

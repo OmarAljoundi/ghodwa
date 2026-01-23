@@ -3,6 +3,7 @@ import { generatePageBilingualSeo } from '@/app/(public)/[locale]/generate-bilin
 import { ModelDetails } from '@/components/model-details';
 import { getModelBySlug, getSettings } from '@/query';
 import type { SeoSchema } from '@/schema/seo-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 
 export async function generateMetadata({
   params,
@@ -18,7 +19,7 @@ export async function generateMetadata({
   const { currentModel } = await getModelBySlug(modelSlug, categorySlug);
 
   const images = currentModel?.image.map((modelImage) => ({
-    url: (modelImage as any)?.url,
+    path: (modelImage as FileSchema)?.path,
     width: 1000,
     height: 500,
     alt: locale === 'ar' ? currentModel.ar_name : currentModel.en_name,

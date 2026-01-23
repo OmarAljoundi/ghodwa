@@ -97,7 +97,7 @@ export const settingSchema = z.object({
     socialMedia: z
       .object({
         media: z.enum(['Youtube', 'Facebook', 'LinkedIn']),
-        url: z.string().url(),
+        url: z.url(),
       })
       .array()
       .default([]),

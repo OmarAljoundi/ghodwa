@@ -6,11 +6,12 @@ import Dropzone, { type DropzoneProps, type FileRejection } from 'react-dropzone
 import { toast } from 'sonner';
 import { useControllableState } from '@/hooks/use-controllable-state';
 import { cn, formatBytes } from '@/lib/utils';
+import type { FileSchema } from '@/schema/upload-schema';
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: File[];
   onValueChange?: (files: File[]) => void;
-  onUpload?: (files: File[]) => Promise<void>;
+  onUpload?: (files: File[]) => Promise<FileSchema[]>;
   progresses?: Record<string, number>;
   accept?: DropzoneProps['accept'];
   maxSize?: DropzoneProps['maxSize'];

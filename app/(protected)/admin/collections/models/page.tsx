@@ -23,7 +23,7 @@ export default function Page() {
           />
         }
       >
-        <ModelTable dataPromise={getAll('model', { orderBy: { id: 'desc' } })} />
+        <ModelTable dataPromise={getAll('model', { orderBy: { createdAt: 'desc' } })} />
       </Suspense>
     </ContentWrapper>
   );

@@ -1,22 +1,45 @@
 'use server';
-import { UTApi } from 'uploadthing/server';
+import { createClient } from '@supabase/supabase-js';
 
-const utapi = new UTApi();
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_SECRET_KEY!,
+);
 
-export const deleteUTFiles = async (files: string[]) => {
+export const deleteSupabaseFiles = async (paths: string[]) => {
   try {
-    await utapi.deleteFiles(files);
-    Promise.allSettled([utapi.deleteFiles(files)]);
+    const { data, error } = await supabase.storage
+      .from(process.env.NEXT_PUBLIC_SUPABASE_BUCKET!)
+      .remove(paths);
+
+    if (error) throw error;
+    return data;
   } catch (error) {
-    console.error('UTAPI: Error deleting files', error);
+    console.error('Supabase: Error deleting files', error);
   }
 };
 
-export const uploadUTFiles = async (files: File[]) => {
+export const uploadSupabaseFiles = async (files: File[]) => {
   try {
-    return await utapi.uploadFiles(files);
+    const uploadPromises = files.map(async (file) => {
+      const uniquePath = `${crypto.randomUUID()}-${file.name}`;
+
+      const { data, error } = await supabase.storage
+        .from(process.env.NEXT_PUBLIC_SUPABASE_BUCKET!)
+        .upload(uniquePath, file);
+
+      if (error) return { error };
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(process.env.NEXT_PUBLIC_SUPABASE_BUCKET!).getPublicUrl(data.path);
+
+      return { data: { ...data, url: publicUrl } };
+    });
+
+    return await Promise.all(uploadPromises);
   } catch (error) {
-    console.error('UTAPI: Error uploading files', error);
+    console.error('Supabase: Error uploading files', error);
     return [];
   }
 };

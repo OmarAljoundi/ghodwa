@@ -18,7 +18,7 @@ export function getServiceColumns(): ColumnDef<ServiceSchema>[] {
       },
       cell: ({ row: { original } }) => (
         <Avatar className="dark:bg-white">
-          <AvatarImage src={original.image?.url} alt="logo" width={50} className="object-contain" />
+          <AvatarImage src={original.image?.path} alt="logo" width={50} className="object-contain" />
           <AvatarFallback>SV</AvatarFallback>
         </Avatar>
       ),

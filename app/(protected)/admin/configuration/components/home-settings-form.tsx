@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
-import type { UploadedFileOmit } from '@/lib/types';
 import type { SettingSchema } from '@/schema/setting-schema';
 
 export default function HomeSettingsForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_' }) {
@@ -106,7 +105,7 @@ export default function HomeSettingsForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_
                         <FormItem>Desktop Image</FormItem>
                         <FormControl>
                           <UploaderFormSingle
-                            defaultUploadedFile={field.value as UploadedFileOmit}
+                            defaultUploadedFile={field.value}
                             onChange={field.onChange}
                           />
                         </FormControl>
@@ -123,7 +122,7 @@ export default function HomeSettingsForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_
                         <FormItem>Mobile Image</FormItem>
                         <FormControl>
                           <UploaderFormSingle
-                            defaultUploadedFile={field.value as UploadedFileOmit}
+                            defaultUploadedFile={field.value}
                             onChange={field.onChange}
                           />
                         </FormControl>

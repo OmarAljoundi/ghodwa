@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { use } from 'react';
 import type { Brand } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { getBrands } from '@/query';
 
 export function BrandList({ dataPromise }: { dataPromise: ReturnType<typeof getBrands> }) {
@@ -31,7 +32,7 @@ function BrandItem(prop: Brand) {
       className="bg-white  hover:bg-primary/30 transition-all duration-300 cursor-pointer  shadow-sm min-h-40 flex items-center justify-center h-full rounded-xl"
     >
       <Image
-        src={(logo as any)?.url}
+        src={resolveUrl((logo as any)?.path)}
         className="p-6 w-32"
         width={300}
         height={300}

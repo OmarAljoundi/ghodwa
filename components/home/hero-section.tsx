@@ -72,8 +72,8 @@ function CustomCarouselItem({
           priority={index === 0}
           fill
           style={{ objectFit: 'cover' }}
-          largeSrc={media?.url}
-          smallSrc={mobile_media?.url}
+          largeSrc={media?.path}
+          smallSrc={mobile_media?.path}
           className="rounded-3xl"
         />
         <div className="absolute inset-0 bg-black/50 lg:bg-transparent lg:bg-gradient-to-r rtl:lg:bg-gradient-to-l lg:from-black/60 lg:via-black/30 lg:to-transparent rounded-3xl" />{' '}

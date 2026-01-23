@@ -64,9 +64,9 @@ export const createBrandSchema = brandSchema
     categories: z
       .object({
         connect: z.array(z.object({ id: z.number() })),
-        disconnect: z.array(z.object({ id: z.number() })),
+        disconnect: z.array(z.object({ id: z.number() })).optional(),
       })
-      .default({ connect: [], disconnect: [] }),
+      .default({ connect: [] }),
   })
   .omit({
     id: true,

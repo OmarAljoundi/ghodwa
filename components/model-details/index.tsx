@@ -2,7 +2,9 @@
 import React, { use } from 'react';
 import type { Model } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { getModelBySlug, getSettings } from '@/query';
+import type { FileSchema } from '@/schema/upload-schema';
 import { useAddInnerPage } from '@/store/inner-page';
 import { ContactSales } from './contact-sales';
 import { DownloadBrochure } from './download-brochure';
@@ -48,12 +50,13 @@ function LeftDetails({
   const currentCategory = useFilteredLanguageData(category);
 
   const currentLogo = useFilteredLanguageData(currentCategory.brand!);
+
   return (
     <div className="flex flex-col items-center space-y-8 xl:px-6">
       <ModelLogo
         className="py-16"
-        logo={(currentLogo?.logo as any)?.url}
-        name={currentLogo?.name}
+        logo={resolveUrl((currentLogo?.logo as FileSchema)?.path)}
+        name={(currentLogo?.logo as FileSchema)?.path}
         width={250}
         height={250}
       />
@@ -98,7 +101,7 @@ function MobileDetails({
       <ModelLogo
         width={200}
         height={200}
-        logo={(currentLogo?.logo as any)?.url}
+        logo={resolveUrl((currentLogo?.logo as FileSchema)?.path)}
         name={currentLogo?.name}
         className="py-6"
       />

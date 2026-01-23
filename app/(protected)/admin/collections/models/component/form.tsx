@@ -17,7 +17,7 @@ import { SlugInput } from '@/components/ui/slug-input';
 import { Sortable, SortableDragHandle, SortableItem } from '@/components/ui/sortable';
 import UploaderForm from '@/components/uploader/uploader-form';
 import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
-import { cn } from '@/lib/utils';
+import { cn, resolveUrl } from '@/lib/utils';
 import type { BrandWithRelationsSchema, CreateModelSchema } from '@/schema';
 
 export function ModelForm({
@@ -128,8 +128,8 @@ export function ModelForm({
           </CardContent>
         </Card>
       </div>
-      <div className="flex flex-col gap-y-4">
-        <Card className="w-72">
+      <div className="flex flex-col gap-y-4 w-72">
+        <Card>
           <CardHeader>
             <CardTitle>Add your brochure</CardTitle>
             <CardDescription>
@@ -181,9 +181,9 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
               {brands.map((group) => (
                 <div key={group.id}>
                   <div className="flex items-center gap-6 border-b pb-2">
-                    {group.logo?.url && (
+                    {group.logo?.path && (
                       <Image
-                        src={group.logo.url}
+                        src={resolveUrl(group.logo.path)}
                         alt={group.en_name}
                         width={45}
                         height={45}
@@ -213,15 +213,15 @@ function ItemCategory({ brands }: { brands: Array<BrandWithRelationsSchema> }) {
                           className={`
                             relative h-full p-3 rounded-lg border transition-colors cursor-pointer
                             flex flex-row justify-start gap-x-4 
-                            ${field.value === category.id
+                            ${String(field.value) === String(category.id)
                               ? 'border-primary bg-primary/10 shadow-md'
                               : 'border-input hover:bg-muted/50'
                             }
                           `}
                         >
-                          {category.image?.url && (
+                          {category.image?.path && (
                             <Image
-                              src={category.image.url}
+                              src={resolveUrl(category.image.path)}
                               alt={category.en_name}
                               width={45}
                               height={45}

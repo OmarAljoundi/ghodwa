@@ -3,6 +3,7 @@ import { generatePageBilingualSeo } from '@/app/(public)/[locale]/generate-bilin
 import { ModelList } from '@/components/our-brands/model-list';
 import { getCategoryBySlug } from '@/query';
 import type { SeoSchema } from '@/schema/seo-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 
 export async function generateMetadata({
   params,
@@ -18,13 +19,13 @@ export async function generateMetadata({
 
   const images = image
     ? [
-        {
-          url: (image as any).url,
-          alt: locale === 'ar' ? ar_name : en_name,
-          width: 400,
-          height: 300,
-        },
-      ]
+      {
+        path: (image as FileSchema)?.path,
+        alt: locale === 'ar' ? ar_name : en_name,
+        width: 400,
+        height: 300,
+      },
+    ]
     : [];
 
   const dictionary = generatePageBilingualSeo(

@@ -21,12 +21,6 @@ export type PrismaModels = keyof Omit<
   | '$queryRawUnsafe'
 >;
 
-import type { ClientUploadedFileData } from 'uploadthing/types';
-
-export type UploadedFile<T = unknown> = ClientUploadedFileData<T>;
-
-export type UploadedFileOmit = Omit<UploadedFile, 'serverData'>;
-
 export interface SearchParams {
   [key: string]: string | string[] | undefined;
 }

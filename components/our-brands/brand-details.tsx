@@ -4,6 +4,7 @@ import { use } from 'react';
 import type { Category } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useRouter } from '@/i18n/navigation';
+import { resolveUrl } from '@/lib/utils';
 import type { getBrandBySlug } from '@/query';
 import { useAddInnerPage } from '@/store/inner-page';
 import { CommonCard } from '../common-card';
@@ -46,7 +47,7 @@ function BrandCategory({ category, brandSlug }: { brandSlug: string; category: C
   const { image, name, slug } = useFilteredLanguageData(category);
   return (
     <CommonCard
-      imageUrl={(image as any)?.url}
+      imageUrl={resolveUrl((image as any)?.path)}
       name={name}
       slug={`/our-brands/${brandSlug}/${slug}`}
     />

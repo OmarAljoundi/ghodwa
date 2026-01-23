@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import { BrandList } from '@/components/our-brands/brand-list';
+import { resolveUrl } from '@/lib/utils';
 import { getBrands, getSettings } from '@/query';
 import { InnerPageClient } from '@/store/inner-page-client';
 import { generatePageBilingualSeo } from '../../generate-bilingual-seo';
@@ -13,9 +14,9 @@ export async function generateMetadata({
   const { locale } = await params;
   const [settings, brands] = await Promise.all([getSettings(), getBrands()]);
   const images = brands
-    .filter((x) => (x.logo as any)?.url)
+    .filter((x) => (x.logo as any)?.path)
     .map((brand) => ({
-      url: (brand?.logo as any)?.url,
+      path: resolveUrl((brand?.logo as any)?.path),
       width: 300,
       height: 300,
       alt: locale === 'ar' ? brand.ar_name : brand.en_name,

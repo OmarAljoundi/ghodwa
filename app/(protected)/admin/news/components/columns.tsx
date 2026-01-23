@@ -7,6 +7,7 @@ import RowStatus from '@/components/data-table/common/row-status';
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import ToolbarAction from '@/components/toolbar-action';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { resolveUrl } from '@/lib/utils';
 import type { NewsSchema } from '@/schema/news-schema';
 
 export function getNewsColumns(): ColumnDef<NewsSchema>[] {
@@ -19,7 +20,7 @@ export function getNewsColumns(): ColumnDef<NewsSchema>[] {
       cell: ({ row: { original } }) => (
         <Avatar className="dark:bg-white">
           <AvatarImage
-            src={original.image?.[0]?.url}
+            src={resolveUrl(original.image?.[0]?.path)}
             alt="logo"
             width={50}
             className="object-contain"

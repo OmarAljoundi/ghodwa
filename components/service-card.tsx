@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, resolveUrl } from '@/lib/utils';
 
 interface ServiceCardProps {
   className?: string;
@@ -20,10 +20,11 @@ export const ServiceCard = ({
   addGridBg,
   fullHeight = true,
 }: ServiceCardProps) => {
+  console.log(backgroundImage);
   return (
     <div className={cn('relative w-full', fullHeight ? 'h-full' : 'h-96', className)}>
       <Image
-        src={backgroundImage}
+        src={resolveUrl(backgroundImage)}
         alt={title}
         fill
         style={{ objectFit: 'cover' }}
@@ -50,7 +51,7 @@ export const ServiceCard = ({
 
       <div className="absolute  top-9 ltr:right-6 rtl:left-6 z-50 size-20">
         <Image
-          src={icon}
+          src={resolveUrl(icon)}
           alt={title}
           width={100}
           height={100}

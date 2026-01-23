@@ -30,7 +30,7 @@ export function CreateBrand({
       en_description: '',
       categories: {
         connect: [],
-        disconnect: [],
+        disconnect: []
       },
     },
   });
@@ -38,10 +38,13 @@ export function CreateBrand({
   const route = useRouter();
 
   async function onSubmit(body: CreateBrandSchema) {
-    const result = await createOne<BrandSchema>('brand', body);
+    const { categories, ...rest } = body;
+    const { connect } = categories;
+
+    const result = await createOne<CreateBrandSchema>('brand', { ...rest, categories: { connect } });
     if (result.success) {
-      toast.success('Artwork created successfully');
-      route.replace(`/admin/collections/brands/${result.data?.id}`);
+      toast.success('Brand created successfully');
+      route.replace(`/admin/collections/brands/${(result.data as unknown as BrandSchema)?.id}`);
       route.refresh();
     }
   }

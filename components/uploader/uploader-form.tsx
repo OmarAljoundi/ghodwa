@@ -6,13 +6,13 @@ import { Progress } from '@/components/ui/progress';
 import { FileUploader } from '@/components/uploader/file-uploader';
 import UploadedFilesCard from '@/components/uploader/uploaded-files-card';
 import { useUploadFile } from '@/hooks/use-upload-file';
-import type { UploadedFileOmit } from '@/lib/types';
+import type { FileSchema } from '@/schema/upload-schema';
 
 type UploaderFormProps = {
-  defaultUploadedFiles: UploadedFileOmit[];
-  onChange: (data: UploadedFileOmit[]) => void;
+  defaultUploadedFiles: FileSchema[];
+  onChange: (data: FileSchema[]) => void;
   onSuccessfullyDeletion?: (
-    uploadedFiles: UploadedFileOmit[],
+    uploadedFiles: FileSchema[],
   ) => Promise<{ success: boolean; message?: string }> | { success: boolean; message?: string };
 };
 
@@ -22,8 +22,8 @@ export default function UploaderForm({
   onSuccessfullyDeletion,
 }: UploaderFormProps) {
   const { uploadedFiles, onUpload, progresses, onDelete, isDeleting, onChangeUploadFiles } =
-    useUploadFile('imageUploader', {
-      defaultUploadedFiles: defaultUploadedFiles as UploadedFileOmit[],
+    useUploadFile({
+      defaultUploadedFiles: defaultUploadedFiles,
     });
 
   const onDeleteCallback = useCallback(
@@ -64,15 +64,18 @@ export default function UploaderForm({
               <Card className="mb-4">
                 <CardContent className="py-4">
                   <div className="flex items-center space-x-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20">
                       <motion.div
                         className="h-6 w-6 rounded-full bg-primary"
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ repeat: Infinity, duration: 1.5 }}
                       />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{fileName}</p>
+
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate" title={fileName}>
+                        {fileName}
+                      </p>
                       <Progress value={progress} className="mt-2" />
                     </div>
                   </div>

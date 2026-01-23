@@ -114,7 +114,7 @@ export function NewsForm({ lang }: { lang: 'ar_' | 'en_' }) {
                   <FormControl>
                     <UploaderForm
                       defaultUploadedFiles={field.value}
-                      onChange={(e) => field.onChange(e)}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <FormMessage />

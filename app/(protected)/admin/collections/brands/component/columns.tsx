@@ -6,6 +6,7 @@ import RowDate from '@/components/data-table/common/row-date';
 import { DataTableColumnHeader } from '@/components/data-table/data-table-column-header';
 import ToolbarAction from '@/components/toolbar-action';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { resolveUrl } from '@/lib/utils';
 import type { BrandSchema } from '@/schema';
 
 export function getBrandColumns(): ColumnDef<BrandSchema>[] {
@@ -17,7 +18,12 @@ export function getBrandColumns(): ColumnDef<BrandSchema>[] {
       },
       cell: ({ row: { original } }) => (
         <Avatar className="dark:bg-white">
-          <AvatarImage src={original.logo?.url} alt="logo" width={50} className="object-contain" />
+          <AvatarImage
+            src={original.logo?.path ? resolveUrl(original.logo?.path) : ''}
+            alt="logo"
+            width={50}
+            className="object-contain"
+          />
           <AvatarFallback>Logo</AvatarFallback>
         </Avatar>
       ),

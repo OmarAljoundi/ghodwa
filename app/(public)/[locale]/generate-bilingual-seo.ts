@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { resolveUrl } from '@/lib/utils';
 import type { SeoSchema } from '@/schema/seo-schema';
 
 export const languages = {
@@ -11,7 +12,7 @@ type Lang = keyof typeof languages;
 export const generatePageBilingualSeo = (
   seo: SeoSchema,
   pathname: string = '/',
-  images?: Array<{ url: string; width?: number; height?: number; alt?: string }>,
+  images?: Array<{ path: string; width?: number; height?: number; alt?: string }>,
 ): Record<Lang, Metadata> => {
   const {
     ar_metaKeywords,
@@ -25,7 +26,7 @@ export const generatePageBilingualSeo = (
   const ogImages =
     images?.map((img) => {
       return {
-        url: img.url,
+        url: resolveUrl(img.path),
         width: img.width ?? 1200,
         height: img.height ?? 630,
         alt: img?.alt ?? 'Alghodwa preview image',

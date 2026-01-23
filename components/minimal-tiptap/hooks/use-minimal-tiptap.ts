@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-expect-error
 import UniqueId from 'tiptap-unique-id';
-import { uploadUTFiles } from '@/lib/uploadthing.server';
+import { uploadSupabaseFiles } from '@/lib/uploadthing.server';
 import { cn } from '@/lib/utils';
 import {
   CodeBlockLowlight,
@@ -67,10 +67,10 @@ const createExtensions = (placeholder: string) => [
     allowBase64: true,
     uploadFn: async (file) => {
       try {
-        const [fileResult] = await uploadUTFiles([file]);
+        const [fileResult] = await uploadSupabaseFiles([file]);
 
-        if (fileResult?.data?.url) {
-          return { id: randomId(), src: fileResult.data?.url };
+        if (fileResult?.data?.path) {
+          return { id: randomId(), src: fileResult.data?.path };
         }
         throw new Error('Image couldnt be uploaded');
       } catch (ex) {
@@ -207,6 +207,7 @@ export const useMinimalTiptapEditor = ({
 
   const editor = useEditor({
     extensions: createExtensions(placeholder),
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         autocomplete: 'off',

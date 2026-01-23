@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { SlugInput } from '@/components/ui/slug-input';
 import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
+import { resolveUrl } from '@/lib/utils';
 import type { CategorySchema, CreateBrandSchema } from '@/schema';
 import { ControlForm } from '../../../configuration/components/control-form';
 
@@ -116,7 +117,7 @@ export function BrandForm({
                             onCheckedChange={(checked) => {
                               if (checked) {
                                 const newConnect = [...currentValue.connect, { id: item.id }];
-                                const newDisconnect = currentValue.disconnect.filter(
+                                const newDisconnect = currentValue.disconnect?.filter(
                                   (x) => x.id !== item.id,
                                 );
                                 field.onChange({
@@ -128,7 +129,7 @@ export function BrandForm({
                                   (x) => x.id !== item.id,
                                 );
 
-                                const newDisconnect = [...currentValue.disconnect, { id: item.id }];
+                                const newDisconnect = [...currentValue.disconnect ?? [], { id: item.id }];
 
                                 field.onChange({
                                   connect: newConnect,
@@ -140,9 +141,9 @@ export function BrandForm({
                           />
                         </FormControl>
                         <div className="flex grow items-start gap-3">
-                          {item?.image?.url && (
+                          {item?.image?.path && (
                             <Image
-                              src={item?.image.url}
+                              src={resolveUrl(item?.image.path)}
                               alt={'category'}
                               width={60}
                               height={60}

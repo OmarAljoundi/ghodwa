@@ -23,7 +23,7 @@ export default function Page() {
           />
         }
       >
-        <CategoryTable dataPromise={getAll('category', { orderBy: { id: 'desc' } })} />
+        <CategoryTable dataPromise={getAll('category', { orderBy: { createdAt: 'desc' } })} />
       </Suspense>
     </ContentWrapper>
   );

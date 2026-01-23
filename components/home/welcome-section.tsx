@@ -6,7 +6,9 @@ import { use } from 'react';
 import type { Service } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useServicesPages } from '@/hooks/use-render-items';
+import { resolveUrl } from '@/lib/utils';
 import type { getServices, getSettings } from '@/query';
+import type { FileSchema } from '@/schema/upload-schema';
 import { ServiceCard } from '../service-card';
 import { BlurFade } from '../ui/blur-fade';
 import { Button } from '../ui/button';
@@ -59,8 +61,8 @@ function ServiceCardItem({ service }: { service: Service }) {
     <Link href={`/services/${slug}`} className="hover:zoom-in-95">
       <ServiceCard
         addGridBg={addGridBg}
-        icon={(icon as any)?.url}
-        backgroundImage={(image as any)?.url}
+        icon={(icon as FileSchema)?.path}
+        backgroundImage={(image as FileSchema)?.path}
         title={title}
       />
     </Link>

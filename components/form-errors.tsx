@@ -10,13 +10,13 @@ export function FormErrors() {
   }
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 min-w-0">
       <Alert variant="destructive" className="bg-destructive/20">
         <AlertTitle>Form Errors</AlertTitle>
         {Object.entries(errors)
           .slice(0, 2)
           .map(([field, error]) => (
-            <AlertDescription key={field}>
+            <AlertDescription key={field} className="break-words">
               <span className="font-medium">{field}: </span>
               {error?.message as string}
             </AlertDescription>

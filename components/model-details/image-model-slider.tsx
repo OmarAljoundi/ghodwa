@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { Model } from '@/generated/client/client';
+import { resolveUrl } from '@/lib/utils';
 import { BlurFade } from '../ui/blur-fade';
 import {
   Carousel,
@@ -19,9 +20,11 @@ export function ImageModelSlider({
   return (
     <BlurFade direction={'up'} className={className}>
       <Carousel className="w-full h-[300px] lg:h-[500px]">
-        <CustomCarousel slides={currentModel?.image.map((prop: any) => prop.url as string) ?? []} />
+        <CustomCarousel
+          slides={currentModel?.image.map((prop: any) => resolveUrl(prop.path) as string) ?? []}
+        />
         <CustomCarouselControls
-          slides={currentModel?.image.map((prop: any) => prop.url as string) ?? []}
+          slides={currentModel?.image.map((prop: any) => resolveUrl(prop.path) as string) ?? []}
         />
       </Carousel>
     </BlurFade>

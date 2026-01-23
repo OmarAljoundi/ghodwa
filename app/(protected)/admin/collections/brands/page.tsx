@@ -23,7 +23,7 @@ export default function Page() {
           />
         }
       >
-        <BrandTable dataPromise={getAll('brand', { orderBy: { id: 'desc' } })} />
+        <BrandTable dataPromise={getAll('brand', { orderBy: { createdAt: 'desc' } })} />
       </Suspense>
     </ContentWrapper>
   );

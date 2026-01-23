@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import type { News } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { getNews, getSettings } from '@/query';
 import { BlurFade } from '../ui/blur-fade';
 
@@ -48,7 +49,7 @@ function NewsItem(props: News) {
         <div className="relative aspect-[4/3] w-full mb-4">
           {image && (image as any[]).length > 0 && (
             <Image
-              src={(image as any[])[0]?.url}
+              src={resolveUrl((image as any[])[0]?.path)}
               alt={title}
               fill
               className="object-cover rounded-lg"

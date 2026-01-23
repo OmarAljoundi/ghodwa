@@ -1,10 +1,10 @@
 'use client';
 
 import { File, X } from 'lucide-react';
-import type { UploadedFileOmit } from '@/lib/types';
+import type { FileSchema } from '@/schema/upload-schema';
 
 interface UploadedFilesCardSingleProps {
-  uploadedFiles?: UploadedFileOmit;
+  uploadedFiles?: FileSchema;
   onDelete: (key: string) => void;
   className?: string;
 }
@@ -16,16 +16,16 @@ export function UploadedFilesCardSingle({ uploadedFiles, onDelete }: UploadedFil
 
   return (
     <div className="relative">
-      {uploadedFiles.name && (
+      {uploadedFiles.path && (
         <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-          <div className="flex justify-start gap-x-2">
-            <File />
-            <span className="truncate inline-block">{uploadedFiles.name}</span>
+          <div className="flex flex-1 items-center gap-x-2 min-w-0">
+            <File className="h-4 w-4 shrink-0" />
+            <span className="truncate">{uploadedFiles.path}</span>
           </div>
           <button
             type="button"
-            onClick={() => onDelete(uploadedFiles.key)}
-            className="ml-auto rounded-full p-1 hover:bg-muted"
+            onClick={() => onDelete(uploadedFiles.path)}
+            className="shrink-0 ml-auto rounded-full p-1 hover:bg-muted"
           >
             <X className="h-4 w-4" />
           </button>

@@ -15,8 +15,10 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/s
 import type { Service } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useBrandsPages, useExtraPages, useServicesPages } from '@/hooks/use-render-items';
+import { resolveUrl } from '@/lib/utils';
 import type { BrandWithRelationsSchema } from '@/schema';
 import type { SettingSchema } from '@/schema/setting-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 import ActionMenu from './action-menu';
 
 export default function MobileMenu({
@@ -129,7 +131,7 @@ export default function MobileMenu({
                         className="flex flex-col items-center justify-center gap-y-2 hover:bg-white/10 rounded-md p-2 transition-colors"
                       >
                         <Image
-                          src={brand.logo?.url || '/placeholder.svg'}
+                          src={brand.logo?.path ? resolveUrl(brand.logo?.path) : '/placeholder.svg'}
                           alt="logo"
                           width={35}
                           height={35}
@@ -159,7 +161,7 @@ export default function MobileMenu({
                           height={25}
                           alt={service.title}
                           className="bg-black rounded-lg"
-                          src={(service?.icon as any)?.url}
+                          src={resolveUrl((service?.icon as FileSchema)?.path)}
                         />
                         <div className="text-sm">{service.title}</div>
                       </Link>

@@ -5,9 +5,9 @@ import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import type { News } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
-import type { UploadedFileOmit } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import type { getNewsBySlug } from '@/query';
+import type { FileSchema, } from '@/schema/upload-schema';
 import ResponsiveImage from '../responsive-image';
 import {
   Carousel,
@@ -56,23 +56,23 @@ function CustomCarousel({ news }: { news: News }) {
   return (
     <CarouselMainContainer className="w-full h-full ">
       {news.image.map((item, index) => (
-        <CustomCarouselItem key={index} index={index} item={item as UploadedFileOmit} />
+        <CustomCarouselItem key={index} index={index} item={item as FileSchema} />
       ))}
     </CarouselMainContainer>
   );
 }
 
-function CustomCarouselItem({ index, item }: { item: UploadedFileOmit; index: number }) {
+function CustomCarouselItem({ index, item }: { item: FileSchema; index: number }) {
   return (
     <SliderMainItem key={index} className="w-full h-full after">
       <div className="relative w-full h-full">
         <ResponsiveImage
-          alt={item.name}
+          alt={item.path}
           priority={index === 0}
           fill
           style={{ objectFit: 'cover' }}
-          largeSrc={item?.url}
-          smallSrc={item?.url}
+          largeSrc={item?.path}
+          smallSrc={item?.path}
           className="rounded-3xl"
         />
       </div>

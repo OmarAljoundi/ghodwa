@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { use } from 'react';
 import type { Model } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { getCategoryBySlug } from '@/query';
 import { useAddInnerPage } from '@/store/inner-page';
 import { CommonCard } from '../common-card';
@@ -35,6 +36,10 @@ export function ModelList({ dataPromise }: { dataPromise: ReturnType<typeof getC
 function ModelItem({ model, categorySlug }: { categorySlug: string; model: Model }) {
   const { image, name, slug } = useFilteredLanguageData(model);
   return (
-    <CommonCard imageUrl={(image?.[0] as any)?.url} name={name} slug={`${categorySlug}/${slug}`} />
+    <CommonCard
+      imageUrl={resolveUrl((image?.[0] as any)?.path)}
+      name={name}
+      slug={`${categorySlug}/${slug}`}
+    />
   );
 }

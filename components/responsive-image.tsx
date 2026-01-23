@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import type React from 'react';
-import { useMediaQuery } from '@/hooks/use-media-query';
 
-interface ResponsiveImageProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof Image>, 'src' | 'width' | 'height'> {
+interface ResponsiveImageProps extends Omit<React.ComponentProps<typeof Image>, 'src'> {
   largeSrc?: string;
   smallSrc?: string;
   className?: string;
@@ -16,17 +14,23 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   className,
   ...rest
 }) => {
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const supabaseImageUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${process.env.NEXT_PUBLIC_SUPABASE_BUCKET}/`;
 
   if (!largeSrc || !smallSrc) return null;
 
   return (
-    <Image
-      {...rest}
-      src={isDesktop ? largeSrc : smallSrc}
-      alt={alt ?? 'Preview'}
-      className={className}
-    />
+    <picture>
+      <source
+        media="(min-width: 1024px)"
+        srcSet={`${supabaseImageUrl}${largeSrc}`}
+      />
+      <Image
+        src={`${supabaseImageUrl}${smallSrc}`}
+        alt={alt}
+        className={className}
+        {...rest}
+      />
+    </picture>
   );
 };
 

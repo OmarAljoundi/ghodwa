@@ -7,7 +7,9 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
+import { resolveUrl } from '@/lib/utils';
 import type { SettingSchema } from '@/schema/setting-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 
 export function TeamMember({ teamMember }: { teamMember: SettingSchema['managementTeam'] }) {
   const { title } = useFilteredLanguageData(teamMember);
@@ -31,12 +33,12 @@ function MemberItem(props: SettingSchema['managementTeam']['team'][number]) {
 
   const { jobTitle, name, media } = data;
   return (
-    <MemberItemDialog {...data} mediaUrl={(media as any)?.url as string}>
+    <MemberItemDialog {...data} mediaUrl={(media as FileSchema)?.path as string}>
       <div className="group cursor-pointer">
         <div className="relative aspect-[3/4] w-full mb-4  rounded-3xl">
           {media && (
             <Image
-              src={(media as any)?.url}
+              src={resolveUrl((media as FileSchema)?.path)}
               alt={name}
               fill
               className="object-cover grayscale rounded-3xl transition-all duration-300 group-hover:grayscale-0"

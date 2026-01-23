@@ -106,8 +106,8 @@ export function ServiceTable({
                   <div className="flex flex-col gap-y-2 relative h-96">
                     <ServiceCard
                       addGridBg={props.addGridBg}
-                      backgroundImage={props.image?.url ?? ''}
-                      icon={props.en_icon?.url ?? ''}
+                      backgroundImage={props.image?.path ?? ''}
+                      icon={props.en_icon?.path ?? ''}
                       title={props.en_title}
                     />
                     <div className=" mx-1 rounded-lg  absolute top-4 left-4 z-50">

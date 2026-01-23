@@ -17,8 +17,8 @@ export function SubHeroSection({ dataPromise }: { dataPromise: ReturnType<typeof
   return (
     <div className="relative w-full h-[400px] md:h-[600px]">
       <ResponsiveImage
-        largeSrc={media?.url}
-        smallSrc={mobile_media?.url}
+        largeSrc={media?.path}
+        smallSrc={mobile_media?.path}
         alt={title}
         fill
         style={{ objectFit: 'cover' }}

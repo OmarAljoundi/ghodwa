@@ -13,9 +13,10 @@ import {
 import type { Service } from '@/generated/client/client';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { useBrandsPages, useExtraPages, useServicesPages } from '@/hooks/use-render-items';
-import { cn } from '@/lib/utils';
+import { cn, resolveUrl } from '@/lib/utils';
 import type { BrandWithRelationsSchema } from '@/schema';
 import type { SettingSchema } from '@/schema/setting-schema';
+import type { FileSchema } from '@/schema/upload-schema';
 import ActionMenu from './action-menu';
 
 export default function DesktopMenu({
@@ -94,9 +95,9 @@ export default function DesktopMenu({
                       href={`/our-brands/${brand.slug}`}
                       className="flex flex-col items-center border justify-center gap-y-2 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
-                      {brand.logo?.url && (
+                      {brand.logo?.path && (
                         <Image
-                          src={brand.logo?.url}
+                          src={resolveUrl(brand.logo?.path)}
                           alt="logo"
                           width={35}
                           height={35}
@@ -131,7 +132,7 @@ export default function DesktopMenu({
                         width={35}
                         height={35}
                         alt={service.title}
-                        src={(service?.icon as any)?.url}
+                        src={resolveUrl((service?.icon as FileSchema)?.path)}
                       />
                       <div>
                         <div className="text-sm font-medium leading-none">{service.title}</div>

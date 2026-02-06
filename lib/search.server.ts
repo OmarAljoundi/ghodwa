@@ -4,7 +4,7 @@ import { searchClient } from '@algolia/client-search';
 import { db } from '@/db.server';
 import type { AlgoliaSearchResult, GlobleIndex } from './types';
 
-const client = searchClient(process.env.ALGOLIA_APP_ID!, process.env.ALGOLIA_API_KEY!);
+const client = searchClient(process.env.ALGOLIA_APP_ID!, process.env.ALGOLIA_SEARCH_API_KEY!);
 
 export async function GetModelsGlobleIndex() {
   const result = await db.model.findMany({

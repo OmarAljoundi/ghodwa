@@ -20,7 +20,7 @@ const tableMap: Partial<Record<PrismaModels, ReturnFunc>> = {
   news: GetNewsGlobleIndex,
 } as const;
 
-const client = searchClient(process.env.ALGOLIA_APP_ID!, process.env.ALGOLIA_API_KEY!);
+const client = searchClient(process.env.ALGOLIA_APP_ID!, process.env.ALGOLIA_WRITE_API_KEY!);
 
 export async function executeGlobalIndexFunction(tableName: PrismaModels): Promise<void> {
   const func = tableMap[tableName];

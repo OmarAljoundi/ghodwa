@@ -15,7 +15,6 @@ export function DownloadBrochure({ className, brochure }: DownloadBrochureProps)
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(brochure);
 
   if (!brochure || !brochure?.path) {
     return null;

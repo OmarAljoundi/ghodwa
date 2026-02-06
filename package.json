@@ -42,6 +42,7 @@
     "@react-email/head": "^0.0.13",
     "@react-email/html": "^0.0.12",
     "@react-email/img": "^0.0.12",
+    "@react-email/render": "^2.0.4",
     "@react-email/section": "^0.0.17",
     "@react-email/text": "^0.1.6",
     "@supabase/supabase-js": "^2.91.0",

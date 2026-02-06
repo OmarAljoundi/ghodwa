@@ -196,7 +196,6 @@ export const ImageViewBlock: React.FC<NodeViewProps> = ({
     handleImage();
   }, [editor, fileName, initSrc, updateAttributes]);
 
-  console.log("imageState.src", imageState.src)
   return (
     <NodeViewWrapper
       ref={containerRef}

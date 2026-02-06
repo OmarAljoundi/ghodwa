@@ -20,7 +20,6 @@ export const ServiceCard = ({
   addGridBg,
   fullHeight = true,
 }: ServiceCardProps) => {
-  console.log(backgroundImage);
   return (
     <div className={cn('relative w-full', fullHeight ? 'h-full' : 'h-96', className)}>
       <Image

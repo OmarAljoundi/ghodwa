@@ -1,5 +1,4 @@
 'use server';
-
 import { searchClient } from '@algolia/client-search';
 import {
   GetBrandsGlobleIndex,

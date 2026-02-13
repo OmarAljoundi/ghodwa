@@ -1,6 +1,7 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocale, useTranslations } from 'next-intl';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
@@ -17,9 +18,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { submitForm } from '@/query';
 import { type ContactSchema, contactSchema } from '@/schema/contact-schema';
 
+const MIN_SUBMIT_TIME_MS = 3000;
+
 export function ContactUsForm() {
   const t = useTranslations();
   const lang = useLocale();
+  const [honeypot, setHoneypot] = useState('');
+  const loadedAt = useRef(Date.now());
   const form = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -31,6 +36,9 @@ export function ContactUsForm() {
   });
 
   async function onSubmit(data: ContactSchema) {
+    if (honeypot) return;
+    if (Date.now() - loadedAt.current < MIN_SUBMIT_TIME_MS) return;
+
     const isArabic = lang === 'ar';
     const { success } = await submitForm(data, isArabic);
     if (success) {
@@ -46,6 +54,16 @@ export function ContactUsForm() {
       <h1 className="text-4xl lg:text-5xl">{t('We are ready to help you')}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="-space-y-3">
+          <div aria-hidden="true" className="absolute opacity-0 -z-10 pointer-events-none">
+            <input
+              type="text"
+              name="company_url"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
           <FormField
             control={form.control}
             name="name"

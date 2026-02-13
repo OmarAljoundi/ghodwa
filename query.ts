@@ -1,6 +1,6 @@
 'use server';
 
-import { unstable_cache, unstable_noStore } from 'next/cache';
+import { revalidatePath, unstable_cache, unstable_noStore } from 'next/cache';
 import type { ReactNode } from 'react';
 import { Resend } from 'resend';
 import { db } from './db.server';
@@ -220,6 +220,8 @@ export const submitForm = async (data: ContactSchema, isArabic: boolean) => {
     if (error) {
       return { error: error.message, success: false };
     }
+
+    revalidatePath('/', 'layout');
 
     return { success: true };
   } catch (ex: any) {

@@ -33,7 +33,7 @@ function MemberItem(props: SettingSchema['managementTeam']['team'][number]) {
 
   const { jobTitle, name, media } = data;
   return (
-    <MemberItemDialog {...data} mediaUrl={(media as FileSchema)?.path as string}>
+    <MemberItemDialog {...data} mediaUrl={resolveUrl((media as FileSchema)?.path)}>
       <div className="group cursor-pointer">
         <div className="relative aspect-[3/4] w-full mb-4  rounded-3xl">
           {media && (

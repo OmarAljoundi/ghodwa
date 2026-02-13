@@ -8,6 +8,7 @@ import {
   GetNewsGlobleIndex,
   GetServicesGlobleIndex,
 } from './search.server';
+
 import type { GlobleIndex, PrismaModels } from './types';
 
 type ReturnFunc = () => Promise<{ ar: GlobleIndex[]; en: GlobleIndex[] }>;

@@ -384,6 +384,13 @@ body {
   border-color: hsl(40 33% 92%);
 }
 
+/* Reset footer to brand-orange palette even when .sd-theme is active on body */
+.sd-theme footer {
+  --primary: 37 83% 62%;
+  --accent: 35 84% 62%;
+  --ring: 35 84% 62%;
+}
+
 /* --- Public rich-text (TipTap) rendering ---------------------------------
    Content saved by the minimal-tiptap editor is emitted as raw HTML whose
    paragraphs/images/lists carry .text-node / .block-node / .list-node classes

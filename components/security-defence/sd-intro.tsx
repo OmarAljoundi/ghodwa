@@ -77,7 +77,7 @@ export function SecurityDefenceIntro({
             out of layout flow so nothing else moves; the prefix scopes it to 2xl so
             no smaller screen is affected. Adjust the rem value to tune the amount. */}
         {mediaPath && (
-          <div className="order-2 w-full self-start lg:order-none 2xl:translate-x-[10rem]">
+          <div className="order-2 w-full self-start lg:order-none ltr:2xl:translate-x-[10rem] rtl:2xl:translate-x-[-3rem] ">
             <div className="relative aspect-[4/3] w-full">
               <Image
                 src={resolveUrl(mediaPath)}

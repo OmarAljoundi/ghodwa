@@ -32,8 +32,8 @@ export function SubHeroSection({ dataPromise }: { dataPromise: ReturnType<typeof
       <div className="grid-pattern rounded-none lg:rounded-3xl" />
 
       <div className="relative h-full w-full flex items-center justify-center">
-        <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full">
-          <div className="text content px-4 lg:px-24 items-start w-full  lg:w-2/3 xl:w-[50%]  me-auto  space-y-6 z-10 h-full flex flex-col justify-center  ">
+        <div className="flex flex-row-reverse items-center space-x-4 z-10 h-full w-full">
+          <div className="text content px-4 lg:px-24 items-start w-full  lg:w-2/3 xl:w-[50%]  me-auto  space-y-6 z-10 h-full flex flex-col justify-start pt-[150px] md:pt-[230px]">
             <h1 className="font-normal text-2xl md:text-6xl text-gray-50 relative z-10 whitespace-pre-line rtl:md:leading-[75px] rtl:leading-10">
               {title}
             </h1>

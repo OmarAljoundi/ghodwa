@@ -58,6 +58,22 @@ export function getBrandColumns(): ColumnDef<BrandSchema>[] {
       enableHiding: false,
       enableSorting: false,
     },
+    {
+      accessorKey: 'type',
+      header: ({ column }) => {
+        return <DataTableColumnHeader title="Type" column={column} />;
+      },
+      cell: ({ getValue }) => {
+        const value = getValue<string>();
+        return (
+          <div className="capitalize text-sm">
+            {value === 'security_defence' ? 'Security & Defence' : 'Default'}
+          </div>
+        );
+      },
+      enableHiding: false,
+      enableSorting: false,
+    },
     // {
     //   accessorKey: "is_published",
     //   header: ({ column }) => {

@@ -1,4 +1,4 @@
-import { Clock, House, ListEnd, MessageCircle } from 'lucide-react';
+import { Clock, House, ListEnd, MessageCircle, ShieldCheck } from 'lucide-react';
 import { CgFormatSeparator } from 'react-icons/cg';
 import { GrOverview } from 'react-icons/gr';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
@@ -14,6 +14,11 @@ export const menuItems = {
   ExtraAboutContent: {
     icon: CgFormatSeparator,
     value: 'About Extra Pages',
+  },
+
+  SecurityDefence: {
+    icon: ShieldCheck,
+    value: 'Security and Defence',
   },
 
   Overview: {

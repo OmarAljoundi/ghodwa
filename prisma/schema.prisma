@@ -85,11 +85,17 @@ model Passkey {
   @@map("passkey")
 }
 
+enum BrandType {
+  default
+  security_defence
+}
+
 model Brand {
   id             Int        @id @default(autoincrement())
   ar_name        String     @unique
   en_name        String     @unique
   slug           String     @unique
+  type           BrandType  @default(default)
   logo           Json?
   ar_description String?
   en_description String?

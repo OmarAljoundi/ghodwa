@@ -20,7 +20,7 @@ export default function ActionMenu() {
           variant="ghost"
           size="icon"
           onClick={() => setOpen(true)}
-          className={cn('bg-primary  text-black')}
+          className={cn('bg-brand-accent  text-black')}
         >
           <Search className="size-5 " />
           <span className="sr-only">Search</span>
@@ -49,7 +49,7 @@ function LangaugeMenu() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button className="text-black flex items-center h-9 w-9 lg:h-9 lg:w-auto ">
+        <Button className="bg-brand-accent text-black flex items-center h-9 w-9 lg:h-9 lg:w-auto ">
           <span className="hidden lg:inline-block">{t('Language')}</span>
           <Globe className="lg:hidden size-4" strokeWidth={2} aria-hidden="true" />
           <ArrowDown

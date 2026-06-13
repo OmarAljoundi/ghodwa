@@ -17,7 +17,9 @@ export async function GetModelsGlobleIndex() {
     },
   });
   const mappedResult = result.map((o): { ar: GlobleIndex; en: GlobleIndex } => {
-    const href = `/our-brands/${o.category.brand?.slug}/${o.category.slug}/${o.slug}`;
+    const prefix =
+      o.category.brand?.type === 'security_defence' ? 'security-and-defence' : 'our-brands';
+    const href = `/${prefix}/${o.category.brand?.slug}/${o.category.slug}/${o.slug}`;
     return {
       ar: {
         title: o.ar_name,
@@ -49,7 +51,8 @@ export async function GetCategoriesGlobleIndex() {
     },
   });
   const mappedResult = result.map((o): { ar: GlobleIndex; en: GlobleIndex } => {
-    const href = `/our-brands/${o.brand?.slug}/${o.slug}`;
+    const prefix = o.brand?.type === 'security_defence' ? 'security-and-defence' : 'our-brands';
+    const href = `/${prefix}/${o.brand?.slug}/${o.slug}`;
     return {
       ar: {
         title: o.ar_name,
@@ -78,7 +81,8 @@ export async function GetBrandsGlobleIndex() {
   const result = await db.brand.findMany();
 
   const mappedResult = result.map((o): { ar: GlobleIndex; en: GlobleIndex } => {
-    const href = `/our-brands/${o.slug}`;
+    const prefix = o.type === 'security_defence' ? 'security-and-defence' : 'our-brands';
+    const href = `/${prefix}/${o.slug}`;
     return {
       ar: {
         title: o.ar_name,

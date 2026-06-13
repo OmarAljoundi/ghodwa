@@ -1,4 +1,4 @@
-import { House, type LucideIcon, Newspaper, Settings2 } from 'lucide-react';
+import { House, type LucideIcon, Newspaper, Settings2, ShieldCheck } from 'lucide-react';
 import { GrOverview } from 'react-icons/gr';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
 import type { IconType } from 'react-icons/lib';
@@ -16,6 +16,7 @@ export const seoMenuItems: Record<
   | 'ManagementSystemsSeo'
   | 'ContactUsSeo'
   | 'BrandListingSeo'
+  | 'SecurityDefenceSeo'
   | 'ServicesListingSeo'
   | 'NewsListingSeo',
   {
@@ -83,6 +84,15 @@ export const seoMenuItems: Record<
     title: 'Configure SEO for the (brand listing page)',
     description:
       'Here you can configure the seo for the brand listing page make it reach and awesome',
+  },
+
+  SecurityDefenceSeo: {
+    icon: ShieldCheck,
+    value: 'Security and Defence Seo',
+    schemaKey: 'seoStaticPagesSecurityDefence',
+    title: 'Configure SEO for the (security and defence page)',
+    description:
+      'Here you can configure the seo for the security and defence landing page make it reach and awesome',
   },
 
   ServicesListingSeo: {

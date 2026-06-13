@@ -65,6 +65,19 @@ export const settingSchema = z.object({
       en_subtitle: z.string(),
       callToAction: z.object(callToActionSchema.shape),
     }),
+    securityDefenceSection: z
+      .object({
+        en_media: fileSchemaRequired,
+        ar_media: fileSchemaRequired,
+        en_mobile_media: fileSchemaRequired,
+        ar_mobile_media: fileSchemaRequired,
+        ar_title: z.string(),
+        en_title: z.string(),
+        ar_subtitle: z.string(),
+        en_subtitle: z.string(),
+        callToAction: z.object(callToActionSchema.shape),
+      })
+      .optional(),
     latestNews: z.object({
       ar_title: z.string(),
       en_title: z.string(),
@@ -231,6 +244,34 @@ export const settingSchema = z.object({
     .array()
     .default([]),
 
+  securityDefence: z
+    .object({
+      intro: z.object({
+        en_media: fileSchemaRequired,
+        ar_media: fileSchemaRequired,
+        ar_title: z.string(),
+        en_title: z.string(),
+        ar_description: z.string(),
+        en_description: z.string(),
+      }),
+      productsHeading: z.object({
+        ar_title: z.string(),
+        en_title: z.string(),
+      }),
+      services: z.object({
+        en_media: fileSchemaRequired,
+        ar_media: fileSchemaRequired,
+        en_mobile_media: fileSchemaRequired,
+        ar_mobile_media: fileSchemaRequired,
+        ar_title: z.string(),
+        en_title: z.string(),
+        ar_subtitle: z.string(),
+        en_subtitle: z.string(),
+        callToAction: z.object(callToActionSchema.shape),
+      }),
+    })
+    .optional(),
+
   seoStaticPagesHome: z.object({ seo: SeoSchema }),
   seoStaticPagesOverview: z.object({ seo: SeoSchema }),
   seoStaticPagesMission: z.object({ seo: SeoSchema }),
@@ -238,6 +279,7 @@ export const settingSchema = z.object({
   seoStaticPagesManagementSystems: z.object({ seo: SeoSchema }),
   seoStaticPagesContactUs: z.object({ seo: SeoSchema }),
   seoStaticPagesBrandListing: z.object({ seo: SeoSchema }),
+  seoStaticPagesSecurityDefence: z.object({ seo: SeoSchema }).optional(),
   seoStaticPagesServicesListing: z.object({ seo: SeoSchema }),
   seoStaticPagesNewsListing: z.object({ seo: SeoSchema }),
 });

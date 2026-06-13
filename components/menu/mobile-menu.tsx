@@ -24,11 +24,13 @@ import ActionMenu from './action-menu';
 export default function MobileMenu({
   isRTL,
   brands,
+  securityDefenceBrands,
   services,
   settings,
 }: {
   isRTL: boolean;
   brands: BrandWithRelationsSchema[];
+  securityDefenceBrands: BrandWithRelationsSchema[];
   services: Service[];
   settings: SettingSchema;
 }) {
@@ -37,8 +39,10 @@ export default function MobileMenu({
   const allAboutPages = useExtraPages(settings, 'menu');
   const serviceItems = useServicesPages(services, 'menu');
   const brandItems = useBrandsPages(brands, 'menu');
+  const securityDefenceItems = useBrandsPages(securityDefenceBrands, 'menu');
 
   const brandsFilter = useFilteredLanguageData(brandItems);
+  const securityDefenceFilter = useFilteredLanguageData(securityDefenceItems);
   const servicesFilter = useFilteredLanguageData(serviceItems);
   const alghodowaFilter = useFilteredLanguageData(allAboutPages);
 
@@ -143,6 +147,43 @@ export default function MobileMenu({
                   </div>
                 </AccordionContent>
               </AccordionItem>
+              {securityDefenceFilter.length > 0 && (
+                <AccordionItem value="security-defence">
+                  <AccordionTrigger className="text-lg font-semibold">
+                    {t('Security and Defence')}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="grid grid-cols-2 gap-4 ">
+                      {securityDefenceFilter.map((brand, index) => (
+                        <Link
+                          key={`${brand.name}-${index}`}
+                          href={`/security-and-defence/${brand.slug}`}
+                          onClick={() => setOpen(false)}
+                          className="flex flex-col items-center justify-center gap-y-2 hover:bg-white/10 rounded-md p-2 transition-colors"
+                        >
+                          <Image
+                            src={
+                              brand.logo?.path ? resolveUrl(brand.logo?.path) : '/placeholder.svg'
+                            }
+                            alt="logo"
+                            width={35}
+                            height={35}
+                            className="object-contain"
+                          />
+                          <div className="text-xs text-center">{brand.name}</div>
+                        </Link>
+                      ))}
+                    </div>
+                    <Link
+                      href="/security-and-defence"
+                      onClick={() => setOpen(false)}
+                      className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+                    >
+                      {t('Security and Defence')}
+                    </Link>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
               <AccordionItem value="services">
                 <AccordionTrigger className="text-lg font-semibold">
                   {t('Our Services')}

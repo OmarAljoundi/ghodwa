@@ -21,18 +21,22 @@ import ActionMenu from './action-menu';
 
 export default function DesktopMenu({
   brands,
+  securityDefenceBrands,
   services,
   settings,
 }: {
   brands: BrandWithRelationsSchema[];
+  securityDefenceBrands: BrandWithRelationsSchema[];
   services: Service[];
   settings: SettingSchema;
 }) {
   const allAboutPages = useExtraPages(settings, 'menu');
   const serviceItems = useServicesPages(services, 'menu');
   const brandItems = useBrandsPages(brands, 'menu');
+  const securityDefenceItems = useBrandsPages(securityDefenceBrands, 'menu');
 
   const brandsFilter = useFilteredLanguageData(brandItems);
+  const securityDefenceFilter = useFilteredLanguageData(securityDefenceItems);
   const servicesFilter = useFilteredLanguageData(serviceItems);
   const alghodowaFilter = useFilteredLanguageData(allAboutPages);
 
@@ -111,6 +115,47 @@ export default function DesktopMenu({
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
+          {securityDefenceFilter.length > 0 && (
+            <NavigationMenuItem key={'security-defence'}>
+              <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
+                {t('Security and Defence')}
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="w-[600px] p-4">
+                  <h3 className="text-lg font-medium">{t('Security and Defence')}</h3>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {t('Security and defence products')}
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 ">
+                    {securityDefenceFilter.map((brand) => (
+                      <Link
+                        key={`${brand.name}-${brand.id}`}
+                        href={`/security-and-defence/${brand.slug}`}
+                        className="flex flex-col items-center border justify-center gap-y-2 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        {brand.logo?.path && (
+                          <Image
+                            src={resolveUrl(brand.logo?.path)}
+                            alt="logo"
+                            width={35}
+                            height={35}
+                            className="object-contain flex items-center justify-center"
+                          />
+                        )}
+                        <div className="text-sm font-medium leading-none">{brand.name}</div>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link
+                    href="/security-and-defence"
+                    className="mt-4 inline-flex text-sm font-medium text-primary hover:underline"
+                  >
+                    {t('Security and Defence')}
+                  </Link>
+                </div>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          )}
           <NavigationMenuItem key={'services'}>
             <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
               {t('Our Services')}

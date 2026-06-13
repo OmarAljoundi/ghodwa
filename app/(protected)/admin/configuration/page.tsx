@@ -10,6 +10,7 @@ import { ManagementTeamSettingForm } from './components/management-team-setting-
 import { MissionVisionSettingForm } from './components/mission-vision-setting-form';
 import { OfficesSettingForm } from './components/offices-setting-form';
 import { OverviewSettingForm } from './components/overview-setting-form';
+import { SecurityDefenceSettingForm } from './components/security-defence-setting-form';
 import { SocialMediaSettingForm } from './components/social-media-setting-form';
 import { WorkingHoursSettingForm } from './components/working-hours-setting-form';
 
@@ -25,6 +26,12 @@ export default function Page() {
       <TabsContent value={'ExtraAboutContent'}>
         <BaseSettingForm dataPromise={getSettingBySectionAsync('CMS')} schemaKey="extraAboutPages">
           <ExtraAboutContentForm />
+        </BaseSettingForm>
+      </TabsContent>
+
+      <TabsContent value={'SecurityDefence'}>
+        <BaseSettingForm dataPromise={getSettingBySectionAsync('CMS')} schemaKey="securityDefence">
+          <SecurityDefenceSettingForm />
         </BaseSettingForm>
       </TabsContent>
 

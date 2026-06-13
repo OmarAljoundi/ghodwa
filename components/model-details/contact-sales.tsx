@@ -10,9 +10,9 @@ import { BlurFade } from '../ui/blur-fade';
 type SocialIconKey = 'Email' | 'Whatsapp' | 'Phone';
 
 const socialIcons: Record<SocialIconKey, JSX.Element> = {
-  Email: <Mail className="size-6 text-primary" />,
-  Whatsapp: <FaWhatsapp className="size-6 text-green-700" />,
-  Phone: <FiPhone className="size-6 " />,
+  Email: <Mail className="size-6 contact-sales-icon text-primary" />,
+  Whatsapp: <FaWhatsapp className="size-6 contact-sales-icon text-green-700" />,
+  Phone: <FiPhone className="size-6 contact-sales-icon" />,
 };
 
 export function ContactSales({

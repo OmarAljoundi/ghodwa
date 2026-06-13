@@ -20,8 +20,8 @@ export function OtherModelsList({
   const filteredModels = useFilteredLanguageData(models);
 
   return (
-    <BlurFade delay={0.1} className={className}>
-      <div className="bg-white rounded-3xl shadow-sm p-4  w-full">
+    <BlurFade delay={0.1} className={cn('other-models-frame', className)}>
+      <div className="other-models-card bg-white rounded-3xl shadow-sm p-4  w-full">
         <div className="px-2 space-y-1">
           <h1 aria-label={name} className="text-xl mb-4 ps-4 rtl:pe-4 font-bold">
             {name}
@@ -40,7 +40,9 @@ export function OtherModelsList({
               >
                 <span className="ps-4 rtl:pe-4">{props.name}</span>
                 {props.id !== id && (
-                  <ArrowRight className={'size-4 !text-primary bg-transparent rtl:rotate-180'} />
+                  <ArrowRight
+                    className={'size-4 !text-brand-accent bg-transparent rtl:rotate-180'}
+                  />
                 )}
               </Link>
 

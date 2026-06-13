@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { hasLocale } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -14,10 +15,11 @@ import { CustomNextIntlClientProvider } from '@/providers/custom-next-intl-clien
 import { ReactQueryProvider } from '@/providers/react-query-provider';
 import Scroll from '@/providers/scroll';
 import { TooltipProvider } from '@/providers/tooltip-provider';
-import { getBrands, getServices, getSettings } from '@/query';
+import { getBrands, getSecurityDefenceBrands, getServices, getSettings } from '@/query';
 import type { BrandWithRelationsSchema } from '@/schema';
 import { generateLayoutBilingualSeo } from './generate-bilingual-seo';
-import "../../globals.css"
+import { SdBodyTheme } from './sd-body-theme';
+import '../../globals.css';
 export const viewport: Viewport = {
   themeColor: '#EFB14E',
   colorScheme: 'light',
@@ -53,25 +55,44 @@ export default async function RootLayout({
   setRequestLocale(locale);
   const messages = await getMessages();
 
-  const [settings, brands, services] = await Promise.all([
+  // Detect the Security & Defence namespace from the request path (set by the
+  // proxy) so we can paint the <body> beige/olive on the first server render —
+  // no gray flash before hydration.
+  const currentPath = (await headers()).get('x-current-path') ?? '';
+  const pathWithoutLocale = currentPath.replace(/^\/(en|ar|de)(?=\/|$)/, '');
+  const isSecurityDefence = pathWithoutLocale.startsWith('/security-and-defence');
+
+  const [settings, brands, services, securityDefenceBrands] = await Promise.all([
     getSettings(),
     getBrands(),
     getServices(),
+    getSecurityDefenceBrands(),
   ]);
 
   return (
     <html lang={locale} dir={isArabic ? 'rtl' : 'ltr'}>
-      <body className={cn(notoKufiArabic.variable, notoSans.variable, monaSans.variable)}>
+      <body
+        className={cn(
+          notoKufiArabic.variable,
+          notoSans.variable,
+          monaSans.variable,
+          isSecurityDefence && 'sd-theme',
+        )}
+      >
         <CustomNextIntlClientProvider locale={locale} messages={messages}>
           <ReactQueryProvider>
             <CustomDirectionProvider dir={isArabic ? 'rtl' : 'ltr'}>
               <TooltipProvider>
                 <Scroll />
+                <SdBodyTheme />
 
                 <div className="flex flex-grow flex-col lg:p-4 relative">
                   <Navigation
                     settings={settings}
                     brands={brands as unknown as BrandWithRelationsSchema[]}
+                    securityDefenceBrands={
+                      securityDefenceBrands as unknown as BrandWithRelationsSchema[]
+                    }
                     services={services}
                   />
                   <main className="flex-grow">{children}</main>

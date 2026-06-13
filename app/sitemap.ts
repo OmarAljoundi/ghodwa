@@ -1,5 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { getAllCategory, getAllModels, getBrands, getNews, getServices } from '@/query';
+import {
+  getAllCategory,
+  getAllModels,
+  getBrands,
+  getNews,
+  getSecurityDefenceBrands,
+  getServices,
+} from '@/query';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = process.env.NEXT_PUBLIC_APP_URL!;
@@ -25,6 +32,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         languages: {
           en: `${url}/our-brands`,
           ar: `${url}/ar/our-brands`,
+        },
+      },
+    },
+    {
+      url: `${url}/security-and-defence`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      alternates: {
+        languages: {
+          en: `${url}/security-and-defence`,
+          ar: `${url}/ar/security-and-defence`,
         },
       },
     },
@@ -115,13 +134,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ] as MetadataRoute.Sitemap;
 
-  const [services, news, brands, models, categories] = await Promise.all([
+  const [services, news, brands, securityDefenceBrands, models, categories] = await Promise.all([
     getServices(),
     getNews(),
     getBrands(),
+    getSecurityDefenceBrands(),
     getAllModels(),
     getAllCategory(),
   ]);
+
+  // Map a brand's namespace prefix from its type so SD never appears under /our-brands.
+  const prefixForType = (type?: string) =>
+    type === 'security_defence' ? 'security-and-defence' : 'our-brands';
 
   const servicesSiteMap = services.map((service) => ({
     url: `${url}/services/${service.slug}`,
@@ -149,50 +173,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   })) as MetadataRoute.Sitemap;
 
-  const brandsSiteMap = brands.map((brand) => ({
-    url: `${url}/our-brands/${brand.slug}`,
-    lastModified: brand.updatedAt,
-    changeFrequency: 'monthly',
-    priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${url}/our-brands/${brand.slug}`,
-        ar: `${url}/ar/our-brands/${brand.slug}`,
+  const buildBrandSiteMap = (list: typeof brands, prefix: 'our-brands' | 'security-and-defence') =>
+    list.map((brand) => ({
+      url: `${url}/${prefix}/${brand.slug}`,
+      lastModified: brand.updatedAt,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${url}/${prefix}/${brand.slug}`,
+          ar: `${url}/ar/${prefix}/${brand.slug}`,
+        },
       },
-    },
-  })) as MetadataRoute.Sitemap;
+    })) as MetadataRoute.Sitemap;
 
-  const categoriesSiteMap = categories.map((category) => ({
-    url: `${url}/services/${category.brand?.slug}/${category.slug}`,
-    lastModified: category.updatedAt,
-    changeFrequency: 'monthly',
-    priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${url}/our-brands/${category.brand?.slug}/${category.slug}`,
-        ar: `${url}/ar/our-brands/${category.brand?.slug}/${category.slug}`,
-      },
-    },
-  })) as MetadataRoute.Sitemap;
+  const brandsSiteMap = buildBrandSiteMap(brands, 'our-brands');
+  const securityDefenceBrandsSiteMap = buildBrandSiteMap(
+    securityDefenceBrands,
+    'security-and-defence',
+  );
 
-  const modelsSiteMap = models.map((model) => ({
-    url: `${url}/our-brands/${model.category?.slug}/${model.category.brand?.slug}/${model.slug}`,
-    lastModified: model.updatedAt,
-    changeFrequency: 'monthly',
-    priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${url}/our-brands/${model.category?.slug}/${model.category.brand?.slug}/${model.slug}`,
-        ar: `${url}/ar/our-brands/${model.category?.slug}/${model.category.brand?.slug}/${model.slug}`,
+  const categoriesSiteMap = categories.map((category) => {
+    const prefix = prefixForType(category.brand?.type);
+    const path = `/${prefix}/${category.brand?.slug}/${category.slug}`;
+    return {
+      url: `${url}${path}`,
+      lastModified: category.updatedAt,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${url}${path}`,
+          ar: `${url}/ar${path}`,
+        },
       },
-    },
-  })) as MetadataRoute.Sitemap;
+    };
+  }) as MetadataRoute.Sitemap;
+
+  const modelsSiteMap = models.map((model) => {
+    const prefix = prefixForType(model.category?.brand?.type);
+    const path = `/${prefix}/${model.category?.brand?.slug}/${model.category?.slug}/${model.slug}`;
+    return {
+      url: `${url}${path}`,
+      lastModified: model.updatedAt,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+      alternates: {
+        languages: {
+          en: `${url}${path}`,
+          ar: `${url}/ar${path}`,
+        },
+      },
+    };
+  }) as MetadataRoute.Sitemap;
 
   return [
     ...staticSiteMap,
     ...servicesSiteMap,
     ...newsSiteMap,
     ...brandsSiteMap,
+    ...securityDefenceBrandsSiteMap,
     ...categoriesSiteMap,
     ...modelsSiteMap,
   ];

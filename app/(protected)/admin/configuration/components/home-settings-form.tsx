@@ -304,6 +304,103 @@ export default function HomeSettingsForm({ lang = 'ar_' }: { lang?: 'ar_' | 'en_
       </Card>
       <Card>
         <CardHeader>
+          <CardTitle>Security and defence section</CardTitle>
+          <CardDescription>
+            This will appear in the home page (Security and defence section) for the website
+          </CardDescription>
+        </CardHeader>
+        <Separator className="my-2" />
+
+        <CardContent className="pt-2">
+          <div className="flex flex-col gap-y-4">
+            <FormField
+              control={control}
+              name={`home.securityDefenceSection.${lang}title`}
+              render={({ field }) => (
+                <FormItem className="h-max w-full">
+                  <FormLabel>{title} title</FormLabel>
+                  <FormControl>
+                    <Textarea rows={4} placeholder="Enter a title..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name={`home.securityDefenceSection.${lang}subtitle`}
+              render={({ field }) => (
+                <FormItem className="h-max w-full">
+                  <FormLabel>{title} sub title</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Enter a sub-title..." {...field} rows={8} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex flex-row gap-x-4">
+              <FormField
+                control={control}
+                name={`home.securityDefenceSection.callToAction.${lang}text`}
+                render={({ field }) => (
+                  <FormItem className="h-max w-full">
+                    <FormLabel>{title} call to action text</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter a call action text..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`home.securityDefenceSection.callToAction.url`}
+                render={({ field }) => (
+                  <FormItem className="h-max w-full">
+                    <FormLabel>Call to action url</FormLabel>
+                    <FormControl>
+                      <Input placeholder="/security-and-defence" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex justify-between gap-x-2">
+              <FormField
+                control={control}
+                name={`home.securityDefenceSection.${lang}media`}
+                render={({ field }) => (
+                  <FormItem className="h-max flex-grow">
+                    <FormLabel>Desktop background image</FormLabel>
+                    <FormControl>
+                      <UploaderFormSingle defaultUploadedFile={field.value} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name={`home.securityDefenceSection.${lang}mobile_media`}
+                render={({ field }) => (
+                  <FormItem className="h-max flex-grow">
+                    <FormLabel>Mobile background image</FormLabel>
+                    <FormControl>
+                      <UploaderFormSingle defaultUploadedFile={field.value} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
           <CardTitle>Latest news</CardTitle>
           <CardDescription>
             This will appear in the home page (Latest news section) for the website

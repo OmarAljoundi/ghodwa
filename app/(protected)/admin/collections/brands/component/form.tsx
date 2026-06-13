@@ -10,6 +10,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { SlugInput } from '@/components/ui/slug-input';
 import { UploaderFormSingle } from '@/components/uploader/uploader-form-single';
 import { resolveUrl } from '@/lib/utils';
@@ -82,6 +89,29 @@ export function BrandForm({
                 </FormItem>
               )}
             />
+            {lang === 'en_' && (
+              <FormField
+                control={control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem className="w-full mt-2">
+                    <FormLabel>Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value ?? 'default'}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select brand type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="default">Default</SelectItem>
+                        <SelectItem value="security_defence">Security and defence</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <ControlForm showPage={false} />
             <h1 className="text-xl mb-4">Assign the categories</h1>
             <div className="flex flex-row flex-wrap gap-4">
@@ -129,7 +159,10 @@ export function BrandForm({
                                   (x) => x.id !== item.id,
                                 );
 
-                                const newDisconnect = [...currentValue.disconnect ?? [], { id: item.id }];
+                                const newDisconnect = [
+                                  ...(currentValue.disconnect ?? []),
+                                  { id: item.id },
+                                ];
 
                                 field.onChange({
                                   connect: newConnect,

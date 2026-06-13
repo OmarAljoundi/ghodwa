@@ -12,10 +12,12 @@ import MobileMenu from './mobile-menu';
 
 export function Navigation({
   brands,
+  securityDefenceBrands,
   services,
   settings,
 }: {
   brands: BrandWithRelationsSchema[];
+  securityDefenceBrands: BrandWithRelationsSchema[];
   services: Service[];
   settings: SettingSchema;
 }) {
@@ -60,8 +62,19 @@ export function Navigation({
           </Link>
         </div>
 
-        <DesktopMenu brands={brands} services={services} settings={settings} />
-        <MobileMenu brands={brands} services={services} settings={settings} isRTL={isRTL} />
+        <DesktopMenu
+          brands={brands}
+          securityDefenceBrands={securityDefenceBrands}
+          services={services}
+          settings={settings}
+        />
+        <MobileMenu
+          brands={brands}
+          securityDefenceBrands={securityDefenceBrands}
+          services={services}
+          settings={settings}
+          isRTL={isRTL}
+        />
       </div>
     </header>
   );

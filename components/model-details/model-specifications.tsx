@@ -24,7 +24,7 @@ export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
       </BlurFade>
 
       <BlurFade delay={0.3} direction={'left'} className="flex justify-start  w-full">
-        <h1 className="rounded-lg px-3 py-1  border-2 border-primary text-xl text-black font-bold">
+        <h1 className="spec-pill rounded-lg px-3 py-1  border-2 border-primary text-xl text-black font-bold">
           {t('Specifications')}
         </h1>
       </BlurFade>
@@ -36,7 +36,7 @@ export function ModelSpecifications({ currentModel }: { currentModel: Model }) {
               <h1 className="font-bold  lg:min-w-80">{prop.key}</h1>
               <h3>{prop.value}</h3>
             </div>
-            <Separator className="first:hidden last:hidden bg-primary" />
+            <Separator className="spec-separator first:hidden last:hidden bg-primary" />
           </React.Fragment>
         ))}
       </BlurFade>

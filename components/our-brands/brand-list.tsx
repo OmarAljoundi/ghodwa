@@ -8,7 +8,13 @@ import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { resolveUrl } from '@/lib/utils';
 import type { getBrands } from '@/query';
 
-export function BrandList({ dataPromise }: { dataPromise: ReturnType<typeof getBrands> }) {
+export function BrandList({
+  dataPromise,
+  basePath = '/our-brands',
+}: {
+  dataPromise: ReturnType<typeof getBrands>;
+  basePath?: string;
+}) {
   const brands = use(dataPromise);
 
   if (brands.length === 0) return notFound();
@@ -17,18 +23,18 @@ export function BrandList({ dataPromise }: { dataPromise: ReturnType<typeof getB
     <div className="flex flex-wrap items-center justify-center justify-items-center place-items-center">
       {brands?.map((props) => (
         <div className="lg:basis-1/3 xl:basis-1/4 p-4" key={props.id}>
-          <BrandItem {...props} />
+          <BrandItem {...props} basePath={basePath} />
         </div>
       ))}
     </div>
   );
 }
 
-function BrandItem(prop: Brand) {
+function BrandItem(prop: Brand & { basePath: string }) {
   const { logo, name, slug } = useFilteredLanguageData(prop);
   return (
     <Link
-      href={`/our-brands/${slug}`}
+      href={`${prop.basePath}/${slug}`}
       className="bg-white  hover:bg-primary/30 transition-all duration-300 cursor-pointer  shadow-sm min-h-40 flex items-center justify-center h-full rounded-xl"
     >
       <Image

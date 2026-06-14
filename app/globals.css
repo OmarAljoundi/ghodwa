@@ -10,6 +10,24 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Brand orange, fixed across every theme scope (NOT overridden by .sd-theme).
+     Used by header controls (search + language) that must stay orange even on
+     the Security & Defence olive/beige pages — see ADR 0001 + SD mockups. */
+  /* Doubled selector raises specificity so it beats the shadcn Button
+     variant's `hover:bg-primary/90` / ghost `hover:bg-accent` (which would
+     otherwise show olive/green on hover within .sd-theme). */
+  .bg-brand-accent.bg-brand-accent {
+    background-color: hsl(var(--brand-accent));
+  }
+  .bg-brand-accent.bg-brand-accent:hover {
+    background-color: hsl(var(--brand-accent) / 0.9);
+  }
+  /* `!text-brand-accent` — brand orange icon/text, theme-stable. The leading
+     selector dup beats Tailwind's `!text-primary` etc. */
+  .\!text-brand-accent.\!text-brand-accent {
+    color: hsl(var(--brand-accent)) !important;
+  }
 }
 
 @layer base {
@@ -22,6 +40,8 @@ body {
     --popover-foreground: 0 0% 3.9%;
     --primary: 37 83% 62%;
     --primary-foreground: 0 0% 100%;
+    /* Brand orange — theme-stable accent (see .bg-brand-accent utility). */
+    --brand-accent: 35 84% 62%;
     --secondary: 0 0% 0%;
     --secondary-foreground: 0 0% 100%;
     --muted: 40 30% 92%;
@@ -245,4 +265,186 @@ body {
     linear-gradient(-25deg, #000 30%, #0000 80%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
+}
+
+/* =========================================================================
+   Security & Defence (SD) theme scope.
+
+   Re-skins the reused brand/model flow by overriding the shared theme CSS
+   variables within the `.sd-theme` scope (applied by the SD layout segment).
+   Only `--background` (#d1bfa7) and `--primary`/accent (olive hsl(63 37% 34%))
+   come from the SD spec files; every other token is DERIVED from those two
+   bases and marked `TODO: confirm` for review.
+   ========================================================================= */
+.sd-theme {
+  /* From spec: "Section background color.txt" -> #d1bfa7 */
+  --background: 35 35% 74%;
+  /* From spec gradients: olive hsl(63 37% 34%) */
+  --primary: 63 37% 34%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 63 37% 34%;
+  --accent-foreground: 0 0% 100%;
+  --ring: 63 37% 34%;
+
+  /* --- Derived (not in spec files) — TODO: confirm --- */
+  --foreground: 240 6% 15%; /* TODO: confirm — dark body text on beige */
+  --card: 0 0% 100%; /* TODO: confirm — white product/logo cards as in mockup */
+  --card-foreground: 0 0% 0%; /* TODO: confirm */
+  --popover: 0 0% 100%; /* TODO: confirm */
+  --popover-foreground: 0 0% 3.9%; /* TODO: confirm */
+  --secondary: 0 0% 0%; /* TODO: confirm — keep black secondary like default */
+  --secondary-foreground: 0 0% 100%; /* TODO: confirm */
+  --muted: 35 25% 80%; /* TODO: confirm — lighter beige */
+  --muted-foreground: 35 10% 30%; /* TODO: confirm */
+  --border: 35 20% 62%; /* TODO: confirm — darker beige border */
+  --input: 35 20% 62%; /* TODO: confirm */
+}
+
+/* Solid SD section background (#d1bfa7) for blocks like the products grid. */
+.sd-section-bg {
+  background-color: #d1bfa7;
+}
+
+/* --- SD home banner gradient (verbatim from "home page banner English gradient.txt") --- */
+.sd-home-gradient-overlay {
+  background-color: hsla(27, 15%, 52%, 0);
+  background-image: radial-gradient(at 12% 14%, hsla(63, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 31% 96%, hsla(242, 0%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 48% 80%, hsla(27, 15%, 52%, 1) 0px, transparent 50%),
+    radial-gradient(at 6% 91%, hsla(22, 0%, 20%, 1) 0px, transparent 50%);
+}
+
+/* AR variant — spec "home page banner arabic gradient.txt" is identical to EN;
+   mirror horizontal positions for RTL. TODO: confirm mirroring. */
+:lang(ar) .sd-home-gradient-overlay {
+  background-color: hsla(27, 15%, 52%, 0);
+  background-image: radial-gradient(at 88% 14%, hsla(63, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 69% 96%, hsla(242, 0%, 20%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 80%, hsla(27, 15%, 52%, 1) 0px, transparent 50%),
+    radial-gradient(at 94% 91%, hsla(22, 0%, 20%, 1) 0px, transparent 50%);
+}
+
+/* --- SD services banner gradient (verbatim from "Services banner English gradient .txt") --- */
+.sd-services-gradient-overlay {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(at 54% 91%, hsla(16, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 54% 18%, hsla(289, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 53% 53%, hsla(0, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 99%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 2%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 51%, hsla(63, 37%, 34%, 1) 0px, transparent 50%);
+}
+
+/* AR variant — verbatim from "Services banner Arabic gradient.txt" */
+:lang(ar) .sd-services-gradient-overlay {
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(at 54% 91%, hsla(16, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 54% 18%, hsla(289, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 53% 53%, hsla(0, 0%, 15%, 1) 0px, transparent 50%),
+    radial-gradient(at 98% 97%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 99% 2%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 99% 48%, hsla(63, 37%, 34%, 1) 0px, transparent 50%);
+}
+
+/* --- SD inner-page hero band (replaces .inner-gradient-background within .sd-theme).
+   Derived from the SD home banner palette (olive + beige). TODO: confirm. --- */
+.sd-theme .inner-gradient-background {
+  background-color: hsla(27, 15%, 52%, 1);
+  background-image: radial-gradient(at 12% 14%, hsla(63, 37%, 34%, 1) 0px, transparent 50%),
+    radial-gradient(at 85% 20%, hsla(63, 37%, 24%, 1) 0px, transparent 50%),
+    radial-gradient(at 48% 90%, hsla(27, 15%, 45%, 1) 0px, transparent 50%),
+    radial-gradient(at 6% 91%, hsla(22, 10%, 25%, 1) 0px, transparent 50%);
+}
+
+/* --- SD model-selector list: olive-taupe outer FRAME wrapping a white inner
+   card (mockup). Default flow keeps the single flat white card untouched.
+   Frame color #a89b7e sampled from the SD mock. --- */
+.sd-theme .other-models-frame {
+  background-color: #a89b7e;
+  border-radius: 1.5rem; /* matches inner rounded-3xl */
+  padding: 0.75rem;
+}
+.sd-theme .other-models-card {
+  border: 1px solid hsl(35 20% 88%);
+}
+
+/* SD Contact Sales: white outline icons on beige (mockup). Doubled selector
+   beats the per-icon Tailwind color utilities (text-primary / text-green-700). */
+.sd-theme .contact-sales-icon.contact-sales-icon {
+  color: #ffffff;
+}
+
+/* SD spec-table dividers are light/white in the mockup, not olive --primary. */
+.sd-theme .spec-separator {
+  background-color: hsl(40 33% 92%);
+}
+
+/* SD "Specifications" pill has a light/white border in the mockup, not olive. */
+.sd-theme .spec-pill {
+  border-color: hsl(40 33% 92%);
+}
+
+/* Reset footer to brand-orange palette even when .sd-theme is active on body */
+.sd-theme footer {
+  --primary: 37 83% 62%;
+  --accent: 35 84% 62%;
+  --ring: 35 84% 62%;
+}
+
+/* --- Public rich-text (TipTap) rendering ---------------------------------
+   Content saved by the minimal-tiptap editor is emitted as raw HTML whose
+   paragraphs/images/lists carry .text-node / .block-node / .list-node classes
+   (see components/minimal-tiptap/hooks/use-minimal-tiptap.ts). The editor's own
+   stylesheet (components/minimal-tiptap/styles/index.css) is never imported into
+   the app bundle, so on the public pages the block spacing collapses — images
+   end up flush against the surrounding paragraphs. Reproduce the essential
+   block-flow spacing here, scoped to the read-only render wrapper, so every
+   public renderer (services, news, alghodwa, models) shows the gaps. */
+.minimal-tiptap-editor .ProseMirror {
+  display: flex;
+  flex-direction: column;
+}
+
+.minimal-tiptap-editor .ProseMirror .block-node:not(:last-child),
+.minimal-tiptap-editor .ProseMirror .list-node:not(:last-child),
+.minimal-tiptap-editor .ProseMirror .text-node:not(:last-child) {
+  margin-bottom: 0.625rem; /* mb-2.5, matches the editor */
+}
+
+.minimal-tiptap-editor .ProseMirror .heading-node {
+  position: relative;
+  font-weight: 600;
+}
+.minimal-tiptap-editor .ProseMirror h1 {
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+.minimal-tiptap-editor .ProseMirror h2 {
+  margin-top: 0.875rem;
+  margin-bottom: 0.625rem;
+}
+.minimal-tiptap-editor .ProseMirror h3,
+.minimal-tiptap-editor .ProseMirror h4 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.minimal-tiptap-editor .ProseMirror ol,
+.minimal-tiptap-editor .ProseMirror ul {
+  padding-left: 1.5rem;
+  list-style-position: outside;
+}
+.minimal-tiptap-editor .ProseMirror ul {
+  list-style-type: disc;
+}
+.minimal-tiptap-editor .ProseMirror ol {
+  list-style-type: decimal;
+}
+.minimal-tiptap-editor .ProseMirror:dir(rtl) ol,
+.minimal-tiptap-editor .ProseMirror:dir(rtl) ul {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+.minimal-tiptap-editor .ProseMirror li {
+  line-height: 1.75rem;
 }

@@ -1,10 +1,14 @@
 import { z } from 'zod';
 import { fileSchemaArrayRequired, fileSchemaRequired } from './upload-schema';
 
+export const brandTypeEnum = z.enum(['default', 'security_defence']);
+export type BrandTypeEnum = z.infer<typeof brandTypeEnum>;
+
 export const brandSchema = z.object({
   id: z.number().int().positive(),
   ar_name: z.string().min(1),
   en_name: z.string().min(1),
+  type: brandTypeEnum.default('default'),
   logo: fileSchemaRequired,
   slug: z.string().min(1, { message: 'Slug is required and must be unique' }),
   ar_description: z.string().optional(),

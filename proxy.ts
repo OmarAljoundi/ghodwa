@@ -21,7 +21,11 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next({ headers });
   }
 
-  return handleI18nRouting(request);
+  const response = handleI18nRouting(request);
+  // Expose the current path so server components (e.g. the public layout) can
+  // detect the Security & Defence namespace and theme the <body> on first paint.
+  response.headers.set('x-current-path', request.nextUrl.pathname);
+  return response;
 }
 
 export const config = {

@@ -12,8 +12,10 @@ import { BlurFade } from '../ui/blur-fade';
 
 export default function BrandDetails({
   dataPromise,
+  basePath = '/our-brands',
 }: {
   dataPromise: ReturnType<typeof getBrandBySlug>;
+  basePath?: string;
 }) {
   const brand = use(dataPromise);
   const route = useRouter();
@@ -24,7 +26,7 @@ export default function BrandDetails({
   if (!brand || brand.categories.length === 0) return notFound();
 
   if (categories.length === 1) {
-    route.replace(`/our-brands/${slug}/${categories[0].slug}`);
+    route.replace(`${basePath}/${slug}/${categories[0].slug}`);
     return null;
   }
 
@@ -36,20 +38,28 @@ export default function BrandDetails({
           className="basis-full sm:basis-1/2  lg:basis-1/3 xl:basis-1/4 p-4"
           key={props.id}
         >
-          <BrandCategory brandSlug={slug} category={props} />
+          <BrandCategory brandSlug={slug} category={props} basePath={basePath} />
         </BlurFade>
       ))}
     </div>
   );
 }
 
-function BrandCategory({ category, brandSlug }: { brandSlug: string; category: Category }) {
+function BrandCategory({
+  category,
+  brandSlug,
+  basePath,
+}: {
+  brandSlug: string;
+  category: Category;
+  basePath: string;
+}) {
   const { image, name, slug } = useFilteredLanguageData(category);
   return (
     <CommonCard
       imageUrl={resolveUrl((image as any)?.path)}
       name={name}
-      slug={`/our-brands/${brandSlug}/${slug}`}
+      slug={`${basePath}/${brandSlug}/${slug}`}
     />
   );
 }

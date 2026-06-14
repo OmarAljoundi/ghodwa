@@ -28,9 +28,10 @@ export function CreateBrand({
       ar_name: '',
       en_name: '',
       en_description: '',
+      type: 'default',
       categories: {
         connect: [],
-        disconnect: []
+        disconnect: [],
       },
     },
   });
@@ -41,7 +42,10 @@ export function CreateBrand({
     const { categories, ...rest } = body;
     const { connect } = categories;
 
-    const result = await createOne<CreateBrandSchema>('brand', { ...rest, categories: { connect } });
+    const result = await createOne<CreateBrandSchema>('brand', {
+      ...rest,
+      categories: { connect },
+    });
     if (result.success) {
       toast.success('Brand created successfully');
       route.replace(`/admin/collections/brands/${(result.data as unknown as BrandSchema)?.id}`);

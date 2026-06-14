@@ -44,14 +44,17 @@ export function UploadedImagesCardSingle({
         </div>
       </div>
       {uploadedFiles.path && (
-        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-          <span className="truncate">{uploadedFiles.path}</span>
+        <div className="mt-2 flex items-center gap-2 rounded-md bg-muted/50 px-2.5 py-1.5 text-xs text-muted-foreground">
+          <span className="truncate" title={uploadedFiles.path}>
+            {uploadedFiles.path.split('/').pop()}
+          </span>
           <button
             type="button"
             onClick={() => onDelete(uploadedFiles.path)}
-            className="ml-auto rounded-full p-1 hover:bg-muted"
+            className="ml-auto shrink-0 rounded-full p-1 transition-colors hover:bg-background hover:text-destructive"
+            title="Remove image"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3.5 w-3.5" />
           </button>
         </div>
       )}

@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { FileUploader } from '@/components/uploader/file-uploader';
@@ -23,11 +23,9 @@ export function UploaderFormSingle({
   onSuccessfullyDeletion,
   type = 'image',
 }: UploaderFormProps) {
-  const { uploadedFiles, onUpload, progresses, onDelete, isDeleting } = useUploadFile(
-    {
-      defaultUploadedFiles: defaultUploadedFile ? [defaultUploadedFile] : [],
-    },
-  );
+  const { uploadedFiles, onUpload, progresses, onDelete, isDeleting } = useUploadFile({
+    defaultUploadedFiles: defaultUploadedFile ? [defaultUploadedFile] : [],
+  });
 
   const onDeleteCallback = useCallback(
     async (key: string[]) => {
@@ -40,11 +38,22 @@ export function UploaderFormSingle({
     [onDelete, onSuccessfullyDeletion],
   );
 
-  useEffect(() => {
-    onChange(uploadedFiles[0]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadedFiles, onChange]);
+  // Keep the latest onChange in a ref so the sync effect doesn't depend on it.
+  // The callers pass an inline `(e) => field.onChange(e)` that is a new function
+  // every render; depending on it here re-ran the effect → setState → re-render
+  // on a loop ("Maximum update depth exceeded"). We only want to propagate when
+  // the actually-uploaded file changes, not on every parent render.
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
 
+  const lastSyncedPath = useRef<string | undefined>(defaultUploadedFile?.path);
+
+  useEffect(() => {
+    const next = uploadedFiles[0];
+    if (next?.path === lastSyncedPath.current) return;
+    lastSyncedPath.current = next?.path;
+    onChangeRef.current(next);
+  }, [uploadedFiles]);
 
   return (
     <div>

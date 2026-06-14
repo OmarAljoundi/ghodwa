@@ -12,6 +12,7 @@ import type { SettingSchema } from './schema/setting-schema';
 export const getBrands = unstable_cache(
   async () => {
     const brands = await db.brand.findMany({
+      where: { type: 'default' },
       include: {
         categories: true,
       },
@@ -23,6 +24,24 @@ export const getBrands = unstable_cache(
   {
     revalidate: 86400,
     tags: ['brands'],
+  },
+);
+
+export const getSecurityDefenceBrands = unstable_cache(
+  async () => {
+    const brands = await db.brand.findMany({
+      where: { type: 'security_defence' },
+      include: {
+        categories: true,
+      },
+    });
+
+    return brands;
+  },
+  ['security-defence-brands'],
+  {
+    revalidate: 86400,
+    tags: ['brands', 'security-defence-brands'],
   },
 );
 
@@ -47,18 +66,21 @@ export const getAllModels = unstable_cache(
   },
 );
 
-export const getBrandBySlug = async (slug: string) =>
+export const getBrandBySlug = async (
+  slug: string,
+  type: 'default' | 'security_defence' = 'default',
+) =>
   unstable_cache(
     async () => {
-      const brand = await db.brand.findUniqueOrThrow({
-        where: { slug },
+      const brand = await db.brand.findFirstOrThrow({
+        where: { slug, type },
         include: {
           categories: true,
         },
       });
       return brand;
     },
-    ['brands', slug],
+    ['brands', slug, type],
     {
       revalidate: 86400,
       tags: ['brands', slug],

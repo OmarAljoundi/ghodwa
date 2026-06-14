@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { BrandSection } from '@/components/home/brand-section';
 import HeroSection from '@/components/home/hero-section';
 import { NewSection } from '@/components/home/new-section';
+import { SecurityDefenceSection } from '@/components/home/security-defence-section';
 import { SubHeroSection } from '@/components/home/sub-hero-section';
 import { WelcomeSection } from '@/components/home/welcome-section';
 import { BlurFade } from '@/components/ui/blur-fade';
@@ -31,6 +32,9 @@ export default function Home() {
       </BlurFade>
       <BlurFade inView>
         <WelcomeSection dataPromise={getSettings()} dataPromiseServices={getServices()} />
+      </BlurFade>
+      <BlurFade inView>
+        <SecurityDefenceSection dataPromise={getSettings()} />
       </BlurFade>
       <BlurFade inView>
         <SubHeroSection dataPromise={getSettings()} />

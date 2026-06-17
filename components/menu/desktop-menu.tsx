@@ -43,24 +43,10 @@ export default function DesktopMenu({
   const t = useTranslations();
   return (
     <nav
-      className={`px-8 py-4 hidden flex-grow lg:flex  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
+      className={`px-8 py-4 hidden flex-grow lg:flex items-center justify-between  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
     >
       <NavigationMenu key={'main'}>
         <NavigationMenuList>
-          <NavigationMenuItem key={'home'}>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/"
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  'bg-transparent text-white',
-                  'font-light',
-                )}
-              >
-                {t('Home')}
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
           <NavigationMenuItem key={'about'}>
             <NavigationMenuTrigger className={cn('bg-transparent text-white', 'font-light')}>
               {t('Al Ghodwa')}

@@ -99,6 +99,9 @@ export default async function RootLayout({
                   <Footer
                     settings={settings}
                     brands={brands as unknown as BrandWithRelationsSchema[]}
+                    securityDefenceBrands={
+                      securityDefenceBrands as unknown as BrandWithRelationsSchema[]
+                    }
                     services={services}
                   />
                 </div>

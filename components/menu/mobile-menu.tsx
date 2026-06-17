@@ -94,13 +94,6 @@ export default function MobileMenu({
         >
           <SheetTitle className="sr-only">Menu Item</SheetTitle>
           <nav className="flex flex-col space-y-4 mt-8">
-            <Link
-              onClick={() => setOpen(false)}
-              href="/"
-              className="text-lg font-semibold hover:text-gray-300 transition-colors"
-            >
-              {t('Home')}
-            </Link>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="alghodowa">
                 <AccordionTrigger className="text-lg font-semibold">

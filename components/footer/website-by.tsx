@@ -5,7 +5,7 @@ import WebsiteByIcon from '../icons/website-by-icon';
 export function WebsiteBy() {
   const t = useTranslations();
   return (
-    <div className="md:col-span-2 pe-0 lg:pe-[10%] xl:pe-[19.3%] 2xl:pe-[24.3%] items-end flex  w-full justify-start lg:justify-end">
+    <div className="md:col-span-2 lg:col-span-3 pe-0 lg:pe-[10%] xl:pe-[19.3%] 2xl:pe-[24.3%] items-end flex  w-full justify-start lg:justify-end">
       <Link
         target="_blank"
         href={'http://www.mohamadnamir.com/'}

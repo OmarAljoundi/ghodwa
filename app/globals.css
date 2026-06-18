@@ -305,45 +305,97 @@ body {
   background-color: #d1bfa7;
 }
 
-/* --- SD home banner gradient (verbatim from "home page banner English gradient.txt") --- */
+/* --- SD home banner gradient — Spare Parts-style "solid corner -> stepped
+   opacity -> vanishes". Only the BOTTOM inline-start corner is black; the rest
+   of the inline-start edge is an olive tint that fades to reveal the image.
+   EN is left-anchored; AR mirrors every X. --- */
 .sd-home-gradient-overlay {
-  background-color: hsla(27, 15%, 52%, 0);
-  background-image: radial-gradient(at 12% 14%, hsla(63, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 31% 96%, hsla(242, 0%, 20%, 1) 0px, transparent 50%),
-    radial-gradient(at 48% 80%, hsla(27, 15%, 52%, 1) 0px, transparent 50%),
-    radial-gradient(at 6% 91%, hsla(22, 0%, 20%, 1) 0px, transparent 50%);
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image:
+    /* olive tint layered on top — gentle, reveals the image in the mid-section */
+    radial-gradient(at 40% 96%, hsla(63, 37%, 34%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 30% 69%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 30% 49%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 30% 24%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    /* BLACK pool — bottom inline-start corner, climbing up the edge toward the
+       top corner */
+    radial-gradient(at 0% 100%, hsla(0, 0%, 4%, 1) 0px, transparent 73%),
+    radial-gradient(at 12% 81%, hsla(0, 0%, 4%, 0.85) 0px, transparent 55%),
+    radial-gradient(at 0% 5%, hsla(0, 0%, 4%, 0.7) 0px, transparent 42%),
+    /* SOLID base: olive tint on the inline-start edge -> transparent (no black
+       here — the corner darkness comes from the radials above) */
+    linear-gradient(
+      to right,
+      hsla(63, 30%, 20%, 0.85) 0%,
+      hsla(63, 30%, 20%, 0.6) 24%,
+      hsla(63, 30%, 22%, 0.25) 50%,
+      transparent 75%
+    );
 }
 
-/* AR variant — spec "home page banner arabic gradient.txt" is identical to EN;
-   mirror horizontal positions for RTL. TODO: confirm mirroring. */
+/* AR variant — mirror horizontal positions for RTL. */
 :lang(ar) .sd-home-gradient-overlay {
-  background-color: hsla(27, 15%, 52%, 0);
-  background-image: radial-gradient(at 88% 14%, hsla(63, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 69% 96%, hsla(242, 0%, 20%, 1) 0px, transparent 50%),
-    radial-gradient(at 52% 80%, hsla(27, 15%, 52%, 1) 0px, transparent 50%),
-    radial-gradient(at 94% 91%, hsla(22, 0%, 20%, 1) 0px, transparent 50%);
+  background-color: hsla(0, 0%, 0%, 0);
+  background-image: radial-gradient(at 60% 96%, hsla(63, 37%, 34%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 70% 69%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 70% 49%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 70% 24%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(0, 0%, 4%, 1) 0px, transparent 73%),
+    radial-gradient(at 88% 81%, hsla(0, 0%, 4%, 0.85) 0px, transparent 55%),
+    radial-gradient(at 100% 5%, hsla(0, 0%, 4%, 0.7) 0px, transparent 42%),
+    linear-gradient(
+      to left,
+      hsla(63, 30%, 20%, 0.85) 0%,
+      hsla(63, 30%, 20%, 0.6) 24%,
+      hsla(63, 30%, 22%, 0.25) 50%,
+      transparent 75%
+    );
 }
 
-/* --- SD services banner gradient (verbatim from "Services banner English gradient .txt") --- */
+/* --- SD services banner gradient — same approved "black bottom corner climbing
+   the inline-start edge -> olive tint -> reveals the image" structure as the
+   home S&D banner (.sd-home-gradient-overlay). Text is on the inline-start side
+   (left in LTR, right in RTL), so this is a direct port. --- */
 .sd-services-gradient-overlay {
   background-color: hsla(0, 0%, 0%, 0);
-  background-image: radial-gradient(at 54% 91%, hsla(16, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 54% 18%, hsla(289, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 53% 53%, hsla(0, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 99%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 2%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 0% 51%, hsla(63, 37%, 34%, 1) 0px, transparent 50%);
+  background-image:
+    /* olive tint layered on top — gentle, reveals the image in the mid-section */
+    radial-gradient(at 40% 96%, hsla(63, 37%, 34%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 30% 69%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 30% 49%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 30% 24%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    /* BLACK pool — bottom inline-start corner, climbing up the edge toward the
+       top corner */
+    radial-gradient(at 0% 100%, hsla(0, 0%, 4%, 1) 0px, transparent 73%),
+    radial-gradient(at 12% 81%, hsla(0, 0%, 4%, 0.85) 0px, transparent 55%),
+    radial-gradient(at 0% 5%, hsla(0, 0%, 4%, 0.7) 0px, transparent 42%),
+    /* SOLID base: olive tint on the inline-start edge -> transparent */
+    linear-gradient(
+      to right,
+      hsla(63, 30%, 20%, 0.85) 0%,
+      hsla(63, 30%, 20%, 0.6) 24%,
+      hsla(63, 30%, 22%, 0.25) 50%,
+      transparent 75%
+    );
 }
 
-/* AR variant — verbatim from "Services banner Arabic gradient.txt" */
+/* AR variant — mirror horizontal positions for RTL. */
 :lang(ar) .sd-services-gradient-overlay {
   background-color: hsla(0, 0%, 0%, 0);
-  background-image: radial-gradient(at 54% 91%, hsla(16, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 54% 18%, hsla(289, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 53% 53%, hsla(0, 0%, 15%, 1) 0px, transparent 50%),
-    radial-gradient(at 98% 97%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 99% 2%, hsla(62, 37%, 34%, 1) 0px, transparent 50%),
-    radial-gradient(at 99% 48%, hsla(63, 37%, 34%, 1) 0px, transparent 50%);
+  background-image: radial-gradient(at 60% 96%, hsla(63, 37%, 34%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 70% 69%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 70% 49%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 70% 24%, hsla(63, 37%, 34%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(0, 0%, 4%, 1) 0px, transparent 73%),
+    radial-gradient(at 88% 81%, hsla(0, 0%, 4%, 0.85) 0px, transparent 55%),
+    radial-gradient(at 100% 5%, hsla(0, 0%, 4%, 0.7) 0px, transparent 42%),
+    linear-gradient(
+      to left,
+      hsla(63, 30%, 20%, 0.85) 0%,
+      hsla(63, 30%, 20%, 0.6) 24%,
+      hsla(63, 30%, 22%, 0.25) 50%,
+      transparent 75%
+    );
 }
 
 /* --- SD inner-page hero band (replaces .inner-gradient-background within .sd-theme).

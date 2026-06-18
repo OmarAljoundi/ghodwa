@@ -54,7 +54,7 @@ export function Bottom({ socialMediaContact }: BottomProps) {
   }
 
   return (
-    <div className="md:col-span-2 lg:flex-row items-start justify-start gap-x-6 xl:gap-x-12 flex flex-col-reverse gap-y-4 lg:gap-y-0">
+    <div className="md:col-span-2 lg:col-span-2 lg:flex-row items-start justify-start gap-x-6 xl:gap-x-12 flex flex-col-reverse gap-y-4 lg:gap-y-0">
       <div className="lg:mt-8 lg:flex-row justify-start gap-6 items-center">
         <p className="text-sm text-gray-400">
           © {t('Copyright')} {currentYear} {t('Alghodwa Group')}

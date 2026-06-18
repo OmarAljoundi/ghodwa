@@ -30,8 +30,8 @@ export function Navigation({
         'absolute top-2 lg:top-12 left-0 right-0 mx-auto z-50 w-full   transition-all duration-300 !bg-transparent',
       )}
     >
-      <div className="flex h-16 items-center px-6 lg:px-16  justify-between w-full flex-row">
-        <div className="lg:flex-grow">
+      <div className="flex h-16 items-center px-6 lg:px-16 gap-x-4 lg:gap-x-10 justify-between w-full flex-row">
+        <div className="shrink-0">
           <Link
             href="/"
             className={cn(

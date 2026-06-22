@@ -7,7 +7,7 @@ import type { SettingSchema } from '@/schema/setting-schema';
 
 export default function LogoContact({ footer }: { footer: SettingSchema['footer'] }) {
   return (
-    <div className="space-y-4 col-span-full  md:col-span-2 flex flex-col w-full flex-1 items-start">
+    <div className="space-y-4 col-span-full  md:col-span-2 2xl:col-span-2 flex flex-col w-full flex-1 items-start">
       <Image
         src={'/english-logo.png'}
         alt="Alghodwa Group Logo"
@@ -29,7 +29,7 @@ export default function LogoContact({ footer }: { footer: SettingSchema['footer'
         className="mb-4 ltr:hidden"
       />
 
-      <div className="flex flex-col lg:!flex-row md:gap-x-6 lg:gap-y-0 gap-y-6 justify-start items-start  gap-x-3 xl:gap-x-12 pe-3 xl:pe-6 w-full">
+      <div className="flex flex-col 2xl:flex-row 2xl:gap-x-8 gap-y-6 2xl:gap-y-0 justify-start items-start pe-3 xl:pe-6 w-full">
         <AddressInfo company={footer.company} />
         <ContactNumbers contactInfo={footer.contactInfo} />
       </div>
@@ -40,7 +40,7 @@ export default function LogoContact({ footer }: { footer: SettingSchema['footer'
 function AddressInfo({ company }: { company?: SettingSchema['footer']['company'] }) {
   const { details, location } = useFilteredLanguageData(company);
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 2xl:flex-1 2xl:basis-1/2 w-full">
       <div className="flex flex-col items-start ">
         <PiMapPinAreaLight className="size-6 mt-1 text-primary" />
         <p className="text-sm whitespace-break-spaces ">{location}</p>
@@ -63,7 +63,7 @@ function AddressInfo({ company }: { company?: SettingSchema['footer']['company']
 
 function ContactNumbers({ contactInfo }: { contactInfo: SettingSchema['footer']['contactInfo'] }) {
   return (
-    <div className="space-y-3 flex-1  xl:pe-16  w-full">
+    <div className="space-y-3 flex-1 2xl:basis-1/2  xl:pe-16 2xl:pe-0  w-full">
       <div className="divide-y divide-gray-700">
         {contactInfo.map((props, index) => (
           <ContactInfoItem contactInfo={props} key={index} />

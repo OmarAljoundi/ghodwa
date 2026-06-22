@@ -30,17 +30,17 @@ export function Navigation({
         'absolute top-2 lg:top-12 left-0 right-0 mx-auto z-50 w-full   transition-all duration-300 !bg-transparent',
       )}
     >
-      <div className="flex h-16 items-center px-6 lg:px-16 gap-x-4 lg:gap-x-10 justify-between w-full flex-row">
+      <div className="flex h-16 items-center px-6 lg:px-8 xl:px-8 2xl:px-16 gap-x-4 xl:gap-x-6 2xl:gap-x-10 justify-between w-full flex-row">
         <div className="shrink-0">
           <Link
             href="/"
             className={cn(
-              'flex items-center space-x-2 rtl:space-x-reverse ltr:justify-end ltr:lg:justify-start rtl:justify-end rtl:lg:justify-start',
+              'flex items-center space-x-2 rtl:space-x-reverse ltr:justify-end ltr:xl:justify-start rtl:justify-end rtl:xl:justify-start',
             )}
           >
             <Image
               src={'/arabic-logo.png'}
-              className={cn('block ltr:hidden lg:w-[250px] w-[150px]')}
+              className={cn('block ltr:hidden xl:w-[180px] 2xl:w-[250px] w-[150px]')}
               width={250}
               height={50}
               quality={85}
@@ -51,7 +51,7 @@ export function Navigation({
 
             <Image
               src={'/english-logo.png'}
-              className={cn('block rtl:hidden lg:w-[250px] w-[150px]')}
+              className={cn('block rtl:hidden xl:w-[180px] 2xl:w-[250px] w-[150px]')}
               width={250}
               height={50}
               quality={85}

@@ -4,30 +4,39 @@ import Link from 'next/link';
 import { use } from 'react';
 import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import { resolveUrl } from '@/lib/utils';
-import type { getBrands, getSettings } from '@/query';
+import type { getBrands, getSecurityDefenceBrands, getSettings } from '@/query';
 import { Marquee } from '../ui/marquee';
 
 export function BrandSection({
   dataPromise,
+  securityDefencePromise,
   dataPromiseSettings,
 }: {
   dataPromise: ReturnType<typeof getBrands>;
+  securityDefencePromise: ReturnType<typeof getSecurityDefenceBrands>;
   dataPromiseSettings: ReturnType<typeof getSettings>;
 }) {
   const brands = use(dataPromise);
+  const securityDefenceBrands = use(securityDefencePromise);
   const {
     home: { brand },
   } = use(dataPromiseSettings);
   const { title } = useFilteredLanguageData(brand);
-  const filterdBrands = useFilteredLanguageData(brands);
+  const filterdBrands = useFilteredLanguageData([
+    ...brands.map((b) => ({ ...b, href: `/our-brands/${b.slug}` })),
+    ...securityDefenceBrands.map((b) => ({
+      ...b,
+      href: `/security-and-defence/${b.slug}`,
+    })),
+  ]);
   return (
     <div className="flex-col flex mx-auto items-center gap-y-2 lg:gap-y-8 overflow-hidden">
       <div className="container ">
         <h1 className="text-2xl lg:text-3xl text-center ">{title}</h1>
       </div>
       <Marquee repeat={15} pauseOnHover className="[--duration:20s] [--gap:2rem] [gap:var(--gap)]">
-        {filterdBrands.map(({ logo, name, slug }, index) => (
-          <Link key={index} href={`/our-brands/${slug}`}>
+        {filterdBrands.map(({ logo, name, href }, index) => (
+          <Link key={index} href={href}>
             <div className="hover:bg-white duration-300 transition-all rounded-lg p-2 cursor-pointer">
               <Image
                 key={index}

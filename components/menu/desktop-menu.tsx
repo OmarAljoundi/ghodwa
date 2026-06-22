@@ -43,7 +43,7 @@ export default function DesktopMenu({
   const t = useTranslations();
   return (
     <nav
-      className={`px-8 py-4 hidden flex-grow lg:flex items-center justify-between  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
+      className={`px-3 2xl:px-8 py-4 hidden flex-grow xl:flex items-center justify-between  bg-black/50 backdrop-blur-md bg-opacity-70  transition-all duration-300 rounded-lg `}
     >
       <NavigationMenu key={'main'}>
         <NavigationMenuList>

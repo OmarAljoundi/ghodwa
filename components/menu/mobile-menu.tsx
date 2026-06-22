@@ -49,7 +49,7 @@ export default function MobileMenu({
   const t = useTranslations();
 
   return (
-    <div className="flex lg:hidden gap-x-2">
+    <div className="flex xl:hidden gap-x-2">
       <ActionMenu />
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>

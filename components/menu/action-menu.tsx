@@ -13,7 +13,7 @@ export default function ActionMenu() {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`ml-auto flex flex-row-reverse items-center lg:flex-row gap-x-2 lg:gap-x-0 lg:space-x-4 rtl:mr-auto rtl:ml-0 rtl:space-x-reverse `}
+      className={`ml-auto flex flex-row-reverse items-center xl:flex-row gap-x-2 xl:gap-x-0 xl:space-x-4 rtl:mr-auto rtl:ml-0 rtl:space-x-reverse `}
     >
       <CommandSearch open={open} setOpen={setOpen}>
         <Button
@@ -49,12 +49,12 @@ function LangaugeMenu() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button className="bg-brand-accent text-black flex items-center h-9 w-9 lg:h-9 lg:w-auto ">
-          <span className="hidden lg:inline-block">{t('Language')}</span>
-          <Globe className="lg:hidden size-4" strokeWidth={2} aria-hidden="true" />
+        <Button className="bg-brand-accent text-black flex items-center h-9 w-9 xl:h-9 xl:w-auto ">
+          <span className="hidden xl:inline-block">{t('Language')}</span>
+          <Globe className="xl:hidden size-4" strokeWidth={2} aria-hidden="true" />
           <ArrowDown
             className={cn(
-              'hidden lg:block -me-1 ms-2 opacity-60 transition-all duration-500 size-4',
+              'hidden xl:block -me-1 ms-2 opacity-60 transition-all duration-500 size-4',
               open ? 'rotate-180' : '',
             )}
             strokeWidth={2}

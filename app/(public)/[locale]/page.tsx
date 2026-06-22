@@ -6,7 +6,7 @@ import { SecurityDefenceSection } from '@/components/home/security-defence-secti
 import { SubHeroSection } from '@/components/home/sub-hero-section';
 import { WelcomeSection } from '@/components/home/welcome-section';
 import { BlurFade } from '@/components/ui/blur-fade';
-import { getBrands, getNews, getServices, getSettings } from '@/query';
+import { getBrands, getNews, getSecurityDefenceBrands, getServices, getSettings } from '@/query';
 import { generatePageBilingualSeo } from './generate-bilingual-seo';
 
 export async function generateMetadata({
@@ -28,7 +28,11 @@ export default function Home() {
         <HeroSection dataPromise={getSettings()} />
       </BlurFade>
       <BlurFade inView>
-        <BrandSection dataPromise={getBrands()} dataPromiseSettings={getSettings()} />
+        <BrandSection
+          dataPromise={getBrands()}
+          securityDefencePromise={getSecurityDefenceBrands()}
+          dataPromiseSettings={getSettings()}
+        />
       </BlurFade>
       <BlurFade inView>
         <WelcomeSection dataPromise={getSettings()} dataPromiseServices={getServices()} />

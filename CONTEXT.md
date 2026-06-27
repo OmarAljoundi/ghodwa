@@ -44,7 +44,7 @@ A single DB row per `section` (e.g. `CMS`) holding all CMS configuration as one 
 - **SD routes physically live under `app/(public)/[locale]/(inner)/security-and-defence/`**, reusing the shared inner shell (breadcrumb/title/container). An **SD layout segment** wraps them to apply the SD CSS-variable scope (beige/olive) and swap the hero band to the SD gradient. The hero title comes from i18n like other inner pages.
 - **Filtering happens at the query layer.** `getBrands()` returns only `default` brands (so the home grid, `/our-brands`, menu, footer, sitemap auto-exclude SD); a new `getSecurityDefenceBrands()` serves SD surfaces.
 - A **"Security & Defence"** top-nav item sits between "Our Brands" and "Services", rendered as a **mega-menu** (mirrors "Our Brands"): lists SD brands + their categories, with a "View all" CTA to the SD landing page. Its links target the `/security-and-defence/...` namespace.
-- The footer shows **no SD content** (its "Our Brands" column is default-only).
+- The footer **has a "Security and Defence" link column** sourced from `getSecurityDefenceBrands()`, alongside "Our Brands", "Services", and "Al Ghodwa". It renders only when SD brands exist (collapses cleanly otherwise). (Superseded the original ADR-0001 stance of "no SD content in footer.")
 
 ## Theming
 
@@ -83,3 +83,9 @@ A single DB row per `section` (e.g. `CMS`) holding all CMS configuration as one 
 ## Flagged ambiguities
 
 - "More Section" was used to mean both the homepage `moreSection` promo block and the `Service` "More Section" — resolved: the new SD home block clones the homepage `moreSection`, not the Service model.
+- "Defense" (American) vs "Defence" (British) — resurfaced in a client mockup using "Security & Defense". **Resolved (standing): copy uses British "Defence"** everywhere (per the **Security & Defence (SD)** entry). The American spelling in client mockups is not adopted.
+
+## Footer & menu layout (client-confirmed)
+
+- **Top menu (xl+ desktop bar):** the dark nav pill **hugs its content** (nav items + search + Language grouped tight, no `flex-grow`/`justify-between` spreading them) and sits at the inline-end of the header row (right in EN, left in AR). The **logo aligns to the same inline-start inset as the hero headline** ("A wide and impressive brand portfolio"); header horizontal padding is **symmetric** and mirrors the hero inset so left/right margins match at every breakpoint. Below xl the bar collapses to a hamburger; only the symmetric padding applies there, not the grouping.
+- **Footer link groups (md and up):** arranged as **two stacked-pair columns** — **Our Brands → Security & Defence** in one column, **Services → Al Ghodwa** in the other — each pair an independent vertical flex stack so the lower title sits a fixed gap under the upper one (a long list in one column can't push the other column's lower title down). One unified grid with **even gaps across all breakpoints**. Mobile (<md) stays four separate accordions.

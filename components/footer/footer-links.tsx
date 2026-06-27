@@ -40,34 +40,25 @@ export function FooterLinks({
   const extraAlGhodwaMenu = useExtraPages(settings, 'footer');
   const alGhodwaMenu = useFilteredLanguageData(extraAlGhodwaMenu);
 
-  // md/lg (2 columns): the four groups fill row 1 = [Our Brands, Services],
-  // row 2 = [Security and Defence, Al Ghodwa] — so the two second-row titles
-  // land on the same line regardless of how tall the first row is. `md:order-*`
-  // pins this 2×2 order independently of DOM order.
-  // 2xl (3 columns): Our Brands | Security and Defence | (Services stacked above
-  // Al Ghodwa). The Services/Al Ghodwa wrapper is `display:contents` below 2xl
-  // (children act as their own grid cells, keeping the 2×2 layout) and a tight
-  // flex column at 2xl, so the two stack with no gap pulled from the grid rows.
+  // Two stacked-pair columns rendered as REAL grid cells (Fragment, not a nested
+  // grid) so they sit on the footer's 4-col grid and every column gap is the grid's
+  // single uniform `gap-6`. Each pair is its own vertical flex stack: the lower
+  // title (S&D / Al Ghodwa) sits a fixed gap under the upper one, so a long list in
+  // one column can't push the other column's lower title down. Below md the
+  // ColumnGroup accordions stack into a single column. Empty Security and Defence
+  // collapses cleanly (renders just Our Brands).
   return (
-    <div className="col-span-full md:col-span-2 2xl:col-span-3 grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-x-6 gap-y-8 w-full 2xl:items-start">
-      <div className="md:order-1 2xl:order-1">
+    <>
+      <div className="col-span-full md:col-span-1 lg:w-auto flex flex-col gap-y-8 w-full">
         <ColumnGroup items={mappedBrands} title="Our Brands" />
-      </div>
-      <div className="md:order-3 2xl:order-2">
-        {mappedSecurityDefence.length > 0 ? (
+        {mappedSecurityDefence.length > 0 && (
           <ColumnGroup items={mappedSecurityDefence} title="Security and Defence" />
-        ) : (
-          <div className="hidden md:block" />
         )}
       </div>
-      <div className="contents 2xl:order-3 2xl:flex 2xl:flex-col 2xl:gap-y-8">
-        <div className="md:order-2 2xl:order-none">
-          <ColumnGroup items={mappedServices} title="Services" />
-        </div>
-        <div className="md:order-4 2xl:order-none">
-          <ColumnGroup items={alGhodwaMenu} title="Al Ghodwa" />
-        </div>
+      <div className="col-span-full md:col-span-1 lg:w-auto flex flex-col gap-y-8 w-full">
+        <ColumnGroup items={mappedServices} title="Services" />
+        <ColumnGroup items={alGhodwaMenu} title="Al Ghodwa" />
       </div>
-    </div>
+    </>
   );
 }

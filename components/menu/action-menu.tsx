@@ -13,7 +13,7 @@ export default function ActionMenu() {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`ml-auto flex flex-row-reverse items-center xl:flex-row gap-x-2 xl:gap-x-0 xl:space-x-4 rtl:mr-auto rtl:ml-0 rtl:space-x-reverse `}
+      className={`flex flex-row-reverse items-center xl:flex-row gap-x-2 xl:gap-x-0 xl:space-x-4 rtl:space-x-reverse `}
     >
       <CommandSearch open={open} setOpen={setOpen}>
         <Button

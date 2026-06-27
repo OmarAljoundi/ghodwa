@@ -6,41 +6,44 @@ import { useFilteredLanguageData } from '@/hooks/use-filter-lang-data';
 import type { SettingSchema } from '@/schema/setting-schema';
 
 export default function LogoContact({ footer }: { footer: SettingSchema['footer'] }) {
+  // Two real grid cells (logo+address, then phones) so each fills one track of
+  // the footer's 4-col grid and every column gap is the grid's uniform `gap-6`.
   return (
-    <div className="space-y-4 col-span-full  md:col-span-2 2xl:col-span-2 flex flex-col w-full flex-1 items-start">
-      <Image
-        src={'/english-logo.png'}
-        alt="Alghodwa Group Logo"
-        width={180}
-        height={60}
-        quality={85}
-        priority={false}
-        sizes="(max-width: 768px) 120px, 150px"
-        className="mb-4 rtl:hidden"
-      />
-      <Image
-        src={'/arabic-logo.png'}
-        alt="Alghodwa Group Logo"
-        width={180}
-        height={60}
-        quality={85}
-        priority={false}
-        sizes="(max-width: 768px) 120px, 150px"
-        className="mb-4 ltr:hidden"
-      />
-
-      <div className="flex flex-col 2xl:flex-row 2xl:gap-x-8 gap-y-6 2xl:gap-y-0 justify-start items-start pe-3 xl:pe-6 w-full">
+    <>
+      <div className="space-y-4 col-span-full md:col-span-1 lg:w-auto flex flex-col w-full items-start">
+        <Image
+          src={'/english-logo.png'}
+          alt="Alghodwa Group Logo"
+          width={180}
+          height={60}
+          quality={85}
+          priority={false}
+          sizes="(max-width: 768px) 120px, 150px"
+          className="mb-4 rtl:hidden"
+        />
+        <Image
+          src={'/arabic-logo.png'}
+          alt="Alghodwa Group Logo"
+          width={180}
+          height={60}
+          quality={85}
+          priority={false}
+          sizes="(max-width: 768px) 120px, 150px"
+          className="mb-4 ltr:hidden"
+        />
         <AddressInfo company={footer.company} />
+      </div>
+      <div className="col-span-full md:col-span-1 lg:w-auto w-full">
         <ContactNumbers contactInfo={footer.contactInfo} />
       </div>
-    </div>
+    </>
   );
 }
 
 function AddressInfo({ company }: { company?: SettingSchema['footer']['company'] }) {
   const { details, location } = useFilteredLanguageData(company);
   return (
-    <div className="flex flex-col space-y-4 2xl:flex-1 2xl:basis-1/2 w-full">
+    <div className="flex flex-col space-y-4 w-full">
       <div className="flex flex-col items-start ">
         <PiMapPinAreaLight className="size-6 mt-1 text-primary" />
         <p className="text-sm whitespace-break-spaces ">{location}</p>
@@ -63,7 +66,7 @@ function AddressInfo({ company }: { company?: SettingSchema['footer']['company']
 
 function ContactNumbers({ contactInfo }: { contactInfo: SettingSchema['footer']['contactInfo'] }) {
   return (
-    <div className="space-y-3 flex-1 2xl:basis-1/2  xl:pe-16 2xl:pe-0  w-full">
+    <div className="space-y-3 w-full">
       <div className="divide-y divide-gray-700">
         {contactInfo.map((props, index) => (
           <ContactInfoItem contactInfo={props} key={index} />
@@ -80,7 +83,7 @@ function ContactInfoItem({
 }) {
   const { number, showCall, showWhatsapp, title } = useFilteredLanguageData(contactInfo);
   return (
-    <div className="flex justify-between py-3 first:pt-0 last:pb-0">
+    <div className="flex items-center justify-between gap-x-6 py-3 first:pt-0 last:pb-0 max-w-[280px]">
       <div className="flex flex-col">
         <h3 className="text-primary font-semibold">{title}</h3>
         <p className="text-sm rtl:text-right ltr:text-left" dir="ltr">
